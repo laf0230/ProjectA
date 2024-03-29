@@ -17,5 +17,8 @@ public class State
     public virtual void ExitState() { }
     public virtual void FrameUpdate() { }
     public virtual void PhysicsUpdate() { }
-    public virtual void AnimationTriggerEvent(Character.TriggerType triggerType) { }
+    public virtual void EnterAnim() { }
+    public virtual void ExitAnim() { }
+    public virtual void AnimationTriggerEvent(Character.AnimationTriggerType triggerType) { }
+    public virtual void DisTance_Basis(Character.Distance_Basis occupation) { }
 }

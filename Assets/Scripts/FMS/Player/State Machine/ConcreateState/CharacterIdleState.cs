@@ -11,7 +11,7 @@ public class CharacterIdleState : State
     {
     }
 
-    public override void AnimationTriggerEvent(Character.TriggerType triggerType)
+    public override void AnimationTriggerEvent(Character.AnimationTriggerType triggerType)
     {
         base.AnimationTriggerEvent(triggerType);
     }

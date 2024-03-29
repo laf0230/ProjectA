@@ -12,6 +12,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public bool IsAggroed { get; set; }
     public bool IsWithinstrikingDistance { get; set; }
     public SpriteRenderer Renderer { get; set; }
+    public Animator Animator { get; set; }
     public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
     public GameObject Target { get; set; }
@@ -49,6 +50,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         Renderer = GetComponent<SpriteRenderer>();
 
+        Animator = GetComponent<Animator>();
+
         StateMachine.Initialize(IdleState);
     }
 
@@ -67,10 +70,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
-
+        
         if (CurrentHealth < 0)
         {
             Die();
+        } else
+        {
+            AnimationTriggerEvent(AnimationTriggerType.Hurt);
         }
     }
 
@@ -115,24 +121,39 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void SetStrikingDistance(bool isWithinstrikingDistance)
     {
-        IsAggroed = IsAggroed;
+       IsWithinstrikingDistance = isWithinstrikingDistance;
+    }
+
+    #endregion
+
+    #region Occupation
+
+    public enum Distance_Basis    {
+        
     }
 
     #endregion
 
     #region Triggers
 
-    private void AnimationTriggerEvent(TriggerType triggerType)
+    private void AnimationTriggerEvent(AnimationTriggerType triggerType)
     {
-        /*
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
-        */
+        switch (triggerType)
+        {
+            case AnimationTriggerType.Attack:
+                Animator.SetTrigger("Attack");
+                break;
+            case AnimationTriggerType.Hurt:
+                Animator.SetTrigger("Hurt");
+                break;
+        }
     }
 
-    public enum TriggerType
+    public enum AnimationTriggerType
     {
-        Damaged,
-        PlayFootStemSound
+        Hurt,
+        Attack
     }
 
     #endregion

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterChaseState : State
@@ -12,7 +13,7 @@ public class CharacterChaseState : State
     {
     }
 
-    public override void AnimationTriggerEvent(Character.TriggerType triggerType)
+    public override void AnimationTriggerEvent(Character.AnimationTriggerType triggerType)
     {
         base.AnimationTriggerEvent(triggerType);
     }
@@ -37,8 +38,6 @@ public class CharacterChaseState : State
     {
         base.FrameUpdate();
 
-        Debug.Log(character.IsPassThrough);
-
         if (character.ThreatLevel <_targetCharacter.ThreatLevel)
         {
             character.IsPassThrough = true;
@@ -58,6 +57,11 @@ public class CharacterChaseState : State
         {
             // Chasing Code
             character.MoveEnemy((_targetTransform.position - character.transform.position).normalized);
+        }
+
+        if(character.IsWithinstrikingDistance)
+        {
+            character.StateMachine.ChangeState(character.AttackState);
         }
     }
 
