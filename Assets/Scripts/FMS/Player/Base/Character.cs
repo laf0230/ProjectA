@@ -6,7 +6,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 {
     [field: SerializeField] public float MaxHealth { get; set; }
     [field: SerializeField] public float ChaseSpeed { get; set; } = 1.75f;
-    public float CurrentHealth { get; set; }
+    [field: SerializeField] public float CurrentHealth { get; set; }
+    [field: SerializeField] public GameObject DamageTrigger { get; set; }
     public Rigidbody Rigidbody { get; set; }
     public bool IsFacingRight { get; set; } = true;
     public bool IsAggroed { get; set; }
@@ -24,12 +25,20 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public CharacterIdleState IdleState { get; set; }
     public CharacterChaseState ChaseState { get; set; }
     public CharacterAttackState AttackState { get; set; }
+    public CharacterEscapeState EscapeState { get; set; }
 
     #endregion
 
     #region Idle Variables
 
     public float RandomMovementRange = 5f;
+
+    #endregion
+
+    #region Battle Variables
+
+    [field: SerializeField] public float AttackDamage { get; set; }
+    public float StunTime { get; set; } = 1f;
 
     #endregion
 
@@ -40,6 +49,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         IdleState = new CharacterIdleState(this, StateMachine);
         ChaseState = new CharacterChaseState(this, StateMachine);
         AttackState = new CharacterAttackState(this, StateMachine);
+        EscapeState = new CharacterEscapeState(this, StateMachine); 
     }
 
     private void Start()
@@ -67,22 +77,25 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Health / Die Functions
 
-    public void Damage(float damageAmount)
+    public virtual void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
-        
+
         if (CurrentHealth < 0)
         {
+        Debug.Log("I'm Died");
             Die();
-        } else
+        }
+        else
         {
             AnimationTriggerEvent(AnimationTriggerType.Hurt);
+            Stun();
         }
     }
 
     public void Die()
     {
-        
+        gameObject.SetActive(false);
     }
 
 
@@ -91,23 +104,77 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Movement Functions
 
-    public void MoveEnemy(Vector3 velopcity)
+    public void MoveTo(Vector3 velocity)
     {
-        Rigidbody.velocity = new Vector3(velopcity.x, 0f, velopcity.z);
+        Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
 
-        CheckForLeftOrRightFacing(velopcity);
+        Debug.Log(velocity);
+
+        CheckForLeftOrRightFacing(velocity);
     }
 
-    public void CheckForLeftOrRightFacing(Vector3 velopcity)
+    public void MoveTo(Vector3 velocity, float speed)
     {
-        if(IsFacingRight && velopcity.x > 0f)
+        Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
+
+        Debug.Log(velocity);
+
+        CheckForLeftOrRightFacing(velocity);
+    }
+
+    public void CheckForLeftOrRightFacing(Vector3 velocity)
+    {
+        if (IsFacingRight && velocity.x > 0f)
         {
             Renderer.flipX = true;
         }
-        else if(IsFacingRight && velopcity.x < 0f)
+        else if (IsFacingRight && velocity.x < 0f)
         {
             Renderer.flipX = false;
         }
+    }
+
+    // Basic Stun
+    public IEnumerator Stun()
+    {
+        yield return new WaitForSeconds(StunTime);
+        StateMachine.ChangeState(IdleState);
+        Debug.Log("I'm Stuned");
+    }
+
+    // Skill Stun
+    public IEnumerator Stun(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        StateMachine.ChangeState(IdleState);
+    }
+
+
+    #endregion
+
+    #region Attack Functions
+
+    public void EnterAnim()
+    {
+
+    }
+
+    public void AttackTiming()
+    {
+        if (Renderer.flipX)
+        {
+            GameObject.Instantiate(DamageTrigger, transform.position + transform.right, Quaternion.identity, transform);
+        }
+        else
+        {
+            GameObject.Instantiate(DamageTrigger, transform.position - transform.right, Quaternion.identity, transform);
+        }
+
+    }
+
+    public void ExitAnim()
+    {
+
     }
 
     #endregion
@@ -121,15 +188,16 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void SetStrikingDistance(bool isWithinstrikingDistance)
     {
-       IsWithinstrikingDistance = isWithinstrikingDistance;
+        IsWithinstrikingDistance = isWithinstrikingDistance;
     }
 
     #endregion
 
     #region Occupation
 
-    public enum Distance_Basis    {
-        
+    public enum Distance_Basis
+    {
+
     }
 
     #endregion
@@ -160,11 +228,11 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Targetting
 
-    
+
     public void SetTarget(GameObject target)
     {
         this.Target = target;
     }
-
+    
     #endregion
 }

@@ -18,6 +18,7 @@ public class CharacterAggroCheck : MonoBehaviour
     {
         if (other.gameObject != _character && other.gameObject.CompareTag("Character"))
         {
+            if (!other.enabled) return;
             Targets.Add(other.gameObject);
             _character.SetAggrostatus(true);
             _character.SetTarget(GetTarget());

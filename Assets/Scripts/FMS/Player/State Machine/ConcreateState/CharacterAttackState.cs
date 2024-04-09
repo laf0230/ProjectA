@@ -27,10 +27,14 @@ public class CharacterAttackState : State
     public override void EnterState()
     {
         base.EnterState();
-
+        
         _target = character.Target.GetComponent<Character>();
 
         AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
+
+        character.Animator.SetTrigger("Attack");
+
+        character.StateMachine.ChangeState(character.ChaseState);
     }
 
     public override void ExitState()
@@ -41,6 +45,12 @@ public class CharacterAttackState : State
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+
+        if (!_target.gameObject.activeSelf)
+        {
+            Debug.Log("Gottcha");
+            character.StateMachine.ChangeState(character.IdleState);
+        }
     }
 
     public override void PhysicsUpdate()
@@ -58,7 +68,7 @@ public class CharacterAttackState : State
     public void AttackTiming()
     {
         // _target.Damage();
-    }
+   }
 
     public override void ExitAnim()
     {

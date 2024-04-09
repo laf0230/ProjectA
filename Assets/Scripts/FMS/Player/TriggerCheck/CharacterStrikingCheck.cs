@@ -18,6 +18,8 @@ public class CharacterStrikingCheck : MonoBehaviour
     {
         if (other.gameObject != _character.gameObject && other.CompareTag("Character"))
         {
+            if (!other.enabled) return;
+
             Targets.Add(other.gameObject);
             _character.SetStrikingDistance(true);
         }

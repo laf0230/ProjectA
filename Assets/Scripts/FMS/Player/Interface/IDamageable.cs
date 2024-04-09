@@ -6,6 +6,8 @@ public interface IDamageable
 
     void Die();
 
+    GameObject DamageTrigger { get; set; }
     float MaxHealth { get; set; }
     float CurrentHealth { get; set; }
+    float AttackDamage { get; set; }
 }

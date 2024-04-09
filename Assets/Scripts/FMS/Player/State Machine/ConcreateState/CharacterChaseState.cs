@@ -47,20 +47,29 @@ public class CharacterChaseState : State
             character.IsPassThrough = false;
         }
  
+        if (!_targetCharacter.gameObject.activeSelf)
+        {
+            // 적이 사망했을 때
+            Debug.Log("적이 사라졌습니다");
+            character.StateMachine.ChangeState(character.IdleState);
+        }
 
         if (character.IsPassThrough)
         {
+            // 도망 칠 때
             // PassThrough
-            character.MoveEnemy(-(_targetTransform.position - character.transform.position).normalized);
+            character.StateMachine.ChangeState(character.EscapeState);
         }
         else
         {
+            // 추적할 때
             // Chasing Code
-            character.MoveEnemy((_targetTransform.position - character.transform.position).normalized);
+            character.MoveTo(((_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
         }
 
-        if(character.IsWithinstrikingDistance)
+        if (character.IsWithinstrikingDistance)
         {
+            // Change To Attack State
             character.StateMachine.ChangeState(character.AttackState);
         }
     }
@@ -69,4 +78,4 @@ public class CharacterChaseState : State
     {
         base.PhysicsUpdate();
     }
-}
+} 

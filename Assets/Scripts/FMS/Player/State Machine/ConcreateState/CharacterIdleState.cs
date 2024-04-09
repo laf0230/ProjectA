@@ -19,7 +19,7 @@ public class CharacterIdleState : State
     public override void EnterState()
     {
         base.EnterState();
-
+        Debug.Log("IDLE State Enter");
         _targetPos = GetRandomPointInCircle();
     }
 
@@ -37,7 +37,7 @@ public class CharacterIdleState : State
             character.StateMachine.ChangeState(character.ChaseState);
         }
             _direction = (_targetPos - character.transform.position).normalized;
-            character.MoveEnemy(_direction);
+            character.MoveTo(_direction);
 
         if ((character.transform.position - _targetPos).sqrMagnitude < 0.01f)
         {
