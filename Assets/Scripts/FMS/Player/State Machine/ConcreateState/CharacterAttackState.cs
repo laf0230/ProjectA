@@ -1,3 +1,4 @@
+using Assets.Scripts.FMS.Attack.SkillType;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,12 @@ public class CharacterAttackState : State
 {
     private Transform _transform;
     private Character _target;
-    private float _timerBetweenShoots = 2f;
 
-    private float _exitTimer;
-    private float _timeTillExit = 3f;
-    private float _distanceToCountExit = 3f;
-
-    private float _bulletSpeed = 10f;
-
+    public SkillState SkillState;
+    public Attack Attack;
+    public Skill Skill;
+    public SpcialSkill SpcialSkill;
+   
     public CharacterAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
         _transform = GameObject.FindGameObjectWithTag("Character").transform;
@@ -27,14 +26,14 @@ public class CharacterAttackState : State
     public override void EnterState()
     {
         base.EnterState();
-        
+
+        // for Skill State
+
         _target = character.Target.GetComponent<Character>();
 
         AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
 
         character.Animator.SetTrigger("Attack");
-
-        character.StateMachine.ChangeState(character.ChaseState);
     }
 
     public override void ExitState()
@@ -46,9 +45,14 @@ public class CharacterAttackState : State
     {
         base.FrameUpdate();
 
-        if (!_target.gameObject.activeSelf)
+        if (_target.gameObject.activeSelf && character.IsPassThrough)
         {
-            Debug.Log("Gottcha");
+            // 적이 살아있으나 위협도가 높은 경우 도망
+            character.StateMachine.ChangeState(character.EscapeState);
+        }
+        else if (!_target.gameObject.activeSelf)
+        {
+            // 적이 사망했을 경우, IDLE 상태로 변경
             character.StateMachine.ChangeState(character.IdleState);
         }
     }
@@ -68,7 +72,7 @@ public class CharacterAttackState : State
     public void AttackTiming()
     {
         // _target.Damage();
-   }
+    }
 
     public override void ExitAnim()
     {

@@ -14,16 +14,9 @@ public class CharacterEscapeState : State
     {
         base.EnterState();
 
-        Debug.Log("도망쳐!");
         _targetTransform = character.Target.transform; 
         _moveSpeed = character.ChaseSpeed;
     }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
-
     public override void FrameUpdate()
     {
         base.FrameUpdate();
@@ -32,8 +25,20 @@ public class CharacterEscapeState : State
         if (!character.IsAggroed)
         {
             character.StateMachine.ChangeState(character.IdleState);
+        } else if(character.IsAggroed)
+        {
+            // 도망치면서 공격
+            // 추가 조건 필요 예) 도망가다가 공격하는 term
+            character.StateMachine.ChangeState(character.AttackState);
         }
+
     }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
+
 
     public override void PhysicsUpdate()
     {

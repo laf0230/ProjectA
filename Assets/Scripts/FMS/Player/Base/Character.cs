@@ -29,6 +29,14 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #endregion
 
+    #region Skill Variables
+
+    [SerializeField] public Attack Attack { get; set; }
+    [SerializeField] public Skill Skill { get; set; }
+    [SerializeField] public SpcialSkill SpcialSkill { get; set; }
+
+    #endregion
+
     #region Idle Variables
 
     public float RandomMovementRange = 5f;
