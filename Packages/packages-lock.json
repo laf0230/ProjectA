@@ -1,5 +1,6 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "com.autodesk.fbx": {
       "version": "4.2.1",
       "depth": 2,
@@ -63,11 +64,14 @@
       },
       "url": "https://packages.unity.com"
     },
+=======
+>>>>>>> BCALaptop
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {}
+<<<<<<< HEAD
     },
     "com.unity.2d.spriteshape": {
       "version": "9.0.2",
@@ -100,6 +104,8 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+=======
+>>>>>>> BCALaptop
     },
     "com.unity.burst": {
       "version": "1.8.8",
