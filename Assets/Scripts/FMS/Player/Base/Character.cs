@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable, ITargetingable
+public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable, ITargetingable, ISkillable
 {
     [field: SerializeField] public float MaxHealth { get; set; }
     [field: SerializeField] public float ChaseSpeed { get; set; } = 1.75f;
@@ -31,9 +31,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Skill Variables
 
-    [SerializeField] public Attack Attack { get; set; }
-    [SerializeField] public Skill Skill { get; set; }
-    [SerializeField] public SpcialSkill SpcialSkill { get; set; }
+    [field: SerializeField] public Attack Attack { get; set; }
+    [field: SerializeField] public Skill Skill { get; set; }
+    [field: SerializeField] public SpecialSkill SpecialSkill { get; set; }
+    public float AttackCoolTime { get; set; }
+    public bool IsAttackable { get; set; }
+    public bool IsSkillable { get; set; }
+    public bool IsSpcialSkillable { get; set; }
 
     #endregion
 
@@ -47,7 +51,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     [field: SerializeField] public float AttackDamage { get; set; }
     public float StunTime { get; set; } = 1f;
-
+    public bool IsRestriction { get; set; }
     #endregion
 
     private void Awake()
@@ -71,17 +75,40 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Animator = GetComponent<Animator>();
 
         StateMachine.Initialize(IdleState);
+
+        Attack = BattleManager.instance.GetAttack(Attack);
+        Skill = BattleManager.instance.GetAttack(Skill);
+        SpecialSkill = BattleManager.instance.GetAttack(SpecialSkill);
     }
 
     private void Update()
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
+        if (!IsAttackable && AttackCoolTime <= 0)
+        {
+            // 공격 시전 이후 쿨타임 초기화
+           /*
+            스킬 시전 (시전 이후에는 시전 불가능 상태)
+           쿨타임 초기화
+           쿨타임 진행
+           쿨타임이 0이 될 겅우 시전 가능상태
+            */ 
+        }
     }
 
     private void FixedUpdate()
     {
         StateMachine.CurrentPlayerState.PhysicsUpdate();
     }
+
+    #region
+
+    public void StartCoolTime(float _coolTime)
+    {
+       // 스킬별 쿨타임 설정 
+    }
+
+    #endregion
 
     #region Health / Die Functions
 
@@ -105,8 +132,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         gameObject.SetActive(false);
     }
-
-
 
     #endregion
 
@@ -160,33 +185,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #endregion
 
-    #region Attack Functions
-
-    public void EnterAnim()
-    {
-
-    }
-
-    public void AttackTiming()
-    {
-        if (Renderer.flipX)
-        {
-            GameObject.Instantiate(DamageTrigger, transform.position + transform.right, Quaternion.identity, transform);
-        }
-        else
-        {
-            GameObject.Instantiate(DamageTrigger, transform.position - transform.right, Quaternion.identity, transform);
-        }
-
-    }
-
-    public void ExitAnim()
-    {
-
-    }
-
-    #endregion
-
     #region Distance Checks
 
     public void SetAggrostatus(bool isAggroed)
@@ -212,7 +210,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Triggers
 
-    private void AnimationTriggerEvent(AnimationTriggerType triggerType)
+    public void AnimationTriggerEvent(AnimationTriggerType triggerType)
     {
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
         switch (triggerType)
@@ -223,19 +221,26 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             case AnimationTriggerType.Hurt:
                 Animator.SetTrigger("Hurt");
                 break;
+            case AnimationTriggerType.Skill:
+                Animator.SetTrigger("Skill");
+                break;
+            case AnimationTriggerType.SpecialSkill:
+                Animator.SetTrigger("SpecialSkill");
+                break;
         }
     }
 
     public enum AnimationTriggerType
     {
         Hurt,
-        Attack
+        Attack,
+        Skill,
+        SpecialSkill
     }
 
     #endregion
 
     #region Targetting
-
 
     public void SetTarget(GameObject target)
     {

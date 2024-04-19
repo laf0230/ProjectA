@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Strike : MonoBehaviour
+public class DamageTransfer : MonoBehaviour
 {
     private Character character;
     public Character targetCharacter;
     public float damage;
+
+    SkillDataSO
 
     private void Start()
     {
