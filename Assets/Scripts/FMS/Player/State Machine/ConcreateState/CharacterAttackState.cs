@@ -52,7 +52,7 @@ public class CharacterAttackState : State
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-
+        /*
         character.MoveTo(new Vector3(0, 0, 0), 0f);
 
         if (_target.gameObject.activeSelf && character.IsPassThrough)
@@ -74,6 +74,7 @@ public class CharacterAttackState : State
             // 적이 사망했을 경우, IDLE 상태로 변경
             character.StateMachine.ChangeState(character.IdleState);
         }
+        */
     }
 
     public void Attacking()
@@ -82,40 +83,22 @@ public class CharacterAttackState : State
             if (SpecialSkill.isAttackable)
             {
                 character.gameObject.GetComponent<SpecialSkill>().enabled = true;
+            character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
             }
             else if (Skill.isAttackable)
             {
                 character.gameObject.GetComponent<Skill>().enabled = true;
+            character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
             }
             else if (Attack.isAttackable)
-            {
-                character.gameObject.GetComponent<Attack>().enabled = true;
-            }
+        {
+            character.gameObject.GetComponent<Attack>().enabled = true;
+            character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
     }
-
-    #region Animation
-
-    public override void EnterAnim()
-    {
-        base.EnterAnim();
-
-
-    }
-
-    public void AttackTiming()
-    {
-        // _target.Damage();
-    }
-
-    public override void ExitAnim()
-    {
-        base.ExitAnim();
-    }
-
-    #endregion
 }

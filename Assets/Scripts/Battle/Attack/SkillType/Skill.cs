@@ -6,6 +6,7 @@ public class Skill : SkillBase
     {
         SelfCharacter.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
     }
+    /*
     public override void StartAttack()
     {
         base.StartAttack();
@@ -19,4 +20,5 @@ public class Skill : SkillBase
 
         // BattleManager.instance.
     }
+    */
 }

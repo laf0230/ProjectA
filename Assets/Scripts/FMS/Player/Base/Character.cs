@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public Animator Animator { get; set; }
     public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
-    public GameObject Target { get; set; }
+    [field: SerializeField] public GameObject Target { get; set; }
     // 동시에 여러 줄을 작성할 때 쿼리가 작동하면 취소됨 -> 수정할 것.
 
     #region StateMachine Variables
@@ -31,14 +32,16 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Skill Variables
 
-    [field: SerializeField] public Attack Attack { get; set; }
-    [field: SerializeField] public Skill Skill { get; set; }
-    [field: SerializeField] public SpecialSkill SpecialSkill { get; set; }
-    public float AttackCoolTime { get; set; }
+    public Attack Attack { get; set; }
+    public Skill Skill { get; set; }
+    public SpecialSkill SpecialSkill { get; set; }
+    [field: SerializeField] public SkillDataSO AttackDataSO { get; set; }
+    [field: SerializeField] public SkillDataSO SkillDataSO {get; set; }
+    [field: SerializeField] public SkillDataSO SpecialSkillDataSO {get; set; }
     public bool IsAttackable { get; set; }
     public bool IsSkillable { get; set; }
     public bool IsSpcialSkillable { get; set; }
-
+   public float AttackCoolTime { get; set; }
     #endregion
 
     #region Idle Variables
@@ -52,7 +55,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public float AttackDamage { get; set; }
     public float StunTime { get; set; } = 1f;
     public bool IsRestriction { get; set; }
-    #endregion
+        #endregion
 
     private void Awake()
     {
@@ -61,7 +64,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         IdleState = new CharacterIdleState(this, StateMachine);
         ChaseState = new CharacterChaseState(this, StateMachine);
         AttackState = new CharacterAttackState(this, StateMachine);
-        EscapeState = new CharacterEscapeState(this, StateMachine); 
+        EscapeState = new CharacterEscapeState(this, StateMachine);
     }
 
     private void Start()
@@ -76,9 +79,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         StateMachine.Initialize(IdleState);
 
-        Attack = BattleManager.instance.GetAttack(Attack);
-        Skill = BattleManager.instance.GetAttack(Skill);
-        SpecialSkill = BattleManager.instance.GetAttack(SpecialSkill);
+        // Attack = BattleManager.instance.GetAttack(Attack);
+        // Skill = BattleManager.instance.GetAttack(Skill);
+        // SpecialSkill = BattleManager.instance.GetAttack(SpecialSkill);
     }
 
     private void Update()
@@ -87,12 +90,12 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         if (!IsAttackable && AttackCoolTime <= 0)
         {
             // 공격 시전 이후 쿨타임 초기화
-           /*
-            스킬 시전 (시전 이후에는 시전 불가능 상태)
-           쿨타임 초기화
-           쿨타임 진행
-           쿨타임이 0이 될 겅우 시전 가능상태
-            */ 
+            /*
+             스킬 시전 (시전 이후에는 시전 불가능 상태)
+            쿨타임 초기화
+            쿨타임 진행
+            쿨타임이 0이 될 겅우 시전 가능상태
+             */
         }
     }
 
@@ -105,7 +108,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void StartCoolTime(float _coolTime)
     {
-       // 스킬별 쿨타임 설정 
+        // 스킬별 쿨타임 설정 
     }
 
     #endregion
@@ -118,7 +121,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         if (CurrentHealth < 0)
         {
-        Debug.Log("I'm Died");
+            Debug.Log("I'm Died");
             Die();
         }
         else
@@ -213,6 +216,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public void AnimationTriggerEvent(AnimationTriggerType triggerType)
     {
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
+
         switch (triggerType)
         {
             case AnimationTriggerType.Attack:
@@ -222,10 +226,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 Animator.SetTrigger("Hurt");
                 break;
             case AnimationTriggerType.Skill:
-                Animator.SetTrigger("Skill");
+                Animator.SetTrigger("SKill");
                 break;
             case AnimationTriggerType.SpecialSkill:
                 Animator.SetTrigger("SpecialSkill");
+                break;
+            default:
+                Debug.LogError($"Unhandled triggerType: {triggerType}");
                 break;
         }
     }
@@ -246,6 +253,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         this.Target = target;
     }
-    
+
     #endregion
 }

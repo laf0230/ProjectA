@@ -8,12 +8,12 @@ public class DamageTransfer : MonoBehaviour
     public Character targetCharacter;
     public float damage;
 
-    SkillDataSO
+    public SkillDataSO skilldata;
 
     private void Start()
     {
-        character = GetComponentInParent<Character>();
-        damage = character.AttackDamage;
+        character = skilldata.SelfCharacter; 
+        damage = skilldata.Damage;
     }
 
     private void OnTriggerEnter(Collider other)

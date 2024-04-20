@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillBase : MonoBehaviour, SkillState
 {
-    public Character SelfCharacter { get; set; }
+    [field: SerializeField] public Character SelfCharacter { get; set; }
     public Character Target { get; set; }
     public float CoolTime { get; set; }
     public float Damage { get; set; }
@@ -31,7 +31,8 @@ public class SkillBase : MonoBehaviour, SkillState
     - attackTiming이 호출되면 오브젝트 소환과 함께 공격 애니메이션 사용
      */
 
-    private void Awake()
+    /*
+    private void Start()
     {
         SelfCharacter = gameObject.GetComponent<Character>();
         Target = SelfCharacter.Target.GetComponent<Character>();
@@ -42,6 +43,11 @@ public class SkillBase : MonoBehaviour, SkillState
         Form = skilldata.Form;
         Scope = skilldata.Scope;
         MotionDelay = skilldata.MotionDelay;
+
+        if (Target == null)
+        {
+            SelfCharacter.StateMachine.ChangeState(SelfCharacter.IdleState);
+        }
     }
 
     private void Update()
@@ -77,7 +83,8 @@ public class SkillBase : MonoBehaviour, SkillState
     {
         Debug.Log("Attack Timing");
 
-        Target.Damage(damageAmount: Damage);
+//        Target.Damage(damageAmount: Damage);
+        Instantiate(Form.GetComponent<DamageTransfer>().skilldata = this.skilldata);
     }
 
     public virtual void StartRestriction()
@@ -94,4 +101,5 @@ public class SkillBase : MonoBehaviour, SkillState
     }
 
     #endregion
+    */
 }

@@ -10,5 +10,7 @@ namespace Assets.Scripts.Battle
         public void UpdateEffect() { }
         public void ExitEffect() { }
        public void ApplyEffect() { } 
+
+        
     }
 }
