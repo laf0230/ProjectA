@@ -41,7 +41,6 @@ public class CharacterAttackState : State
 
         _target = character.Target.GetComponent<Character>();
 
-        AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
     }
 
     public override void ExitState()
@@ -52,15 +51,33 @@ public class CharacterAttackState : State
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-        /*
-        character.MoveTo(new Vector3(0, 0, 0), 0f);
 
+        // 플레이어의 상황에 따라서 상태를 변경하는 함수
+
+        if (_target.gameObject.activeSelf)
+        {
+            if (SpecialSkill.isAttackable || Skill.isAttackable || Attack.isAttackable)
+            {
+            Attacking();
+            }
+        }
+
+        if (SpecialSkill.isAttacking || Skill.isAttacking || Attack.isAttacking)
+        {
+            character.CheckForLeftOrRightFacing(_target.transform.position -  _transform.position);
+        } 
+        else if (!SpecialSkill.isAttacking && !Skill.isAttacking && !Attack.isAttacking)
+        {
+            character.StateMachine.ChangeState(character.ChaseState);
+        }
+
+        /*
         if (_target.gameObject.activeSelf && character.IsPassThrough)
         {
             // [PROBLOM] 애니메이션이 끝나지 않은 상태에서 탈출로 상태가 변경됨
             // 적이 살아있으나 위협도가 높은 경우 도망
             Attacking();
-            character.StateMachine.ChangeState(character.EscapeState);
+            character.StateMachine.ChangeState(character.IdleState);
         }
         else if (_target.gameObject.activeSelf && !character.IsPassThrough)
         {
@@ -74,26 +91,26 @@ public class CharacterAttackState : State
             // 적이 사망했을 경우, IDLE 상태로 변경
             character.StateMachine.ChangeState(character.IdleState);
         }
-        */
+*/
     }
 
     public void Attacking()
     {
-
-            if (SpecialSkill.isAttackable)
-            {
-                character.gameObject.GetComponent<SpecialSkill>().enabled = true;
-            character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
-            }
-            else if (Skill.isAttackable)
-            {
-                character.gameObject.GetComponent<Skill>().enabled = true;
-            character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
-            }
-            else if (Attack.isAttackable)
+       // 쿨타임과 사용 중인지에 따라서 스킬의 종류를 변경해서 공격하는 함수 
+        if (SpecialSkill.isAttackable && !Skill.isAttackable)
         {
-            character.gameObject.GetComponent<Attack>().enabled = true;
             character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+            SpecialSkill.ResetCoolTime();
+        }
+        else if (Skill.isAttackable && !SpecialSkill.isAttackable)
+        {
+            character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
+            Skill.ResetCoolTime();
+        }
+        else if (Attack.isAttackable)
+        {
+            character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
+            Attack.ResetCoolTime();
         }
     }
 

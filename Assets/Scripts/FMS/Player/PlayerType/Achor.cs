@@ -4,29 +4,20 @@ using UnityEngine;
 
 public class Achor : Character
 {
-    private Bash attack;
-    private Slash skill;
-    private Throw specialSkill;
-
-    private void Awake()
+    private new void Awake()
     {
-        /*
-        attack = gameObject.AddComponent<Bash>();
-        skill = gameObject.AddComponent<Slash>();
-        specialSkill = gameObject.AddComponent<Throw>();
-        */
-    }
+        base.Awake();
 
-    private void Start()
-    {
-        /*
-        attack.enabled = true;
-        skill.enabled = true;
-        specialSkill.enabled = true;
+        Attack = gameObject.AddComponent<Slash>();
+        Skill = gameObject.AddComponent<Bash>();
+        SpecialSkill = gameObject.AddComponent<Throw>();
 
-        attack.skilldata = AttackDataSO;
-        skill.skilldata = SkillDataSO;
-        specialSkill.skilldata = SpecialSkillDataSO;
-        */
+        Attack.enabled = true;
+        Skill.enabled = true;
+        SpecialSkill.enabled = true;
+
+        Attack.skilldata = AttackDataSO;
+        Skill.skilldata = SkillDataSO;
+        SpecialSkill.skilldata = SpecialSkillDataSO;
     }
 }

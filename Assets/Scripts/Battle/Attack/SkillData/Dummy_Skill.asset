@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a17bff1795a4e345a9f01522a6d5dc7, type: 3}
   m_Name: Dummy_Skill
   m_EditorClassIdentifier: 
-  <CoolTime>k__BackingField: 5
+  <CoolTime>k__BackingField: 8
   <Damage>k__BackingField: 2
   <IsArea>k__BackingField: 0
   <IsPenetration>k__BackingField: 0

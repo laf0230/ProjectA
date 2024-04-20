@@ -31,7 +31,9 @@ public class CharacterIdleState : State
     public override void FrameUpdate()
     {
         base.FrameUpdate();
- 
+
+        character.AnimationTriggerEvent(Character.AnimationTriggerType.Run);
+         
         if (character.IsAggroed)
         {
             character.StateMachine.ChangeState(character.ChaseState);

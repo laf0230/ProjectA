@@ -4,29 +4,20 @@ using UnityEngine;
 
 public class SwordMan : Character
 {
-    Bash attack;
-    Slash skill;
-    Throw specialSkill;
-
-    private void Awake() 
+    private new void Awake() 
     {
-        /*
-        attack = gameObject.AddComponent<Bash>();
-        skill = gameObject.AddComponent<Slash>();
-        specialSkill = gameObject.AddComponent<Throw>();
-        */
-    }
+        base.Awake();
 
-    private void Start()
-    {
-        /*
-        attack.enabled = true;
-        skill.enabled = true;
-        specialSkill.enabled = true;
+        Attack = gameObject.AddComponent<Slash>();
+        Skill = gameObject.AddComponent<Bash>();
+        SpecialSkill = gameObject.AddComponent<Throw>();
+        
+        Attack.enabled = true;
+        Skill.enabled = true;
+        SpecialSkill.enabled = true;
  
-        attack.skilldata = AttackDataSO;
-        skill.skilldata = SkillDataSO;
-        specialSkill.skilldata = SpecialSkillDataSO;
-        */
+        Attack.skilldata = AttackDataSO;
+        Skill.skilldata = SkillDataSO;
+        SpecialSkill.skilldata = SpecialSkillDataSO;
     }
 }

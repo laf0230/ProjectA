@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public bool IsWithinstrikingDistance { get; set; }
     public SpriteRenderer Renderer { get; set; }
     public Animator Animator { get; set; }
-    public bool IsPassThrough { get; set; }
+    [field: SerializeField] public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
     [field: SerializeField] public GameObject Target { get; set; }
     // 동시에 여러 줄을 작성할 때 쿼리가 작동하면 취소됨 -> 수정할 것.
@@ -57,7 +57,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public bool IsRestriction { get; set; }
         #endregion
 
-    private void Awake()
+    public void Awake()
     {
         StateMachine = new StateMachine();
 
@@ -67,7 +67,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         EscapeState = new CharacterEscapeState(this, StateMachine);
     }
 
-    private void Start()
+    public void Start()
     {
         CurrentHealth = MaxHealth;
 
@@ -82,21 +82,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         // Attack = BattleManager.instance.GetAttack(Attack);
         // Skill = BattleManager.instance.GetAttack(Skill);
         // SpecialSkill = BattleManager.instance.GetAttack(SpecialSkill);
+
+
     }
 
     private void Update()
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
-        if (!IsAttackable && AttackCoolTime <= 0)
-        {
-            // 공격 시전 이후 쿨타임 초기화
-            /*
-             스킬 시전 (시전 이후에는 시전 불가능 상태)
-            쿨타임 초기화
-            쿨타임 진행
-            쿨타임이 0이 될 겅우 시전 가능상태
-             */
-        }
     }
 
     private void FixedUpdate()
@@ -144,16 +136,12 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
 
-        Debug.Log(velocity);
-
         CheckForLeftOrRightFacing(velocity);
     }
 
     public void MoveTo(Vector3 velocity, float speed)
     {
         Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
-
-        Debug.Log(velocity);
 
         CheckForLeftOrRightFacing(velocity);
     }
@@ -226,10 +214,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 Animator.SetTrigger("Hurt");
                 break;
             case AnimationTriggerType.Skill:
-                Animator.SetTrigger("SKill");
+                Animator.SetTrigger("Skill");
                 break;
             case AnimationTriggerType.SpecialSkill:
                 Animator.SetTrigger("SpecialSkill");
+                break;
+            case AnimationTriggerType.Run:
+                Animator.SetTrigger("Run");
                 break;
             default:
                 Debug.LogError($"Unhandled triggerType: {triggerType}");
@@ -239,6 +230,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public enum AnimationTriggerType
     {
+        Run,
         Hurt,
         Attack,
         Skill,
