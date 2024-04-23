@@ -1,0 +1,952 @@
+fileFormatVersion: 2
+guid: cb02d30927ef81b4191733a27a4074d5
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 50
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 0
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 0
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638493931158579337
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: RedBison_Gun-Sheet
+    originalName: 
+    pivot: {x: 0.50220364, y: -0.9142857}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 4311
+      height: 35
+    spriteID: b624e8c22a309704a9c82ab01e177844
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: -14, y: -28}
+  spriteSheetImportData:
+  - name: 21
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2488
+      y: 11
+      width: 71
+      height: 25
+    spriteID: eb8ba3fc575e08a439029502a406d7ad
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 22
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2606
+      y: 15
+      width: 69
+      height: 21
+    spriteID: 7146bf0e40a308b479ab26fb2b212e07
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 23
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2724
+      y: 15
+      width: 65
+      height: 18
+    spriteID: 3bac3c4dd0dfa304dab95129d6159f33
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 24
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2842
+      y: 14
+      width: 58
+      height: 17
+    spriteID: a40ac8217a98b72419359a7c51b78d30
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 25
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2960
+      y: 14
+      width: 58
+      height: 20
+    spriteID: e5ca5516ee408d04da0a726cca72dea3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 26
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3078
+      y: 14
+      width: 58
+      height: 16
+    spriteID: 35c240c2b2a4e664186c9ad5321cffed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 16
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1897
+      y: 13
+      width: 58
+      height: 15
+    spriteID: 3b27f0fa4646f484d839d4996bbbe925
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 17
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2013
+      y: 12
+      width: 58
+      height: 15
+    spriteID: 653ef48a8ded5de4a86719712dea4fd4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 18
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2134
+      y: 15
+      width: 58
+      height: 15
+    spriteID: 2741b151541529148a91363dd0a66ce7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 19
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2252
+      y: 15
+      width: 58
+      height: 15
+    spriteID: a927d51687f07dd4cbf3ef3823ab0565
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 20
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2370
+      y: 15
+      width: 58
+      height: 14
+    spriteID: 9203ddd31600bc5429562af6c381ac65
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_14
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3196
+      y: 14
+      width: 58
+      height: 16
+    spriteID: 355c9df9d008ae9479f1fb7103b2c918
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_15
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3314
+      y: 15
+      width: 58
+      height: 15
+    spriteID: d43fe90e65fd1714a8cc74cb7ca517f5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_16
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3432
+      y: 15
+      width: 58
+      height: 15
+    spriteID: 95d93600e23186a4eb14715fd890830a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_17
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3550
+      y: 15
+      width: 58
+      height: 15
+    spriteID: ff385134f052b5440beb8ab44848b22e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_18
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3667
+      y: 13
+      width: 58
+      height: 15
+    spriteID: d6028d4d9a6c3594bb021cea1373af0b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_19
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3785
+      y: 13
+      width: 58
+      height: 15
+    spriteID: 4fe2b4f4f4e2d7b4e8356114df8122e9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_20
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3903
+      y: 13
+      width: 58
+      height: 15
+    spriteID: 90647a12a17d64949847be478d015b0c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_21
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4021
+      y: 13
+      width: 58
+      height: 15
+    spriteID: dc02a971ea9521d4c85e00dfb041b0b9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_22
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4139
+      y: 13
+      width: 58
+      height: 15
+    spriteID: 258a96c6be3fb0340ae4f706f8de99bd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedBison_Gun-Sheet_23
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4257
+      y: 13
+      width: 58
+      height: 15
+    spriteID: 46391ca4739fd874bba8fd3f5d48393a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 0
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 7f3426d3d5e121343a2881aa9a2c7eb5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 1
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 122
+      y: 6
+      width: 56
+      height: 15
+    spriteID: fadf2d5edfe8ff94f8eb7fde01c12a76
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 2
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 240
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 07fae6f4c4758fb49b4f80d84043c896
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 3
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 358
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 93e80fa3e1f6967478b318db7e5bfaac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 4
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 476
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 4864f835b47e4d84c92d1af419cd274b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 5
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 594
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 7bb6631293401ad41838d06285e06c55
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 6
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 712
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 7d1b1a25e2dd63143a0f99c815ecb02b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 7
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 830
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 910e780329b4b094c9b838883d40c315
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 8
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 948
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 86d7cb2c9b93083418d2a10a118c4560
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 12
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1420
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 32180818e14b9264e92f5d37644893ed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 13
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1538
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 208129dadf78a89409dfab1f1a7c2d02
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 14
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1656
+      y: 6
+      width: 56
+      height: 15
+    spriteID: 5e5aeaf031463df429d16c4139586638
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 15
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1774
+      y: 6
+      width: 56
+      height: 15
+    spriteID: f48c5bfe6e87c0b4fa7c1d5c0c4b5e94
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 9
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1066
+      y: 4
+      width: 56
+      height: 15
+    spriteID: 248e1006a4444074e827dcc60daaaa3d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 10
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1184
+      y: 5
+      width: 56
+      height: 15
+    spriteID: 902dc8ca3ca68c94ebbe9ad7a59693de
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: 11
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1302
+      y: 5
+      width: 56
+      height: 15
+    spriteID: 9b408febbb6266842b1dbaeb8e4519e4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1912564519
+    name: RedBison_Gun-Sheet
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: RedBison_Gun-Sheet
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 4366
+        height: 101
+      spriteId: b624e8c22a309704a9c82ab01e177844
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 4366, y: 101}
