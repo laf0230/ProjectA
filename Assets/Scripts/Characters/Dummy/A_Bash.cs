@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slash : Attack
+public class A_Bash : Skill
 {
-    
+
 }

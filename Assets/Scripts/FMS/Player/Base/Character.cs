@@ -52,7 +52,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Battle Variables
 
-    [field: SerializeField] public float AttackDamage { get; set; }
     public float StunTime { get; set; } = 1f;
     public bool IsRestriction { get; set; }
         #endregion

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Achor : Character
+public class _RedBison : Character
 {
     private new void Awake()
     {
         base.Awake();
 
-        Attack = gameObject.AddComponent<Slash>();
-        Skill = gameObject.AddComponent<Bash>();
-        SpecialSkill = gameObject.AddComponent<Throw>();
+        Attack = gameObject.AddComponent<Attack>();
+        Skill = gameObject.AddComponent<S_Barrage>();
+        SpecialSkill = gameObject.AddComponent<SS_HunterKiller>();
 
         Attack.enabled = true;
         Skill.enabled = true;

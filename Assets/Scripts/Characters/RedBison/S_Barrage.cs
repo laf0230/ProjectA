@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Throw : SpecialSkill
+public class S_Barrage : Skill
 {
     
 }

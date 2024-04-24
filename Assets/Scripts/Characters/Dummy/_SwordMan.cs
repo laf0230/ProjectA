@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordMan : Character
+public class _SwordMan : Character
 {
     private new void Awake() 
     {
         base.Awake();
 
-        Attack = gameObject.AddComponent<Slash>();
-        Skill = gameObject.AddComponent<Bash>();
-        SpecialSkill = gameObject.AddComponent<Throw>();
+        Attack = gameObject.AddComponent<S_Slash>();
+        Skill = gameObject.AddComponent<A_Bash>();
+        SpecialSkill = gameObject.AddComponent<SS_Throw>();
         
         Attack.enabled = true;
         Skill.enabled = true;

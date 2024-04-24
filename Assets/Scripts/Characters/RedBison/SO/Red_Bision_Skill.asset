@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a17bff1795a4e345a9f01522a6d5dc7, type: 3}
+  m_Name: Red_Bision_Skill
+  m_EditorClassIdentifier: 
+  <CoolTime>k__BackingField: 8
+  <Damage>k__BackingField: 2
+  <IsArea>k__BackingField: 0
+  <IsPenetration>k__BackingField: 0
+  <SkillRange>k__BackingField: 0
+  <Duration>k__BackingField: 0
+  <Form>k__BackingField: {fileID: 0}
+  <Scope>k__BackingField: 0
+  <MotionDelay>k__BackingField: 0
