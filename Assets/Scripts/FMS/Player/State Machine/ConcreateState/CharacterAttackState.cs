@@ -1,7 +1,14 @@
-using Assets.Scripts.FMS.Attack.SkillType;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
+/*
+    AttackState를 사용하면 { Attack, Skill, SpcialSkill } 이/가 사용되어야 함
+    사용되는 조건 { 1. 쿨타임 }
+    [쿨타임] AttackState에서 다룸? ㄴㄴ
+    [쿨타임] Character에서 다룸
+ */
 
 public class CharacterAttackState : State
 {
@@ -11,8 +18,11 @@ public class CharacterAttackState : State
     public SkillState SkillState;
     public Attack Attack;
     public Skill Skill;
-    public SpcialSkill SpcialSkill;
-   
+    public SpecialSkill SpecialSkill;
+
+    Queue<SkillBase> skillQueue = new Queue<SkillBase>();
+    SkillBase currentSkill;
+
     public CharacterAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
         _transform = GameObject.FindGameObjectWithTag("Character").transform;
@@ -28,12 +38,11 @@ public class CharacterAttackState : State
         base.EnterState();
 
         // for Skill State
-
+        Attack = character.Attack;
+        Skill = character.Skill;
+        SpecialSkill = character.SpecialSkill;
+        skillQueue.Clear();
         _target = character.Target.GetComponent<Character>();
-
-        AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
-
-        character.Animator.SetTrigger("Attack");
     }
 
     public override void ExitState()
@@ -45,15 +54,41 @@ public class CharacterAttackState : State
     {
         base.FrameUpdate();
 
-        if (_target.gameObject.activeSelf && character.IsPassThrough)
+        // 플레이어의 상황에 따라서 상태를 변경하는 함수
+
+        if (_target.gameObject.activeSelf)
         {
-            // 적이 살아있으나 위협도가 높은 경우 도망
-            character.StateMachine.ChangeState(character.EscapeState);
+            if (SpecialSkill.isAttacking || Skill.isAttacking || Attack.isAttacking)
+            {
+                character.CheckForLeftOrRightFacing(_target.transform.position - _transform.position);
+            }
         }
-        else if (!_target.gameObject.activeSelf)
+
+        // Stack ableSkills
+        if (SpecialSkill.isAttackable)
         {
-            // 적이 사망했을 경우, IDLE 상태로 변경
-            character.StateMachine.ChangeState(character.IdleState);
+            skillQueue.Enqueue(SpecialSkill);
+        }
+
+        if (Skill.isAttackable)
+        {
+            skillQueue.Enqueue(Skill);
+        }
+
+        if (Attack.isAttackable)
+        {
+            skillQueue.Enqueue(Attack);
+        }
+
+        // Excute Attack
+        if (skillQueue.TryDequeue(out currentSkill) && currentSkill.isAttackable)
+        {
+            currentSkill.StartAttack();
+            Debug.Log($"CurrentSkill: {currentSkill} ");
+        }
+        else
+        {
+            character.StateMachine.ChangeState(character.ChaseState);
         }
     }
 
@@ -61,23 +96,4 @@ public class CharacterAttackState : State
     {
         base.PhysicsUpdate();
     }
-
-    #region Animation
-
-    public override void EnterAnim()
-    {
-        base.EnterAnim();
-    }
-
-    public void AttackTiming()
-    {
-        // _target.Damage();
-    }
-
-    public override void ExitAnim()
-    {
-        base.ExitAnim();
-    }
-
-    #endregion
 }

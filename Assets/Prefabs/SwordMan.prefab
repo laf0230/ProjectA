@@ -1,60 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &924949571845667935
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2322553535657435172}
-  - component: {fileID: 2053627660963370222}
-  m_Layer: 0
-  m_Name: AggroCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2322553535657435172
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 924949571845667935}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6388368743389384928}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2053627660963370222
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 924949571845667935}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2035157609280765398
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7654547574517420065}
   - component: {fileID: 5298492702030471584}
+  - component: {fileID: 4491313980313964325}
   m_Layer: 0
   m_Name: StrikingCheck
   m_TagString: Untagged
@@ -110,6 +56,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4491313980313964325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035157609280765398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7762366118006443bc0f5dfe4c33e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3468020864174054865
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +78,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3637678333351316680}
   - component: {fileID: 8469390944943164164}
+  - component: {fileID: 237720203808965072}
   m_Layer: 0
   m_Name: AggroCheck
   m_TagString: Untagged
@@ -165,6 +124,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &237720203808965072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3468020864174054865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0374d0eee9e894fb38ed43ae46d417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5176087851523173022
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,10 +232,10 @@ GameObject:
   - component: {fileID: 7360683818217419162}
   - component: {fileID: 6509441957438327938}
   - component: {fileID: 4177368736394638079}
-  - component: {fileID: 3155690182951739440}
+  - component: {fileID: 1141619221309487036}
   m_Layer: 0
   m_Name: SwordMan
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,10 +254,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7652675194563644472}
-  - {fileID: 1578908175138052056}
   - {fileID: 3637678333351316680}
   - {fileID: 7654547574517420065}
-  - {fileID: 2322553535657435172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6635022793894983954
@@ -412,7 +381,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &3155690182951739440
+--- !u!114 &1141619221309487036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -424,60 +393,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d140b886dd57542a30f0756d456aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 10
+  <ChaseSpeed>k__BackingField: 2
+  <CurrentHealth>k__BackingField: 0
+  <DamageTrigger>k__BackingField: {fileID: 1915767842307454574, guid: c8de068dbecc4384aa6dc7dc18b22564,
+    type: 3}
+  <IsPassThrough>k__BackingField: 0
+  <ThreatLevel>k__BackingField: 0
+  <Target>k__BackingField: {fileID: 0}
+  <AttackDataSO>k__BackingField: {fileID: 11400000, guid: 122931767d027ce46bb29903abe405f3,
+    type: 2}
+  <SkillDataSO>k__BackingField: {fileID: 11400000, guid: 58a30a65f0eb76b478194605c6c3348e,
+    type: 2}
+  <SpecialSkillDataSO>k__BackingField: {fileID: 11400000, guid: 8f6126691441fa644b4f0184873f8e32,
+    type: 2}
   RandomMovementRange: 5
---- !u!1 &6846977546574983034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1578908175138052056}
-  - component: {fileID: 4985127611288246854}
-  m_Layer: 0
-  m_Name: StrikingCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1578908175138052056
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846977546574983034}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6388368743389384928}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4985127611288246854
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846977546574983034}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.24
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

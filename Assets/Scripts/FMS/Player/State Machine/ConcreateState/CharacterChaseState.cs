@@ -67,9 +67,9 @@ public class CharacterChaseState : State
             character.MoveTo(((_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
         }
 
-        if (character.IsWithinstrikingDistance)
+        if (character.IsWithinstrikingDistance && character.Attack.isAttackable || character.Skill.isAttackable || character.SpecialSkill.isAttackable)
         {
-            // Change To Attack State
+            // 공격할 때
             character.StateMachine.ChangeState(character.AttackState);
         }
     }

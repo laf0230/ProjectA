@@ -19,7 +19,6 @@ public class CharacterIdleState : State
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("IDLE State Enter");
         _targetPos = GetRandomPointInCircle();
     }
 
@@ -31,7 +30,9 @@ public class CharacterIdleState : State
     public override void FrameUpdate()
     {
         base.FrameUpdate();
- 
+
+        character.AnimationTriggerEvent(Character.AnimationTriggerType.Run);
+         
         if (character.IsAggroed)
         {
             character.StateMachine.ChangeState(character.ChaseState);

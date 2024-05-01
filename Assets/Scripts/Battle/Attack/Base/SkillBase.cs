@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillBase : SkillState, SkillStatus 
+public class SkillBase : MonoBehaviour, SkillState
 {
-    public float CoolTime { get; set; }
+    [field: SerializeField] public Character Character { get; set; }
+    public Character Target { get; set; }
+    [field: SerializeField] public float CoolTime { get; set; }
     public float Damage { get; set; }
     public bool IsArea { get; set; }
     public bool IsPenetration { get; set; }
@@ -13,36 +15,111 @@ public class SkillBase : SkillState, SkillStatus
     public GameObject Form { get; set; }
     public float Scope { get; set; }
     public float MotionDelay { get; set; }
-    // Basic Skill Running
-    // AttackState에서 attack, skill, SS을 enum을 통해서 사용할 걸 바꾸는 방식
+
+    public float currentCoolTime = 0f;
+    public SkillDataSO skilldata;
+    [field: SerializeField] public bool isAttackable { get; set; } = true; // 스킬 사용 가능 여부(쿨타임 포함)
+    [field: SerializeField] public bool isAttacking { get; set; } = false; // 공격 중 여부
+    /*
+    AttackState에서 attack, skill, SS을 enum을 통해서 사용할 걸 바꾸는 방식
+    Basic Skill Running
+    */
+
+    /*
+    오브젝트 사용 방법   
+    - ScriptableObject를 사용 스킬의 데이터를 저장
+    - 사용할 때마다 바뀌는 스테이터스를 적용
+    - attackTiming이 호출되면 오브젝트 소환과 함께 공격 애니메이션 사용
+     */
+    
+    /*
+    04/20 문제점 정리
+    Character혹은 각 캐릭터 클래스에서 스킬들을 참조하지 못하고 있음.
+    공격, 스킬, 스페셜 스킬은 SkillBase클래스를 상속받고
+    각 캐릭터가 사용할 수 있도록 캐릭터 맞춤으로 상속하고 있음
+
+    그런데 Character에서 각 캐릭터의 공격, 스킬 스페셜 스킬 클래스
+    예) SwordMan: Slash, Bash, Throw,
+        Achor: Shoot, Swing, ChargeShoot
+    를 참조하는 방법을 찾아야함
+     */
+
+    public virtual void Start()
+    {
+        // Setting target is work on StartAttack();
+        Character = gameObject.GetComponent<Character>();
+        CoolTime = skilldata.CoolTime;
+        Damage = skilldata.Damage;
+        SkillRange = skilldata.SkillRange;
+        Duration = skilldata.Duration;
+        Form = skilldata.Form;
+        Scope = skilldata.Scope;
+        MotionDelay = skilldata.MotionDelay;
+
+        if (Form != null)
+        {
+            // 폼의 인스턴트화
+            // Form = BattleManager.instance.GetAttack(Form);
+        }
+    }
+
+    private void Update()
+    {
+        if(currentCoolTime > 0 && !isAttackable)
+        {
+            currentCoolTime -= Time.deltaTime;
+        } else if (currentCoolTime  <= 0f && !isAttackable)
+        {
+            currentCoolTime = CoolTime;
+            isAttackable = true; 
+        }
+    }
+
+    public virtual void ResetCoolTime()
+    {
+        currentCoolTime = CoolTime;
+    }
 
     #region AnimationFunc
 
-    public override void StartAttack()
+   public virtual void StartAttack()
     {
-        base.StartAttack();
-
-        Debug.Log("StartAttack");
+       Target = Character.Target.GetComponent<Character>();
+        isAttacking = true;
+        isAttackable = false;
+        ResetCoolTime();
     }
 
-    public override void EndAttack()
+    public virtual void EndAttack()
     {
-        base.EndAttack();
+        isAttacking = false;
     }
 
-    public override void AttackTiming()
+    public virtual void AttackTiming()
     {
-        base.AttackTiming();
+
+        // Target.Damage(damageAmount: Damage);
+        // Instantiate(Form.GetComponent<DamageTransfer>().skilldata = this.skilldata);
+        /*
+        Form = BattleManager.instance.GetAttack(Form);
+        Bullet bullet = Form.GetComponent<Bullet>(); 
+        bullet.character = Character;
+        bullet.InitData(skilldata);
+        bullet.Shoot();
+         */
     }
 
-    public override void StartRestriction()
+    public virtual void StartRestriction()
     {
-        base.StartRestriction();
+        Debug.Log("Start Restriction");
+
+        Character.IsRestriction = true;
     }
 
-    public override void EndRestriction()
+    public virtual void EndRestriction()
     {
-        base.EndRestriction();
+        Debug.Log("End Restriction");
+        Character.IsRestriction = false;
     }
 
     #endregion
