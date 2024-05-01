@@ -8,7 +8,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public float MaxHealth { get; set; }
     [field: SerializeField] public float ChaseSpeed { get; set; } = 1.75f;
     [field: SerializeField] public float CurrentHealth { get; set; }
-    [field: SerializeField] public GameObject DamageTrigger { get; set; }
     public Rigidbody Rigidbody { get; set; }
     public bool IsFacingRight { get; set; } = true;
     public bool IsAggroed { get; set; }

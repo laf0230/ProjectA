@@ -36,6 +36,8 @@ public class Bullet : MonoBehaviour
     public void Shoot()
     {
         Vector3 direction = targetCharacter.transform.position - character.transform.position;
+        
+        // Left and Right 
 
         if (IsTrakcing)
         {

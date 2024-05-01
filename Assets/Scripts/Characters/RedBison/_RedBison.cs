@@ -25,7 +25,6 @@ public class _RedBison : Character
     {
         base.Update();
 
-        DebbugSkill();    
     }
 
     private void DebbugSkill()

@@ -12,7 +12,7 @@ public class SkillBase : MonoBehaviour, SkillState
     public bool IsPenetration { get; set; }
     public float SkillRange { get; set; }
     public float Duration { get; set; }
-    public GameObject Form { get; set; }
+    [field: SerializeField] public GameObject Form { get; set; }
     public float Scope { get; set; }
     public float MotionDelay { get; set; }
 
@@ -59,7 +59,7 @@ public class SkillBase : MonoBehaviour, SkillState
         if (Form != null)
         {
             // 폼의 인스턴트화
-            // Form = BattleManager.instance.GetAttack(Form);
+            Form = BattleManager.Instance.GetAttack(Form);
         }
     }
 
@@ -97,11 +97,11 @@ public class SkillBase : MonoBehaviour, SkillState
 
     public virtual void AttackTiming()
     {
-
         // Target.Damage(damageAmount: Damage);
         // Instantiate(Form.GetComponent<DamageTransfer>().skilldata = this.skilldata);
-        /*
-        Form = BattleManager.instance.GetAttack(Form);
+       
+        // Form = BattleManager.instance.GetAttack(Form);
+        /* 
         Bullet bullet = Form.GetComponent<Bullet>(); 
         bullet.character = Character;
         bullet.InitData(skilldata);
