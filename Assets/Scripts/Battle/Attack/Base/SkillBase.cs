@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class SkillBase : MonoBehaviour, SkillState
 {
     [field: SerializeField] public Character Character { get; set; }
     public Character Target { get; set; }
-    [field: SerializeField] public float CoolTime { get; set; }
+    [field: SerializeField] public float TotalCoolTime { get; set; }
     public float Damage { get; set; }
     public bool IsArea { get; set; }
     public bool IsPenetration { get; set; }
@@ -18,37 +19,15 @@ public class SkillBase : MonoBehaviour, SkillState
 
     public float currentCoolTime = 0f;
     public SkillDataSO skilldata;
+    public Bullet bullet;
     [field: SerializeField] public bool isAttackable { get; set; } = true; // 스킬 사용 가능 여부(쿨타임 포함)
     [field: SerializeField] public bool isAttacking { get; set; } = false; // 공격 중 여부
-    /*
-    AttackState에서 attack, skill, SS을 enum을 통해서 사용할 걸 바꾸는 방식
-    Basic Skill Running
-    */
-
-    /*
-    오브젝트 사용 방법   
-    - ScriptableObject를 사용 스킬의 데이터를 저장
-    - 사용할 때마다 바뀌는 스테이터스를 적용
-    - attackTiming이 호출되면 오브젝트 소환과 함께 공격 애니메이션 사용
-     */
-    
-    /*
-    04/20 문제점 정리
-    Character혹은 각 캐릭터 클래스에서 스킬들을 참조하지 못하고 있음.
-    공격, 스킬, 스페셜 스킬은 SkillBase클래스를 상속받고
-    각 캐릭터가 사용할 수 있도록 캐릭터 맞춤으로 상속하고 있음
-
-    그런데 Character에서 각 캐릭터의 공격, 스킬 스페셜 스킬 클래스
-    예) SwordMan: Slash, Bash, Throw,
-        Achor: Shoot, Swing, ChargeShoot
-    를 참조하는 방법을 찾아야함
-     */
 
     public virtual void Start()
     {
         // Setting target is work on StartAttack();
         Character = gameObject.GetComponent<Character>();
-        CoolTime = skilldata.CoolTime;
+        TotalCoolTime = skilldata.CoolTime;
         Damage = skilldata.Damage;
         SkillRange = skilldata.SkillRange;
         Duration = skilldata.Duration;
@@ -60,24 +39,26 @@ public class SkillBase : MonoBehaviour, SkillState
         {
             // 폼의 인스턴트화
             Form = BattleManager.Instance.GetAttack(Form);
+            bullet = Form.GetComponent<Bullet>();
+            bullet.InitData(skilldata, Character);
         }
     }
 
     private void Update()
     {
-        if(currentCoolTime > 0 && !isAttackable)
+        if (currentCoolTime > 0f && isAttackable == false)
         {
             currentCoolTime -= Time.deltaTime;
-        } else if (currentCoolTime  <= 0f && !isAttackable)
+        } else if (currentCoolTime <= 0f && isAttackable == false)
         {
-            currentCoolTime = CoolTime;
-            isAttackable = true; 
+            isAttackable = true;
         }
     }
 
     public virtual void ResetCoolTime()
     {
-        currentCoolTime = CoolTime;
+        currentCoolTime = TotalCoolTime;
+        Debug.Log(this + "Used");
     }
 
     #region AnimationFunc
@@ -85,8 +66,6 @@ public class SkillBase : MonoBehaviour, SkillState
    public virtual void StartAttack()
     {
        Target = Character.Target.GetComponent<Character>();
-        isAttacking = true;
-        isAttackable = false;
         ResetCoolTime();
     }
 
@@ -97,28 +76,22 @@ public class SkillBase : MonoBehaviour, SkillState
 
     public virtual void AttackTiming()
     {
-        // Target.Damage(damageAmount: Damage);
-        // Instantiate(Form.GetComponent<DamageTransfer>().skilldata = this.skilldata);
-       
-        // Form = BattleManager.instance.GetAttack(Form);
-        /* 
-        Bullet bullet = Form.GetComponent<Bullet>(); 
-        bullet.character = Character;
-        bullet.InitData(skilldata);
-        bullet.Shoot();
-         */
+        Form.SetActive(true);
+        Form.transform.position = transform.position;
+        // Form.transform.DOMove(Target.transform.position, duration: 1f);
+        Form.GetComponent<Bullet>().targetCharacter = Target;
     }
 
     public virtual void StartRestriction()
     {
-        Debug.Log("Start Restriction");
+        // Debug.Log("Start Restriction");
 
         Character.IsRestriction = true;
     }
 
     public virtual void EndRestriction()
     {
-        Debug.Log("End Restriction");
+        // Debug.Log("End Restriction");
         Character.IsRestriction = false;
     }
 

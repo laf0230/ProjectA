@@ -13,41 +13,64 @@ public class Bullet : MonoBehaviour
     public bool IsPenetration { get; set; } // 관통 여부
     public bool IsArea { get; set; } // 광범위 여부
     public bool IsTrakcing { get; set; }
+    public float duration;
+    public float totalDuration;
 
     SkillDataSO skilldata { get; set; }
 
     private void Start()
     {
-        character = skilldata.SelfCharacter;
         targetCharacter = skilldata.Target;
         damage = skilldata.Damage;
         IsPenetration = skilldata.IsPenetration;
         IsArea = skilldata.IsArea;
         IsTrakcing = skilldata.IsTracking;
+        totalDuration = skilldata.Duration;
 
         rb = GetComponent<Rigidbody>();
     }
 
-    public void InitData(SkillDataSO _skillDataSO)
+    private void OnEnable()
     {
-        skilldata = _skillDataSO;
     }
 
-    public void Shoot()
+    private void Update()
     {
-        Vector3 direction = targetCharacter.transform.position - character.transform.position;
-        
+        if (duration > 0f)
+        {
+            duration -= Time.deltaTime;
+        }
+        else if (duration <= 0)
+        {
+            InitDuration();
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void InitDuration()
+    {
+        duration = skilldata.Duration;
+    }
+
+    public void InitData(SkillDataSO _skillDataSO, Character character)
+    {
+        skilldata = _skillDataSO;
+        this.character = character;
+    }
+
+    public void Shoot(Vector3 targetPosition)
+    {
         // Left and Right 
 
         if (IsTrakcing)
         {
             // 추적
-            rb.velocity = direction * speed;
+            rb.velocity = targetPosition - transform.position * speed * Time.deltaTime;
         }
         else
         {
             // 날리기
-            rb.AddForce(direction * speed);
+            rb.AddForce(targetPosition * speed, ForceMode.Acceleration);
         }
     }
 
@@ -55,6 +78,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject != character.gameObject && other.CompareTag("Character"))
         {
+            Debug.Log(other.gameObject);
             // 타겟만 공격
             targetCharacter = other.gameObject.GetComponent<Character>();
 

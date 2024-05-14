@@ -2,11 +2,28 @@
 
 public class Skill : SkillBase
 {
-    public override void StartAttack()
+    public void S_SA()
     {
         base.StartAttack();
-    
-        Debug.Log("Skill");
-        Character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
+    }
+
+    public void S_EA()
+    {
+        base.EndAttack();
+    }
+
+    public void S_SR()
+    {
+        base.StartRestriction();
+    }
+
+    public void S_ER()
+    {
+        base.EndRestriction();
+    }
+
+    public void S_AT()
+    {
+        base.AttackTiming();
     }
 }

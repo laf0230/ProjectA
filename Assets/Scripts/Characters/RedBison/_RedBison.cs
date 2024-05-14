@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class _RedBison : Character
 {
-    private new void Awake()
-    {
-        base.Awake();
+    public event Action<Character, float> OnKill;
 
-        Attack = gameObject.AddComponent<Attack>();
-        Skill = gameObject.AddComponent<S_Barrage>();
-        SpecialSkill = gameObject.AddComponent<SS_HunterKiller>();
+    private new void Start()
+    {
+        base.Start();
+
+        SetAttack(gameObject.AddComponent<A_RedBison>());
+        SetSkill(gameObject.AddComponent<S_Barrage>());
+        SetSpecialSkill(gameObject.AddComponent<SS_HunterKiller>());
 
         Attack.enabled = true;
         Skill.enabled = true;
@@ -19,12 +22,21 @@ public class _RedBison : Character
         Attack.skilldata = AttackDataSO;
         Skill.skilldata = SkillDataSO;
         SpecialSkill.skilldata = SpecialSkillDataSO;
+
+        OnKill += BattleManager.Instance.Heal;
+        OnKill.Invoke(this, (MaxHealth * 0.1f));
     }
 
     private new void Update()
     {
         base.Update();
 
+        if (IsBuffable)
+        {
+            CurrentHealth += MaxHealth * 0.1f;
+            IsBuffable = false;
+        }
+        
     }
 
     private void DebbugSkill()

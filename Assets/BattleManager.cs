@@ -43,6 +43,15 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            instance = this;
+        }
+    }
+
+
     public GameObject GetAttack(GameObject _prefab)
     {
         if (skills.Contains(_prefab))
@@ -57,31 +66,48 @@ public class BattleManager : MonoBehaviour
             return skillInstance;
         }
     }
-    public SkillBase GetAttack(SkillBase _prefab)
-    {
-        if (skills.Contains(_prefab.gameObject))
-        {
-            return skills.Find(gameObject => gameObject == _prefab.gameObject).GetComponent<SkillBase>();
-        }
-        else
-        {
-            var skillInstance = Instantiate(_prefab, transform);
-            skillInstance.gameObject.SetActive(false);
-            skills.Add(skillInstance.gameObject);
-            return skillInstance;
-        }
-    }
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            instance = this;
-        }
-    }
 
     private void Update()
     {
+
+    }
+
+    #region Buff / Debuff List
+
+    public void Invisible(Character target, float duration)
+    {
         
     }
+
+    public void Heal(Character target, float healAmount)
+    {
+        target.CurrentHealth += healAmount;
+    }
+
+    public void EnhacedAttackSpeed(Character target, float amount)
+    {
+
+    }
+
+    public void EnhancedMoveSpeed(Character target, float amount)
+    {
+
+    }
+
+    public void Stun(Character target, float duaration)
+    {
+
+    }
+
+    public void Poison(Character target, float duration, float amount)
+    {
+
+    }
+
+    public void Silence(Character target, float duration)
+    {
+        // 스킬 사용 불가
+    }
+
+    #endregion
 }

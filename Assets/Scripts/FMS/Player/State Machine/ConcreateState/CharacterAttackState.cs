@@ -4,28 +4,33 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /*
-    AttackState를 사용하면 { Attack, Skill, SpcialSkill } 이/가 사용되어야 함
-    사용되는 조건 { 1. 쿨타임 }
-    [쿨타임] AttackState에서 다룸? ㄴㄴ
-    [쿨타임] Character에서 다룸
+    애니메이션 실행으로 사용
  */
+
+public enum SkillSwitcher
+{
+    attack,
+    skill,
+    specialSkill
+}
 
 public class CharacterAttackState : State
 {
     private Transform _transform;
     private Character _target;
 
-    public SkillState SkillState;
     public Attack Attack;
     public Skill Skill;
     public SpecialSkill SpecialSkill;
 
-    Queue<SkillBase> skillQueue = new Queue<SkillBase>();
+    public bool isAttacking = false;
+
+    public Queue<SkillSwitcher> skillQueue = new Queue<SkillSwitcher>();
     SkillBase currentSkill;
 
     public CharacterAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
-        _transform = GameObject.FindGameObjectWithTag("Character").transform;
+        _transform = character.transform;
     }
 
     public override void AnimationTriggerEvent(Character.AnimationTriggerType triggerType)
@@ -37,56 +42,73 @@ public class CharacterAttackState : State
     {
         base.EnterState();
 
-        // for Skill State
+        Debug.Log(".............................................");
+
         Attack = character.Attack;
         Skill = character.Skill;
         SpecialSkill = character.SpecialSkill;
-        skillQueue.Clear();
+        character.IsMoveable = false;
+
+        #region Enqueue Skills
+
+        if (SpecialSkill.isAttackable)
+        {
+            skillQueue.Enqueue(SkillSwitcher.specialSkill);
+        }
+
+        if(Skill.isAttackable)
+        {
+            skillQueue.Enqueue(SkillSwitcher.skill);
+        }
+
+        if (Attack.isAttackable)
+        {
+            skillQueue.Enqueue(SkillSwitcher.attack);
+        }
+
+        #endregion 
+
+        // for Skill State
         _target = character.Target.GetComponent<Character>();
+
+        switch (skillQueue?.Dequeue())
+        {
+            case SkillSwitcher.specialSkill:
+                currentSkill = SpecialSkill;
+                character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+                break;
+
+            case SkillSwitcher.skill:
+                currentSkill = Skill;
+                character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
+                break;
+
+            case SkillSwitcher.attack:
+                currentSkill = Attack;
+                character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
+                break;
+        }
+        currentSkill.isAttacking = true;
+        Debug.Log("1st ----- I'll Shot this: " + currentSkill);
+        currentSkill.isAttackable = false;
+        Debug.Log("2nd ----- I'll Shot this: " + currentSkill);
     }
 
     public override void ExitState()
     {
         base.ExitState();
+
+        character.IsMoveable = true;
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
 
-        // 플레이어의 상황에 따라서 상태를 변경하는 함수
+        character.CheckForLeftOrRightFacing(_target.transform.position - _transform.position);
+        character.MoveTo(Vector3.zero);
 
-        if (_target.gameObject.activeSelf)
-        {
-            if (SpecialSkill.isAttacking || Skill.isAttacking || Attack.isAttacking)
-            {
-                character.CheckForLeftOrRightFacing(_target.transform.position - _transform.position);
-            }
-        }
-
-        // Stack ableSkills
-        if (SpecialSkill.isAttackable)
-        {
-            skillQueue.Enqueue(SpecialSkill);
-        }
-
-        if (Skill.isAttackable)
-        {
-            skillQueue.Enqueue(Skill);
-        }
-
-        if (Attack.isAttackable)
-        {
-            skillQueue.Enqueue(Attack);
-        }
-
-        // Excute Attack
-        if (skillQueue.TryDequeue(out currentSkill) && currentSkill.isAttackable)
-        {
-            currentSkill.StartAttack();
-            Debug.Log($"CurrentSkill: {currentSkill} ");
-        }
-        else
+        if (currentSkill.isAttacking == false)
         {
             character.StateMachine.ChangeState(character.ChaseState);
         }

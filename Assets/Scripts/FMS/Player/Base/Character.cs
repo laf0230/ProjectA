@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable, ITargetingable, ISkillable
 {
@@ -12,6 +13,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public bool IsFacingRight { get; set; } = true;
     public bool IsAggroed { get; set; }
     public bool IsWithinstrikingDistance { get; set; }
+    [field: SerializeField] public bool IsMoveable { get; set; } = true;
     public SpriteRenderer Renderer { get; set; }
     public Animator Animator { get; set; }
     [field: SerializeField] public bool IsPassThrough { get; set; }
@@ -30,15 +32,15 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     #endregion
 
     #region Skill Variables
-
+    
     public Attack Attack { get; set; }
     public Skill Skill { get; set; }
     public SpecialSkill SpecialSkill { get; set; }
     [field: SerializeField] public SkillDataSO AttackDataSO { get; set; }
-    [field: SerializeField] public SkillDataSO SkillDataSO {get; set; }
-    [field: SerializeField] public SkillDataSO SpecialSkillDataSO {get; set; }
+    [field: SerializeField] public SkillDataSO SkillDataSO { get; set; }
+    [field: SerializeField] public SkillDataSO SpecialSkillDataSO { get; set; }
     public bool IsAttackable { get; set; } = true;
-
+    public bool IsBuffable { get; set; } = false;
     #endregion
 
     #region Idle Variables
@@ -51,7 +53,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public float StunTime { get; set; } = 1f;
     public bool IsRestriction { get; set; }
-        #endregion
+    
+    #endregion
 
     public void Awake()
     {
@@ -74,12 +77,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Animator = GetComponent<Animator>();
 
         StateMachine.Initialize(IdleState);
-
-        // Attack = BattleManager.instance.GetAttack(Attack);
-        // Skill = BattleManager.instance.GetAttack(Skill);
-        // SpecialSkill = BattleManager.instance.GetAttack(SpecialSkill);
-
-
     }
 
     public void Update()
@@ -91,15 +88,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         StateMachine.CurrentPlayerState.PhysicsUpdate();
     }
-
-    #region
-
-    public void StartCoolTime(float _coolTime)
-    {
-        // 스킬별 쿨타임 설정 
-    }
-
-    #endregion
 
     #region Health / Die Functions
 
@@ -130,16 +118,22 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void MoveTo(Vector3 velocity)
     {
-        Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
+        if (IsMoveable)
+        {
+            Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
 
-        CheckForLeftOrRightFacing(velocity);
+            CheckForLeftOrRightFacing(velocity);
+        }
     }
 
     public void MoveTo(Vector3 velocity, float speed)
     {
-        Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
+        if (IsMoveable)
+        {
+            Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
 
-        CheckForLeftOrRightFacing(velocity);
+            CheckForLeftOrRightFacing(velocity);
+        }
     }
 
     public void CheckForLeftOrRightFacing(Vector3 velocity)
@@ -186,15 +180,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #endregion
 
-    #region Occupation
-
-    public enum Distance_Basis
-    {
-
-    }
-
-    #endregion
-
     #region Triggers
 
     public void AnimationTriggerEvent(AnimationTriggerType triggerType)
@@ -204,19 +189,23 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         switch (triggerType)
         {
             case AnimationTriggerType.Attack:
+                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Attack");
                 break;
             case AnimationTriggerType.Hurt:
+                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Hurt");
                 break;
             case AnimationTriggerType.Skill:
+                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Skill");
                 break;
             case AnimationTriggerType.SpecialSkill:
+                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("SpecialSkill");
                 break;
             case AnimationTriggerType.Run:
-                Animator.SetTrigger("Run");
+                Animator.SetFloat("Run", 5);
                 break;
             default:
                 Debug.LogError($"Unhandled triggerType: {triggerType}");
@@ -235,11 +224,26 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #endregion
 
-    #region Targetting
+    #region Attacking 
 
     public void SetTarget(GameObject target)
     {
         this.Target = target;
+    }
+
+    public void SetAttack(Attack attack)
+    {
+          Attack = attack;
+    }
+
+    public void SetSkill(Skill skill)
+    {
+        Skill = skill;
+    }
+
+    public void SetSpecialSkill(SpecialSkill specialSkill)
+    {
+        SpecialSkill = specialSkill; 
     }
 
     #endregion

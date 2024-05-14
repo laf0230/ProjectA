@@ -17,6 +17,7 @@ MonoBehaviour:
   <Damage>k__BackingField: 2
   <IsArea>k__BackingField: 0
   <IsPenetration>k__BackingField: 0
+  <IsTracking>k__BackingField: 1
   <SkillRange>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Form>k__BackingField: {fileID: 1915767842307454574, guid: c8de068dbecc4384aa6dc7dc18b22564,

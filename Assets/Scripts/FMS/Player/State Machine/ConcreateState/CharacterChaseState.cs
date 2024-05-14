@@ -22,12 +22,14 @@ public class CharacterChaseState : State
     {
         base.EnterState();
 
+        AnimationTriggerEvent(Character.AnimationTriggerType.Run);
+
         _targetTransform = character.Target.transform;
 
         _moveSpeed = character.ChaseSpeed;
 
         _targetCharacter = character.Target.GetComponent<Character>();
-   }
+    }
 
     public override void ExitState()
     {
@@ -38,7 +40,7 @@ public class CharacterChaseState : State
     {
         base.FrameUpdate();
 
-        if (character.ThreatLevel <_targetCharacter.ThreatLevel)
+        if (character.ThreatLevel < _targetCharacter.ThreatLevel)
         {
             character.IsPassThrough = true;
         }
@@ -46,11 +48,10 @@ public class CharacterChaseState : State
         {
             character.IsPassThrough = false;
         }
- 
-        if (!_targetCharacter.gameObject.activeSelf)
+
+        if (!_targetCharacter.gameObject.activeSelf || !character.IsAggroed)
         {
             // 적이 사망했을 때
-            Debug.Log("적이 사라졌습니다");
             character.StateMachine.ChangeState(character.IdleState);
         }
 
@@ -60,16 +61,11 @@ public class CharacterChaseState : State
             // PassThrough
             character.StateMachine.ChangeState(character.EscapeState);
         }
-        else
-        {
-            // 추적할 때
-            // Chasing Code
-            character.MoveTo(((_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
-        }
 
-        if (character.IsWithinstrikingDistance && character.Attack.isAttackable || character.Skill.isAttackable || character.SpecialSkill.isAttackable)
+        character.MoveTo(((_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
+        if (character.IsWithinstrikingDistance && (character.Attack.isAttackable || character.Skill.isAttackable || character.SpecialSkill.isAttackable))
         {
-            // 공격할 때
+            Debug.Log($"Character:{character} -- Attack: {character.Attack.isAttackable}, Skill: {character.Skill.isAttackable}, SpecialSkill: {character.SpecialSkill.isAttackable}");
             character.StateMachine.ChangeState(character.AttackState);
         }
     }
@@ -78,4 +74,4 @@ public class CharacterChaseState : State
     {
         base.PhysicsUpdate();
     }
-} 
+}

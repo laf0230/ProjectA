@@ -12,7 +12,7 @@ public class SkillDataSO : ScriptableObject, SkillStatus
     [field: SerializeField] public float Damage { get; set; }
     [field: SerializeField] public bool IsArea { get; set; }
     [field: SerializeField] public bool IsPenetration { get; set; }
-    public bool IsTracking { get; set; }
+    [field: SerializeField] public bool IsTracking { get; set; }
     [field: SerializeField] public float SkillRange { get; set; }
     [field: SerializeField] public float Duration { get; set; }
     [field: SerializeField] public GameObject Form { get; set; }

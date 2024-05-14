@@ -2,11 +2,28 @@
 
 public class SpecialSkill : SkillBase
 {
-    public override void StartAttack()
-    {   
+    public void SS_SA()
+    {
         base.StartAttack();
+    }
 
-        Debug.Log("Special Skill");
-        Character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+    public void SS_EA()
+    {
+        base.EndAttack();
+    }
+
+    public void SS_SR()
+    {
+        base.StartRestriction();
+    }
+
+    public void SS_ER()
+    {
+        base.EndRestriction();
+    }
+
+    public void SS_AT()
+    {
+        base.AttackTiming();
     }
 }

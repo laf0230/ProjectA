@@ -20,6 +20,7 @@ public class CharacterIdleState : State
     {
         base.EnterState();
         _targetPos = GetRandomPointInCircle();
+        character.IsMoveable = true;
     }
 
     public override void ExitState()
@@ -31,7 +32,7 @@ public class CharacterIdleState : State
     {
         base.FrameUpdate();
 
-        character.AnimationTriggerEvent(Character.AnimationTriggerType.Run);
+        AnimationTriggerEvent(Character.AnimationTriggerType.Run);
          
         if (character.IsAggroed)
         {
