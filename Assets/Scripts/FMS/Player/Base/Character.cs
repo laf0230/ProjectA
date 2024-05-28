@@ -86,7 +86,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void FixedUpdate()
     {
-        StateMachine.CurrentPlayerState.PhysicsUpdate();
+        StateMachine.CurrentPlayerState.PhysicsUpdate();    
     }
 
     #region Health / Die Functions
@@ -94,6 +94,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public virtual void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
+        Debug.Log("Damage: " + damageAmount);
+        Debug.Log("CurrentHealth" + CurrentHealth);
 
         if (CurrentHealth < 0)
         {
@@ -151,16 +153,17 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     // Basic Stun
     public IEnumerator Stun()
     {
+        IsMoveable = false;
         yield return new WaitForSeconds(StunTime);
-        StateMachine.ChangeState(IdleState);
-        Debug.Log("I'm Stuned");
+        IsMoveable = true;
     }
 
     // Skill Stun
     public IEnumerator Stun(float stunTime)
     {
+        IsMoveable = false;
         yield return new WaitForSeconds(stunTime);
-        StateMachine.ChangeState(IdleState);
+        IsMoveable = true;
     }
 
 

@@ -2,27 +2,27 @@
 
 public class SpecialSkill : SkillBase
 {
-    public void SS_SA()
+    public virtual void SS_SA()
     {
         base.StartAttack();
     }
 
-    public void SS_EA()
+    public virtual void SS_EA()
     {
         base.EndAttack();
     }
 
-    public void SS_SR()
+    public virtual void SS_SR()
     {
         base.StartRestriction();
     }
 
-    public void SS_ER()
+    public virtual void SS_ER()
     {
         base.EndRestriction();
     }
 
-    public void SS_AT()
+    public virtual void SS_AT()
     {
         base.AttackTiming();
     }

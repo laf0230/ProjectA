@@ -40,7 +40,7 @@ public class SkillBase : MonoBehaviour, SkillState
             // 폼의 인스턴트화
             Form = BattleManager.Instance.GetAttack(Form);
             bullet = Form.GetComponent<Bullet>();
-            bullet.InitData(skilldata, Character);
+            // bullet.InitData(skilldata, Character);
         }
     }
 

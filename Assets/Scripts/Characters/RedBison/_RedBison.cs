@@ -23,20 +23,20 @@ public class _RedBison : Character
         Skill.skilldata = SkillDataSO;
         SpecialSkill.skilldata = SpecialSkillDataSO;
 
-        OnKill += BattleManager.Instance.Heal;
-        OnKill.Invoke(this, (MaxHealth * 0.1f));
+        // OnKill += BattleManager.Instance.Heal;
+        // OnKill.Invoke(this, (MaxHealth * 0.1f));
     }
 
     private new void Update()
     {
         base.Update();
-
+/*
         if (IsBuffable)
         {
             CurrentHealth += MaxHealth * 0.1f;
             IsBuffable = false;
         }
-        
+ */       
     }
 
     private void DebbugSkill()

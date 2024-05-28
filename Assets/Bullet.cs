@@ -1,89 +1,60 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Character character { get; set; }
-    public Character targetCharacter;
-    Rigidbody rb;
-
+    public float speed = 100f;
+    public Vector3 direction;
     public float damage;
-    public float speed = 10f;
-    public bool IsPenetration { get; set; } // 관통 여부
-    public bool IsArea { get; set; } // 광범위 여부
-    public bool IsTrakcing { get; set; }
-    public float duration;
-    public float totalDuration;
-
-    SkillDataSO skilldata { get; set; }
+    public Character targetCharacter;
+    public GameObject target;
+    Rigidbody rigid;
+    public float currentDuaration;
+    public float maxDuration;
+    public bool isShoot;
 
     private void Start()
     {
-        targetCharacter = skilldata.Target;
-        damage = skilldata.Damage;
-        IsPenetration = skilldata.IsPenetration;
-        IsArea = skilldata.IsArea;
-        IsTrakcing = skilldata.IsTracking;
-        totalDuration = skilldata.Duration;
-
-        rb = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
     }
-
     private void OnEnable()
     {
+        currentDuaration = maxDuration;
+        direction = target.transform.position - this.transform.position;
+        
+        Shoot();
     }
 
     private void Update()
     {
-        if (duration > 0f)
+        if (currentDuaration > 0)
         {
-            duration -= Time.deltaTime;
+            currentDuaration -= Time.deltaTime;
         }
-        else if (duration <= 0)
+        else if (currentDuaration < 0)
         {
-            InitDuration();
-            gameObject.SetActive(false);
-        }
-    }
-
-    public void InitDuration()
-    {
-        duration = skilldata.Duration;
-    }
-
-    public void InitData(SkillDataSO _skillDataSO, Character character)
-    {
-        skilldata = _skillDataSO;
-        this.character = character;
-    }
-
-    public void Shoot(Vector3 targetPosition)
-    {
-        // Left and Right 
-
-        if (IsTrakcing)
-        {
-            // 추적
-            rb.velocity = targetPosition - transform.position * speed * Time.deltaTime;
-        }
-        else
-        {
-            // 날리기
-            rb.AddForce(targetPosition * speed, ForceMode.Acceleration);
+            Disable(true);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Shoot()
     {
-        if (other.gameObject != character.gameObject && other.CompareTag("Character"))
-        {
-            Debug.Log(other.gameObject);
-            // 타겟만 공격
-            targetCharacter = other.gameObject.GetComponent<Character>();
+        rigid.AddForce(direction * speed, ForceMode.Force);
+    }
 
-            targetCharacter.Damage(damage);
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Character"))
+        {
+            collision.gameObject.GetComponent<Character>().Damage(damage);
+            Disable(true);
         }
-        gameObject.SetActive(false);
+    }
+
+    public void Disable(bool isDisable)
+    {
+        gameObject.SetActive(!isDisable);
     }
 }

@@ -81,7 +81,7 @@ public class BattleManager : MonoBehaviour
 
     public void Heal(Character target, float healAmount)
     {
-        target.CurrentHealth += healAmount;
+        // target.CurrentHealth += healAmount;
     }
 
     public void EnhacedAttackSpeed(Character target, float amount)
