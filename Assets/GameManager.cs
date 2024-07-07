@@ -1,16 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public CameraManager cameraManager;
     public int cameraNumber = 1;
+    public GameObject GameEndUI;
+
+    private void Awake()
+    {
+        // Check if the instance already exists and if it's not this one
+        if (Instance != null && Instance != this)
+        {
+            // Destroy this instance as it is a duplicate
+            Destroy(gameObject);
+        }
+        else
+        {
+            // Assign the instance to this object
+            Instance = this;
+            // Make sure this instance persists across scene loads
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     private void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             cameraNumber = 0;
@@ -36,5 +55,24 @@ public class GameManager : MonoBehaviour
             cameraNumber = 4;
             cameraManager.ChangeCameraView(cameraNumber);
         }
+
+        if (GameObject.FindGameObjectsWithTag("Character").Length <= 0)
+        {
+            GameEnd();
+        }
+    }
+
+    public void GameEnd()
+    {
+        if (GameEndUI != null)
+        {
+            GameEndUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+
+    public void ChangeScene(string Scene)
+    {
+        SceneManager.LoadScene(Scene);
     }
 }

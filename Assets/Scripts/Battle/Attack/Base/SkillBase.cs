@@ -16,9 +16,11 @@ public class SkillBase : MonoBehaviour, SkillState
     [field: SerializeField] public GameObject Form { get; set; }
     public float Scope { get; set; }
     public float MotionDelay { get; set; }
+    public float Border = 3f;
 
     public float currentCoolTime = 0f;
     public SkillDataSO skilldata;
+    public List<Bullet> bullets;
     public Bullet bullet;
     [field: SerializeField] public bool isAttackable { get; set; } = true; // 스킬 사용 가능 여부(쿨타임 포함)
     [field: SerializeField] public bool isAttacking { get; set; } = false; // 공격 중 여부
@@ -38,7 +40,9 @@ public class SkillBase : MonoBehaviour, SkillState
         if (Form != null)
         {
             // 폼의 인스턴트화
+            /*
             Form = BattleManager.Instance.GetAttack(Form);
+            */
             bullet = Form.GetComponent<Bullet>();
             // bullet.InitData(skilldata, Character);
         }
@@ -76,10 +80,29 @@ public class SkillBase : MonoBehaviour, SkillState
 
     public virtual void AttackTiming()
     {
-        Form.SetActive(true);
-        Form.transform.position = transform.position;
-        // Form.transform.DOMove(Target.transform.position, duration: 1f);
-        Form.GetComponent<Bullet>().targetCharacter = Target;
+        var direction = Target.transform.position - transform.position;
+
+        if (bullet.gameObject == null)
+            return;
+        Form = Instantiate(bullet.gameObject, position: transform.position + Vector3.up, Quaternion.identity);
+        if (Form != null)
+        {
+            Form.SetActive(true);
+        }
+
+        Form.GetComponent<Rigidbody>().AddForce(direction * 100);
+        /*
+        if (Character.Renderer.flipX)
+        {
+            Form.transform.position = new Vector3 (transform.position.x + 2f, transform.position.y+ Border, transform.position.z);    
+        } else
+        {
+            Form.transform.position = new Vector3(transform.position.x - 2f, transform.position.y + Border, transform.position.z);
+        }
+        */
+        Form.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
+        Form.GetComponent<Bullet>().SetTarget(Target.gameObject);
+        Form.GetComponent<Bullet>().damage = Damage;
     }
 
     public virtual void StartRestriction()
