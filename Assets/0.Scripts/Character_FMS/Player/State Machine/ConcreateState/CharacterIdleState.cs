@@ -26,7 +26,6 @@ public class CharacterIdleState : State
 
         /*
         _targetPos = GetRandomPointInCircle();
-        character.IsMoveable = true;
         */
     }
 

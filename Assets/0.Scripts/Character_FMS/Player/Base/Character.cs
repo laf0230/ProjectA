@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable, ITargetingable, ISkillable
@@ -13,7 +14,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public bool IsFacingRight { get; set; } = true;
     public bool IsAggroed { get; set; }
     public bool IsWithinstrikingDistance { get; set; }
-    [field: SerializeField] public bool IsMoveable { get; set; } = true;
     public SpriteRenderer Renderer { get; set; }
     public Animator Animator { get; set; }
     [field: SerializeField] public bool IsPassThrough { get; set; }
@@ -131,24 +131,25 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Movement Functions
 
+    public void SetMoveAble(bool isActive)
+    {
+        NavMeshAgent agent =  GetComponent<NavMeshAgent>();
+
+        agent.enabled = isActive;
+    }
+
     public void MoveTo(Vector3 velocity)
     {
-        if (IsMoveable)
-        {
             Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
 
             CheckForLeftOrRightFacing(velocity);
-        }
     }
 
     public void MoveTo(Vector3 velocity, float speed)
     {
-        if (IsMoveable)
-        {
             Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
 
             CheckForLeftOrRightFacing(velocity);
-        }
     }
 
     public void CheckForLeftOrRightFacing(Vector3 velocity)
@@ -166,17 +167,17 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     // Basic Stun
     public IEnumerator Stun()
     {
-        IsMoveable = false;
+        SetMoveAble(true);
         yield return new WaitForSeconds(StunTime);
-        IsMoveable = true;
+        SetMoveAble(false);
     }
 
     // Skill Stun
     public IEnumerator Stun(float stunTime)
     {
-        IsMoveable = false;
+        SetMoveAble(true);
         yield return new WaitForSeconds(stunTime);
-        IsMoveable = true;
+        SetMoveAble(false);
     }
 
 

@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 58001393}
   - component: {fileID: 58001392}
+  - component: {fileID: 58001394}
   m_Layer: 0
   m_Name: WholeWorldCamera
   m_TagString: Untagged
@@ -187,14 +188,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58001391}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.3511529, y: 0.0061771288, z: -0.0023164817, w: -0.9362949}
-  m_LocalPosition: {x: 12.057164, y: 6.928873, z: -1.9909554}
+  m_LocalRotation: {x: -0.23695445, y: 0.006409355, z: -0.0015630685, w: -0.97149837}
+  m_LocalPosition: {x: 11.65, y: 5, z: -2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1115957382}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.414, y: -0.756, z: 0}
+--- !u!114 &58001394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58001391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87398314555cb4390a25a023540d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 2
+  scrollMin: 0
+  scrollMax: 100
 --- !u!1 &204456825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1381483394771503473, guid: a7e89bbca10706d4087e4a8bddcd512f,
@@ -288,8 +304,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.3511529, y: 0.0061771288, z: -0.0023164817, w: -0.9362949}
-  m_LocalPosition: {x: 12.057164, y: 6.928873, z: -1.9909554}
+  m_LocalRotation: {x: -0.23695445, y: 0.006409355, z: -0.0015630685, w: -0.97149837}
+  m_LocalPosition: {x: 11.65, y: 5, z: -2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1139,7 +1155,7 @@ PrefabInstance:
     - target: {fileID: 5387796720048852233, guid: a7e89bbca10706d4087e4a8bddcd512f,
         type: 3}
       propertyPath: <ThreatLevel>k__BackingField
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1774,6 +1790,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1141619221309487036, guid: d3d45b9fa402e2141a45b49e941a4496,
+        type: 3}
+      propertyPath: <ThreatLevel>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5440214521892584583, guid: d3d45b9fa402e2141a45b49e941a4496,
         type: 3}
       propertyPath: m_Name
@@ -2228,7 +2249,6 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 9999
   <ChaseSpeed>k__BackingField: 1.75
   <CurrentHealth>k__BackingField: 0
-  <IsMoveable>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 0
   <Target>k__BackingField: {fileID: 0}

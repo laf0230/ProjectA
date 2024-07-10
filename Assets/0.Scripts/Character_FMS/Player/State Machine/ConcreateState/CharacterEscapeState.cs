@@ -6,6 +6,7 @@ public class CharacterEscapeState : State
 {
     Transform _targetTransform;
     float _moveSpeed;
+
     public CharacterEscapeState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
     }
@@ -15,8 +16,6 @@ public class CharacterEscapeState : State
         base.EnterState();
 
         AnimationTriggerEvent(Character.AnimationTriggerType.Run);
-
-        character.IsMoveable = true;
 
         _targetTransform = character.Target.transform;
         _moveSpeed = character.ChaseSpeed;

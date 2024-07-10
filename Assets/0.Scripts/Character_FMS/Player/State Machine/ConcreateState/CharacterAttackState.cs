@@ -47,7 +47,7 @@ public class CharacterAttackState : State
         Attack = character.Attack;
         Skill = character.Skill;
         SpecialSkill = character.SpecialSkill;
-        character.IsMoveable = false;
+        character.SetMoveAble(false);
 
         #region Enqueue Skills
 
@@ -98,6 +98,7 @@ public class CharacterAttackState : State
     {
         base.ExitState();
 
+        character.SetMoveAble(true);
     }
 
     public override void FrameUpdate()
