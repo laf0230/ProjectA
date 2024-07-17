@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class SS_HunterKiller : SpecialSkill
 {
-    public float CockingDuration = 10f;
+    public string characterTag = "Character";
+    public string clockedTag = "Untagged";
+    public float CockingDuration = 3f;
     public bool isClock = false;
-    public Color ClockedColor = new Color(255, 255, 255, 50);
-    public Color BasicColor = new Color(255, 255, 255, 255);
+    public Color ClockedColor = new Color(1, 1, 1, 0.1f);
+    public Color BasicColor = new Color(1, 1, 1, 1);
 
     IEnumerator OverClock()
     {
-        Character.Renderer.color = ClockedColor;
+        float currentSpeed = Character.ChaseSpeed;
+
+        Debug.Log("CLOCKING");
+        gameObject.tag = clockedTag;
         isClock = true;
+        Character.ChaseSpeed += currentSpeed + currentSpeed * 0.1f;
         yield return new WaitForSeconds(CockingDuration);
         Character.Renderer.color = BasicColor;
+        gameObject.tag = characterTag;
         isClock = false;
-        Debug.Log("CLOCKING");
+        Character.ChaseSpeed = currentSpeed;
     }
 
-    public override void SS_EA()
+    public override void SS_AT()
     {
-        base.SS_EA();
-
+        base.Character.Renderer.color = ClockedColor;
         StartCoroutine(OverClock());
     }
 }
