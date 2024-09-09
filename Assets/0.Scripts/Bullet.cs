@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     public float currentDuaration { get; set; }
     public float maxDuration;
     public bool isShoot;
+    public float baseHight = 1f;
 
     private void Start()
     {
@@ -44,6 +45,7 @@ public class Bullet : MonoBehaviour
 
     public void Shoot()
     {
+        transform.position += Vector3.up;
         rigid.AddForce(direction * speed, ForceMode.Force);
     }
 

@@ -16,7 +16,7 @@ public interface SkillStatus
     public bool IsTracking { get; set; } // 추적 여부
     public float SkillRange { get; set; } // 스킬 범위
     public float Duration { get; set; } // 스킬 지속 시간
-    public GameObject Form { get; set; } // 스킬 형태
+    public GameObject bulletPrefab { get; set; } // 스킬 형태
     public float Scope { get; set; } // 스킬 범위
     public float MotionDelay { get; set; } // 에니메이션의 총 시간
 }

@@ -13,7 +13,8 @@ public class SkillBase : MonoBehaviour, SkillState
     public bool IsPenetration { get; set; }
     public float SkillRange { get; set; }
     public float Duration { get; set; }
-    [field: SerializeField] public GameObject Form { get; set; }
+    [field: SerializeField] public GameObject bulletPrefab { get; set; }
+    private GameObject bulletObject;
     public float Scope { get; set; }
     public float MotionDelay { get; set; }
     public float Border = 3f;
@@ -33,17 +34,17 @@ public class SkillBase : MonoBehaviour, SkillState
         Damage = skilldata.Damage;
         SkillRange = skilldata.SkillRange;
         Duration = skilldata.Duration;
-        Form = skilldata.Form;
+        bulletPrefab = skilldata.bulletPrefab;
         Scope = skilldata.Scope;
         MotionDelay = skilldata.MotionDelay;
 
-        if (Form != null)
+        if (bulletPrefab != null)
         {
             // 폼의 인스턴트화
             /*
             Form = BattleManager.Instance.GetAttack(Form);
             */
-            bullet = Form.GetComponent<Bullet>();
+            bullet = bulletPrefab.GetComponent<Bullet>();
             // bullet.InitData(skilldata, Character);
         }
     }
@@ -84,13 +85,16 @@ public class SkillBase : MonoBehaviour, SkillState
 
         if (bullet.gameObject == null)
             return;
-        Form = Instantiate(bullet.gameObject, position: transform.position + Vector3.up, Quaternion.identity);
-        if (Form != null)
+        bulletObject = Instantiate(bullet.gameObject, position: transform.position + Vector3.up, Quaternion.identity);
+        if (bulletObject != null)
         {
-            Form.SetActive(true);
+            bulletObject.SetActive(true);
         }
 
-        Form.GetComponent<Rigidbody>().AddForce(direction * 100);
+        bullet.gameObject.GetComponent<Bullet>().direction = direction;
+        bullet.gameObject.GetComponent<Bullet>().Shoot();
+        
+        // bulletObject.GetComponent<Rigidbody>().AddForce(direction * 100);
         /*
         if (Character.Renderer.flipX)
         {
@@ -100,9 +104,9 @@ public class SkillBase : MonoBehaviour, SkillState
             Form.transform.position = new Vector3(transform.position.x - 2f, transform.position.y + Border, transform.position.z);
         }
         */
-        Form.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
-        Form.GetComponent<Bullet>().SetTarget(Target.gameObject);
-        Form.GetComponent<Bullet>().damage = Damage;
+        bulletObject.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
+        bulletObject.GetComponent<Bullet>().SetTarget(Target.gameObject);
+        bulletObject.GetComponent<Bullet>().damage = Damage;
     }
 
     public virtual void StartRestriction()

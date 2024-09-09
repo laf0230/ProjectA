@@ -15,7 +15,7 @@ public class SkillDataSO : ScriptableObject, SkillStatus
     [field: SerializeField] public bool IsTracking { get; set; }
     [field: SerializeField] public float SkillRange { get; set; }
     [field: SerializeField] public float Duration { get; set; }
-    [field: SerializeField] public GameObject Form { get; set; }
+    [field: SerializeField] public GameObject bulletPrefab { get; set; }
     [field: SerializeField] public float Scope { get; set; }
     [field: SerializeField] public float MotionDelay { get; set; }
 }
