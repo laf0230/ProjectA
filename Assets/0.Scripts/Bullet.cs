@@ -5,72 +5,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 100f;
-    public Vector3 direction;
-    public float damage { get; set; }
-    public GameObject target;
-    Rigidbody rigid;
-    public float currentDuaration { get; set; }
-    public float maxDuration;
-    public bool isShoot;
-    public float baseHight = 1f;
+    GameObject Target;
+    float Speed;
+    float Damage;
+    Rigidbody Rigidbody;
+    // 관통 비관통
 
-    private void Start()
+    public void SetData(GameObject Target, float Damage, float Speed = 100f)
     {
-        gameObject.SetActive(true);
-        rigid = GetComponent<Rigidbody>();
-    }
-    private void OnEnable()
-    {
-        currentDuaration = maxDuration;
-        if (target == null)
-            return;
-
-        direction = target.transform.position - this.transform.position;
-        
-        Shoot();
-    }
-
-    private void Update()
-    {
-        if (currentDuaration > 0)
-        {
-            currentDuaration -= Time.deltaTime;
-        }
-        else if (currentDuaration < 0)
-        {
-            Disable(true);
-        }
+        this.Target = Target;
+        this.Speed = Speed;
+        this.Damage = Damage;
     }
 
     public void Shoot()
     {
-        transform.position += Vector3.up;
-        rigid.AddForce(direction * speed, ForceMode.Force);
-    }
+        Vector2 direction = transform.position - Target.transform.position;       
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Character") && other.gameObject == target)
-        {
-            other.gameObject.GetComponent<Character>().Damage(damage);
-            Disable(true);
-        }
+        Rigidbody.AddForce(direction * Speed);
     }
-
-    public void Disable(bool isDisable)
-    {
-        gameObject.SetActive(!isDisable);
-    }
-
-    public void SetTarget(GameObject taregt)
-    {
-        this.target = taregt;
-    }
-
-    public GameObject GetTarget()
-    {
-        return target;
-    }
-
 }

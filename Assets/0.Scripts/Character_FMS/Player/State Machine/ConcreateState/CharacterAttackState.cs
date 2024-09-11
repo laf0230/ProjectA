@@ -89,9 +89,7 @@ public class CharacterAttackState : State
                 break;
         }
         currentSkill.isAttacking = true;
-        // Debug.Log("1st ----- I'll Shot this: " + currentSkill);
         currentSkill.isAttackable = false;
-        // Debug.Log("2nd ----- I'll Shot this: " + currentSkill);
     }
 
     public override void ExitState()

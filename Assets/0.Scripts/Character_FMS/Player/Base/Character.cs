@@ -74,7 +74,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         Renderer = GetComponent<SpriteRenderer>();
 
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
 
         StateMachine.Initialize(IdleState);
     }

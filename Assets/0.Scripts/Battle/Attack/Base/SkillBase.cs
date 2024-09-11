@@ -90,9 +90,6 @@ public class SkillBase : MonoBehaviour, SkillState
         {
             bulletObject.SetActive(true);
         }
-
-        bullet.gameObject.GetComponent<Bullet>().direction = direction;
-        bullet.gameObject.GetComponent<Bullet>().Shoot();
         
         // bulletObject.GetComponent<Rigidbody>().AddForce(direction * 100);
         /*
@@ -105,8 +102,8 @@ public class SkillBase : MonoBehaviour, SkillState
         }
         */
         bulletObject.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
-        bulletObject.GetComponent<Bullet>().SetTarget(Target.gameObject);
-        bulletObject.GetComponent<Bullet>().damage = Damage;
+        bulletObject.GetComponent<Bullet>().SetData(Target.gameObject, Damage);
+        bulletObject.GetComponent<Bullet>().Shoot();
     }
 
     public virtual void StartRestriction()
