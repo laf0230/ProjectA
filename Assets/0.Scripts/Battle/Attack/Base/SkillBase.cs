@@ -86,10 +86,16 @@ public class SkillBase : MonoBehaviour, SkillState
         if (bullet.gameObject == null)
             return;
         bulletObject = Instantiate(bullet.gameObject, position: transform.position + Vector3.up, Quaternion.identity);
+
         if (bulletObject != null)
         {
+            bulletObject.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
+            bulletObject.GetComponent<Bullet>().SetData(Target.gameObject, Damage);
+            bulletObject.GetComponent<Bullet>().Shoot();
+
             bulletObject.SetActive(true);
         }
+        
         
         // bulletObject.GetComponent<Rigidbody>().AddForce(direction * 100);
         /*
@@ -101,9 +107,6 @@ public class SkillBase : MonoBehaviour, SkillState
             Form.transform.position = new Vector3(transform.position.x - 2f, transform.position.y + Border, transform.position.z);
         }
         */
-        bulletObject.transform.position = new Vector3(transform.position.x, transform.position.y , transform.position.z);
-        bulletObject.GetComponent<Bullet>().SetData(Target.gameObject, Damage);
-        bulletObject.GetComponent<Bullet>().Shoot();
     }
 
     public virtual void StartRestriction()
