@@ -72,7 +72,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         Rigidbody = GetComponent<Rigidbody>();
 
-        Renderer = GetComponent<SpriteRenderer>();
+        Renderer = GetComponentInChildren<SpriteRenderer>();
 
         Animator = GetComponentInChildren<Animator>();
 
