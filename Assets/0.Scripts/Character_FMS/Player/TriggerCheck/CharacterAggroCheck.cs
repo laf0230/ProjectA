@@ -21,7 +21,7 @@ public class CharacterAggroCheck : MonoBehaviour
             if (!other.enabled) return;
             Targets.Add(other.gameObject);
             _character.SetAggrostatus(true);
-            _character.SetTarget(GetTarget());
+            _character.Target = GetTarget();
         }
     }
 

@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable, ITargetingable, ISkillable
+public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable
 {
     [field: SerializeField] public float MaxHealth { get; set; }
     [field: SerializeField] public float ChaseSpeed { get; set; } = 1.75f;
@@ -19,6 +21,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
     [field: SerializeField] public GameObject Target { get; set; }
+    [field: SerializeField] public GameObject Bullet { get; set; }
     // 동시에 여러 줄을 작성할 때 쿼리가 작동하면 취소됨 -> 수정할 것.
 
     #region StateMachine Variables
@@ -33,12 +36,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Skill Variables
     
-    public Attack Attack { get; set; }
-    public Skill Skill { get; set; }
-    public SpecialSkill SpecialSkill { get; set; }
-    [field: SerializeField] public SkillDataSO AttackDataSO { get; set; }
-    [field: SerializeField] public SkillDataSO SkillDataSO { get; set; }
-    [field: SerializeField] public SkillDataSO SpecialSkillDataSO { get; set; }
+    [field: SerializeField] public List<Combat> combats { get; set; }
+    [field: SerializeField] public List<SkillDataSO> skillData { get; set; }
     public bool IsAttackable { get; set; } = true;
     public bool IsBuffable { get; set; } = false;
     #endregion
@@ -66,7 +65,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         EscapeState = new CharacterEscapeState(this, StateMachine);
     }
 
-    public void Start()
+    public virtual void Start()
     {
         CurrentHealth = MaxHealth;
 
@@ -77,24 +76,37 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Animator = GetComponentInChildren<Animator>();
 
         StateMachine.Initialize(IdleState);
+
+        foreach(var data in skillData)
+        {
+            // 등록된 스킬 데이터의 수만큼 스킬 추가 및 초기화
+            var skill = gameObject.AddComponent<Combat>();
+            combats.Add(skill);
+            skill.Initialize( new SkillInfo(
+                    data.Name, 
+                    data.Type, 
+                    data.rangeType, 
+                    data.targetType,
+                    data.CoolTime, 
+                    new BulletInfo(data.Damage, data.Speed, transform)
+                    , data.Ability
+                    ));
+
+            skill.bulletSettings.bulletPrefab = Bullet;
+        }
     }
 
     public void Update()
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
-        /*
-        if (IsWithinstrikingDistance && Attack.isAttackable && Skill.isAttacking && SpecialSkill.isAttackable)
-        {
-         //   IsAttackable = true;
-        } else
-        {
-          //  IsAttackable = false;
-        }
-        */
-        if (!Target.activeSelf)
+
+        if (GameObject.FindGameObjectsWithTag("Character").Length <= 1)
         {
             GameManager.Instance.GameEnd();
         }
+
+        // 사용할 수 있는 스킬이 있을 경우에 true 값 설정
+        IsAttackable = combats.Any(combat => combat.IsUseable());
     }
 
     public void FixedUpdate()
@@ -141,7 +153,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public void MoveTo(Vector3 velocity)
     {
             Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
-
+        
             CheckForLeftOrRightFacing(velocity);
     }
 
@@ -227,7 +239,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             default:
                 Debug.LogError($"Unhandled triggerType: {triggerType}");
                 break;
+
         }
+                Debug.Log("Current Animation State: " + triggerType.ToString());
     }
 
     public enum AnimationTriggerType
@@ -241,32 +255,4 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #endregion
 
-    #region Attacking 
-
-    public void SetTarget(GameObject target)
-    {
-        this.Target = target;
-    }
-
-    public void SetAttack(Attack attack)
-    {
-          Attack = attack;
-    }
-
-    public void SetSkill(Skill skill)
-    {
-        Skill = skill;
-    }
-
-    public void SetSpecialSkill(SpecialSkill specialSkill)
-    {
-        SpecialSkill = specialSkill; 
-    }
-
-    public void DoAttack()
-    {
-        StateMachine.ChangeState(AttackState);
-    }
-
-    #endregion
 }

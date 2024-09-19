@@ -1,11 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
-/*
-    애니메이션 실행으로 사용
- */
 
 public enum SkillSwitcher
 {
@@ -17,16 +12,8 @@ public enum SkillSwitcher
 public class CharacterAttackState : State
 {
     private Transform _transform;
-    private Character _target;
-
-    public Attack Attack;
-    public Skill Skill;
-    public SpecialSkill SpecialSkill;
-
-    public bool isAttacking = false;
-
-    public Queue<SkillSwitcher> skillQueue = new Queue<SkillSwitcher>();
-    SkillBase currentSkill;
+    private Transform _target;
+    private Combat Attack;
 
     public CharacterAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
@@ -42,77 +29,47 @@ public class CharacterAttackState : State
     {
         base.EnterState();
 
-        Debug.Log(".............................................");
-
-        Attack = character.Attack;
-        Skill = character.Skill;
-        SpecialSkill = character.SpecialSkill;
-        character.SetMoveAble(false);
-
-        #region Enqueue Skills
-
-        if (SpecialSkill.isAttackable)
+        _target = character.Target.transform;
+        foreach(var combat in character.combats)
         {
-            skillQueue.Enqueue(SkillSwitcher.specialSkill);
-        }
-
-        if(Skill.isAttackable)
-        {
-            skillQueue.Enqueue(SkillSwitcher.skill);
-        }
-
-        if (Attack.isAttackable)
-        {
-            skillQueue.Enqueue(SkillSwitcher.attack);
-        }
-
-        #endregion 
-
-        // for Skill State
-        _target = character.Target.GetComponent<Character>();
-
-        switch (skillQueue?.Dequeue())
-        {
-            case SkillSwitcher.specialSkill:
-                currentSkill = SpecialSkill;
-                character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+            // 공격 상태일 때 사용할 스킬 할당
+            if(combat.IsUseable())
+            {
+                Attack = combat;
+                Attack.SetTarget(_target);
                 break;
+            }
+        }
 
-            case SkillSwitcher.skill:
-                currentSkill = Skill;
-                character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
-                break;
-
-            case SkillSwitcher.attack:
-                currentSkill = Attack;
+        switch(Attack.skillInfo.type)
+        {
+            case SkillType.Attack:
                 character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
                 break;
+            case SkillType.Skill:
+                character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
+                break;
+            case SkillType.SpecialSkill:
+                character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
+                break;
         }
-        currentSkill.isAttacking = true;
-        currentSkill.isAttackable = false;
+        
+        Debug.Log("Skill Type: " + Attack.skillInfo.type);
     }
 
-    public override void ExitState()
+    public void DoAttack()
     {
-        base.ExitState();
-
-        character.SetMoveAble(true);
+        Attack.Use();
+    }
+    
+    public void EffectAbility()
+    {
+        Attack.EffectAbility();
     }
 
-    public override void FrameUpdate()
+    public void EndAttack()
     {
-        base.FrameUpdate();
-
-        character.CheckForLeftOrRightFacing(_target.transform.position - _transform.position);
-
-        if (currentSkill.isAttacking == false)
-        {
-            character.StateMachine.ChangeState(character.ChaseState);
-        }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+        Attack.cooldown.ResetCooldown();
+        stateMachine.ChangeState(character.ChaseState);
     }
 }

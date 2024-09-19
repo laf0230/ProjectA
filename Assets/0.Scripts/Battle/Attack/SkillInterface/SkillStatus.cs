@@ -9,14 +9,17 @@ public interface SkillStatus
     public Character SelfCharacter { get; set; }
     public Character Target { get; set; }
     public float CoolTime { get; set; } // 쿨타임
-    public float SpellingSkillDistance { get; set; } // 스킬 시전거리
     public float Damage { get; set; } // 데미지
-    public bool IsArea { get; set; } // 광범위 여부
-    public bool IsPenetration { get; set; } // 관통 여부
-    public bool IsTracking { get; set; } // 추적 여부
-    public float SkillRange { get; set; } // 스킬 범위
-    public float Duration { get; set; } // 스킬 지속 시간
     public GameObject bulletPrefab { get; set; } // 스킬 형태
+    /* Dummy
     public float Scope { get; set; } // 스킬 범위
     public float MotionDelay { get; set; } // 에니메이션의 총 시간
+    public bool IsTracking { get; set; } // 추적 여부
+    public float SkillRange { get; set; } // 스킬 범위
+    public float SpellingSkillDistance { get; set; } // 스킬 시전거리
+    public bool IsArea { get; set; } // 광범위 여부
+    public bool IsPenetration { get; set; } // 관통 여부
+    public float Duration { get; set; } // 스킬 지속 시간
+
+     */
 }

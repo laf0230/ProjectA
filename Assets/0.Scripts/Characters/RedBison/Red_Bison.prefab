@@ -148,8 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1194371501142412615, guid: 1431f50af5e15fb448104aac4a79b245,
-    type: 3}
+  m_Sprite: {fileID: 1194371501142412615, guid: 1431f50af5e15fb448104aac4a79b245, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -268,16 +267,14 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   <ChaseSpeed>k__BackingField: 1.75
   <CurrentHealth>k__BackingField: 0
-  <IsMoveable>k__BackingField: 1
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 1
   <Target>k__BackingField: {fileID: 0}
-  <AttackDataSO>k__BackingField: {fileID: 11400000, guid: c405a5224e182434cbbb1bb0e194d282,
-    type: 2}
-  <SkillDataSO>k__BackingField: {fileID: 11400000, guid: 190726847e68a86489b5e65ba77640c2,
-    type: 2}
-  <SpecialSkillDataSO>k__BackingField: {fileID: 11400000, guid: cd0b5a50552c4234aa88115d33cd2fd9,
-    type: 2}
+  <Bullet>k__BackingField: {fileID: 0}
+  <combats>k__BackingField: []
+  <AttackDataSO>k__BackingField: {fileID: 11400000, guid: c405a5224e182434cbbb1bb0e194d282, type: 2}
+  <SkillDataSO>k__BackingField: {fileID: 11400000, guid: 190726847e68a86489b5e65ba77640c2, type: 2}
+  <SpecialSkillDataSO>k__BackingField: {fileID: 11400000, guid: cd0b5a50552c4234aa88115d33cd2fd9, type: 2}
   RandomMovementRange: 5
 --- !u!1 &9207445674259036541
 GameObject:

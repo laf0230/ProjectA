@@ -10,8 +10,16 @@ public class Poolable : MonoBehaviour
 
 public class PoolManager : MonoBehaviour
 {
+    public static PoolManager instance;
+    
     Dictionary<string, Pool> _pool = new Dictionary<string, Pool>();
     Transform _root;
+
+    private void Awake()
+    {
+        if(instance = null)
+            instance = this;
+    }
 
     public void Init()
     {
