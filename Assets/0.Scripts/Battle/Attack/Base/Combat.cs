@@ -77,6 +77,7 @@ public class Combat : MonoBehaviour
     public BulletSettings bulletSettings = new BulletSettings();  // 탄환 설정 인스펙터에 노출
     public SkillInfo skillInfo;                    // 스킬 정보(탄환 포함)
     [SerializeField] private BulletInfo bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
+    public List<Ability_> abilities = new List<Ability_>();
 
     // 매 프레임마다 호출되는 Update 메서드
     private void Update()
@@ -95,6 +96,13 @@ public class Combat : MonoBehaviour
         // 쿨타임 및 탄환 정보 설정
         cooldown.SetTotalCoolTime(skillInfo.totalCoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
         bulletSettings.Initialize(bulletInfo);
+        if (skillInfo.abilityInfos != null)
+        {
+            foreach(var ability in skillInfo.abilityInfos)
+            {
+                // AbilityManager으로부터 Ability 호출
+            }
+        }
     }
 
     public void SetSkillInfo(SkillInfo skillInfo)

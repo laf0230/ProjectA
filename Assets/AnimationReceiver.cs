@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum AnimationType
 {
-    Impact,
+    Start,
     End,
+    Impact,
     Ability
 }
 

@@ -20,5 +20,5 @@ public class SkillDataSO : ScriptableObject
     public float CoolTime;
     public float Damage;
     public float Speed;
-    public List<AbilitySO> Ability;
+    public List<AbilityInfo> Ability;
 }

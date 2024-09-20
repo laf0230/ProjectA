@@ -29,9 +29,9 @@ public class SkillInfo
     public int targetType;            // 대상 타입 (단일 대상, 다중 대상 등)
     public float totalCoolTime;            // 충돌 시간 또는 딜레이
     public BulletInfo bulletInfo;
-    public List<AbilitySO> abilities; // 스킬과 관련된 능력 리스트
+    public List<AbilityInfo> abilityInfos; // 스킬과 관련된 능력 리스트
 
-    public SkillInfo(string name, SkillType type, int rangeType, int targetType, float totalCoolTime, BulletInfo bulletInfo, List<AbilitySO> abilities)
+    public SkillInfo(string name, SkillType type, int rangeType, int targetType, float totalCoolTime, BulletInfo bulletInfo, List<AbilityInfo> abilityInfos)
     {
         Name = name;
         this.type = type;
@@ -39,6 +39,6 @@ public class SkillInfo
         this.targetType = targetType;
         this.totalCoolTime = totalCoolTime;
         this.bulletInfo = bulletInfo;
-        this.abilities = abilities;
+        this.abilityInfos = abilityInfos;
     }
 }

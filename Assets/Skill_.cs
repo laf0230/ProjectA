@@ -19,7 +19,7 @@ public class Skill_ : MonoBehaviour
     public int RangeType;
     public int TargetType;
     public float CollTime;
-    public List<AbilitySO> Abilities;
+    public List<AbilityInfo> Abilities;
 
 
     
