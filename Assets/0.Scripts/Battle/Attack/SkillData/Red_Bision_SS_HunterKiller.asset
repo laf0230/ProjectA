@@ -19,4 +19,16 @@ MonoBehaviour:
   CoolTime: 30
   Damage: 10
   Speed: 5
-  Ability: []
+  Ability:
+  - ID: 1
+    Name: Invisible
+    Value: 20
+    Duration: 10
+    shape: 0
+    AnimationType: 0
+  - ID: 2
+    Name: Poison
+    Value: 5
+    Duration: 10
+    shape: 0
+    AnimationType: 0

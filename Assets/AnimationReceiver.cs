@@ -21,16 +21,12 @@ public class AnimationReceiver: MonoBehaviour
 
     public void AnimationTrigger(AnimationType type)
     {
-        Debug.Log(type);
-
         switch(type)
         {
             case AnimationType.Impact:
-                Debug.Log("Attack--");
                 character.AttackState.DoAttack();
                 break;
             case AnimationType.End:
-                Debug.Log("End Attack--");
                 character.AttackState.EndAttack();
                 break;
             case AnimationType.Ability:

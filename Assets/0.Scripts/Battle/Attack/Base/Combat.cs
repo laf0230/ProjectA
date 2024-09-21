@@ -96,11 +96,14 @@ public class Combat : MonoBehaviour
         // 쿨타임 및 탄환 정보 설정
         cooldown.SetTotalCoolTime(skillInfo.totalCoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
         bulletSettings.Initialize(bulletInfo);
-        if (skillInfo.abilityInfos != null)
+
+        // 버프, 디버프, 군중제어 능력이 있을 경우 추가
+        if (skillInfo.abilityInfos.Count > 0)
         {
-            foreach(var ability in skillInfo.abilityInfos)
+            abilities = AbilityManager.Instance.GetAbilities(skillInfo.abilityInfos);
+            foreach (var ability in abilities)
             {
-                // AbilityManager으로부터 Ability 호출
+                Debug.Log(ability);
             }
         }
     }

@@ -19,8 +19,4 @@ MonoBehaviour:
   CoolTime: 5
   Damage: 1
   Speed: 5
-  Ability:
-  - ID: 0
-    Value: 0
-    TargetType: 0
-    AnimationType: 0
+  Ability: []
