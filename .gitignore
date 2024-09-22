@@ -74,3 +74,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]cenes*
 
 *.vsconfig
+
+# Custom Ignores
+*.TGA

@@ -23,6 +23,8 @@ public class AnimationReceiver: MonoBehaviour
     {
         switch(type)
         {
+            case AnimationType.Start:
+                break;
             case AnimationType.Impact:
                 character.AttackState.DoAttack();
                 break;
@@ -30,7 +32,7 @@ public class AnimationReceiver: MonoBehaviour
                 character.AttackState.EndAttack();
                 break;
             case AnimationType.Ability:
-                character.AttackState.EffectAbility();
+                character.AttackState.DoAbility();
                 break;
         }
     }
