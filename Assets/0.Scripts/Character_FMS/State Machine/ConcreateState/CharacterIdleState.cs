@@ -40,7 +40,7 @@ public class CharacterIdleState : State
 
         if (character.IsAggroed)
         {
-            _targetThreatLevel = character.Target.GetComponent<Character>().ThreatLevel;
+            _targetThreatLevel = character.Targets[0].GetComponent<Character>().ThreatLevel;
             if (character.ThreatLevel >= _targetThreatLevel)
             {
                 // 추적할 때

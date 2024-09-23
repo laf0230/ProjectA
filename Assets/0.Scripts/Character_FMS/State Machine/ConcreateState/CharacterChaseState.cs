@@ -24,11 +24,11 @@ public class CharacterChaseState : State
 
         AnimationTriggerEvent(Character.AnimationTriggerType.Run);
 
-        _targetTransform = character.Target.transform;
+        _targetTransform = character.Targets[0].transform;
 
         _moveSpeed = character.Status.ChaseSpeed;
 
-        _targetCharacter = character.Target.GetComponent<Character>();
+        _targetCharacter = character.Targets[0].GetComponent<Character>();
     }
 
     public override void ExitState()
@@ -52,7 +52,9 @@ public class CharacterChaseState : State
             character.StateMachine.ChangeState(character.AttackState);
         }
 
-        character.MoveTo(((_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
+        Vector3 direction = (_targetTransform.position - character.transform.position).normalized;
+
+        character.MoveTo(direction, _moveSpeed);
     }
 
     public override void PhysicsUpdate()

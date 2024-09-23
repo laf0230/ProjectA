@@ -18,6 +18,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public CharacterStatus Status = new CharacterStatus();
     [field: SerializeField] public float CurrentHealth { get; set; }
     public Rigidbody Rigidbody { get; set; }
+    public NavMeshAgent Agent { get; set; }
     public bool IsFacingRight { get; set; } = true;
     public bool IsAggroed { get; set; }
     public bool IsWithinstrikingDistance { get; set; }
@@ -25,7 +26,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public Animator Animator { get; set; }
     [field: SerializeField] public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
-    [field: SerializeField] public GameObject Target { get; set; }
+    [field: SerializeField] public List<GameObject> Targets { get; set; }
     // 동시에 여러 줄을 작성할 때 쿼리가 작동하면 취소됨 -> 수정할 것.
 
     #region StateMachine Variables
@@ -80,6 +81,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Animator = GetComponentInChildren<Animator>();
 
         StateMachine.Initialize(IdleState);
+
+        Agent = GetComponent<NavMeshAgent>();
+
+        Agent.speed = Status.ChaseSpeed;
 
         foreach(var data in skillData)
         {
@@ -150,18 +155,24 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         NavMeshAgent agent =  GetComponent<NavMeshAgent>();
 
         agent.enabled = isActive;
+        agent.isStopped = isActive;
+        agent.SetDestination(transform.position);
     }
 
     public void MoveTo(Vector3 velocity)
     {
-            Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
+            // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z);
+        Agent.Move(new Vector3(velocity.x, 0f, velocity.z));
         
-            CheckForLeftOrRightFacing(velocity);
+        CheckForLeftOrRightFacing(velocity);
     }
 
-    public void MoveTo(Vector3 velocity, float speed)
+    public void MoveTo(Vector3 velocity, float speed = 1f)
     {
-            Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
+        // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
+
+        Agent.speed = speed;
+        Agent.Move(new Vector3(velocity.x, 0f, velocity.z));
 
             CheckForLeftOrRightFacing(velocity);
     }

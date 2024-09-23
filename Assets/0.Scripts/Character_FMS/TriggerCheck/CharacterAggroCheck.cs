@@ -20,7 +20,7 @@ public class CharacterAggroCheck : MonoBehaviour
         {
             Targets.Add(other.gameObject);
             _character.SetAggrostatus(true);
-            _character.Target = GetTarget();
+            _character.Targets = Targets;
         }
     }
 
@@ -35,18 +35,23 @@ public class CharacterAggroCheck : MonoBehaviour
     
     public GameObject GetTarget()
     {
+        return GetTargets()[0];
+    }
+
+    public List<GameObject> GetTargets()
+    {
         // 추가적인 타겟 지정 코드 //
-        GameObject target = null;
+        List<GameObject> target = null;
         foreach(GameObject _target in Targets)
         {
             var enemy = _target.GetComponent<Character>();
             if (_character.ThreatLevel >= enemy.ThreatLevel)
             {
                 // 위협도가 더 낮음 + 먼저 들어온 캐릭터
-                target = _target;
+                target.Add(_target);
             } else if(_character.ThreatLevel <  enemy.ThreatLevel)
             {
-                target = _target;
+                target.Add(_target);
             }
             else
             {

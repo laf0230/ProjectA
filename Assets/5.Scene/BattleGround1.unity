@@ -1084,7 +1084,7 @@ MonoBehaviour:
   <CurrentHealth>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 1
-  <Target>k__BackingField: {fileID: 0}
+  <Targets>k__BackingField: []
   <combats>k__BackingField: []
   <skillData>k__BackingField: []
   RandomMovementRange: 5
@@ -1949,6 +1949,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedBison
       objectReference: {fileID: 0}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: Status.ChaseSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: m_Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: m_Acceleration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8134802357482358198, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.58
@@ -2408,6 +2424,18 @@ PrefabInstance:
       propertyPath: <combats>k__BackingField.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
+      propertyPath: m_Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
+      propertyPath: m_Acceleration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9207533084604598450, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.8
@@ -2554,7 +2582,7 @@ MonoBehaviour:
   <CurrentHealth>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 0
-  <Target>k__BackingField: {fileID: 0}
+  <Targets>k__BackingField: []
   <combats>k__BackingField: []
   <skillData>k__BackingField: []
   RandomMovementRange: 5
@@ -2684,8 +2712,8 @@ SceneRoots:
   - {fileID: 401328121}
   - {fileID: 58001393}
   - {fileID: 1863977182}
-  - {fileID: 1381374160}
   - {fileID: 1349305766}
   - {fileID: 1226845731}
   - {fileID: 1755901112}
   - {fileID: 911212011}
+  - {fileID: 1381374160}

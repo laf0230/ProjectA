@@ -17,7 +17,7 @@ public class CharacterEscapeState : State
 
         AnimationTriggerEvent(Character.AnimationTriggerType.Run);
 
-        _targetTransform = character.Target.transform;
+        _targetTransform = character.Targets[0].transform;
         _moveSpeed = character.Status.ChaseSpeed;
     }
 
@@ -30,8 +30,9 @@ public class CharacterEscapeState : State
             // 인식 범위 내에 적이 없을 경우
             character.StateMachine.ChangeState(character.IdleState);
         }
+        Vector3 direction = -(_targetTransform.position - character.transform.position).normalized;
 
-        character.MoveTo((-(_targetTransform.position - character.transform.position) * _moveSpeed).normalized, _moveSpeed);
+        character.MoveTo(direction, _moveSpeed);
     }
 
     public override void ExitState()

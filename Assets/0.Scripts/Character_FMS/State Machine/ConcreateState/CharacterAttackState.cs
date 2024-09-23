@@ -29,7 +29,7 @@ public class CharacterAttackState : State
     {
         base.EnterState();
 
-        _target = character.Target.transform;
+        _target = character.Targets[0].transform;
         foreach(var combat in character.combats)
         {
             // 공격 상태일 때 사용할 스킬 할당
@@ -59,7 +59,6 @@ public class CharacterAttackState : State
 
     public void DoAttack()
     {
-        Debug.Log("asdddddddddddddddddd");
         Attack.Use();
     }
 
