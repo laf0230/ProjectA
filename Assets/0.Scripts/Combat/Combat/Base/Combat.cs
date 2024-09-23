@@ -57,7 +57,6 @@ public class Combat : MonoBehaviour
         // 탄환을 생성하고 속도 및 데미지를 설정
         public Bullet InstantiateBullet(Transform spawnPosition)
         {
-            Debug.Log("Spawn Trnasform" + BulletManager.instance.name);
             var bullet = BulletManager.instance.CreateBulletFromTransform(0, spawnPosition);
             bullet.SetSpeed(speed);
             bullet.SetDamage(damage);

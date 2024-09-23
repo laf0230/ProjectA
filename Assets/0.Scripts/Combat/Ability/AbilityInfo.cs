@@ -42,13 +42,17 @@ public enum TargetType_
 [System.Serializable]
 public class AbilityInfo
 {
-    public int ID;
     public string Name;
+    public int ID;
+    public bool IsPercentage;
     public float Value;
+    public float PerValue;
     public float Duration;
     public TargetType_ TargetType;
     public Shape shape;
     public AnimationType AnimationType;
+    [Header("스텟을 바꾸는 어빌리티일 때 사용")]
+    public StatusList EffectStatus = new StatusList();
 }
 
 public interface IAbility
@@ -168,7 +172,7 @@ public class Poison : Ability_
     }
 }
 
-public class SpeedTransition : Ability_
+public class StatusTransition : Ability_
 {
     private Character targetCharacter;
     public override AbilityInfo Info { get; set; }
@@ -176,17 +180,61 @@ public class SpeedTransition : Ability_
 
     public override void use(Transform Target)
     {
-        var statusTransition = new CharacterStatus();
-        
         targetCharacter = Target.GetComponent<Character>();
-        // targetCharacter.Status.ChaseSpeed
+
+        switch (Info.EffectStatus)
+        {
+            case StatusList.Health:
+                ChangeHealth();
+                break;
+            case StatusList.Speed:
+                ChangeSpeed();
+                break;
+            case StatusList.AttackSpeed:
+                ChangeAttackSpeed();
+                break;
+        }
     }
 
-    /*
-    IEnumerator SpeedTransition_()
+    private void ChangeHealth()
     {
-        var currentSpeed = targetCharacter.Status.ChaseSpeed;
-        // currentSpeed = 
+        // Assuming Info.Value is the amount of health to change, 
+        // and Info.IsPercentage determines if it's a percentage or a flat value
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            targetCharacter.CurrentHealth += targetCharacter.Status.MaxHealth * percentageChange;
+        }
+        else
+        {
+            targetCharacter.CurrentHealth += Info.Value;
+        }
     }
-    */ 
+
+    private void ChangeSpeed()
+    {
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            targetCharacter.Status.ChaseSpeed = percentageChange;
+        }
+        else
+        {
+            targetCharacter.Status.ChaseSpeed += Info.Value;
+        }
+    }
+
+    // 기본 공격만 적용
+    private void ChangeAttackSpeed()
+    {
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            targetCharacter.Status.AttackSpeed += targetCharacter.Status.AttackSpeed * percentageChange;
+        }
+        else
+        {
+            targetCharacter.Status.AttackSpeed += Info.Value;
+        }
+    }
 }

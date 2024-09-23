@@ -54,7 +54,7 @@ public class CharacterChaseState : State
 
         Vector3 direction = (_targetTransform.position - character.transform.position).normalized;
 
-        character.MoveTo(direction, _moveSpeed);
+        character.MoveTo(_targetTransform, _moveSpeed);
     }
 
     public override void PhysicsUpdate()

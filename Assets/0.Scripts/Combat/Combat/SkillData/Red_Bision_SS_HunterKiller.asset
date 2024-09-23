@@ -20,9 +20,13 @@ MonoBehaviour:
   Damage: 10
   Speed: 5
   Ability:
-  - ID: 1
-    Name: Invisible
+  - Name: Invisible
+    ID: 1
+    IsPercentage: 0
     Value: 20
+    PerValue: 0
     Duration: 10
+    TargetType: 0
     shape: 0
     AnimationType: 0
+    EffectStatus: 0

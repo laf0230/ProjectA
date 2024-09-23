@@ -11,8 +11,9 @@ public class CharacterStatus
     public string Name;
     public float MaxHealth;
     public float ChaseSpeed = 1.75f;
+    public float AttackSpeed = 1.0f;
 }
-
+    
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable
 {
     [field: SerializeField] public CharacterStatus Status = new CharacterStatus();
@@ -154,8 +155,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         NavMeshAgent agent =  GetComponent<NavMeshAgent>();
 
-        agent.enabled = isActive;
         agent.isStopped = isActive;
+        agent.velocity = Vector3.zero;
         agent.SetDestination(transform.position);
     }
 
@@ -167,12 +168,21 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         CheckForLeftOrRightFacing(velocity);
     }
 
+
+    public void MoveTo(Transform target, float speed = 1f)
+    {
+        // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
+        Agent.speed = speed;
+        Agent.SetDestination(target.position);
+
+            CheckForLeftOrRightFacing(transform.position - target.position);
+    }
     public void MoveTo(Vector3 velocity, float speed = 1f)
     {
         // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
-
         Agent.speed = speed;
-        Agent.Move(new Vector3(velocity.x, 0f, velocity.z));
+        Agent.velocity = new Vector3(velocity.x, 0f, velocity.z);
+        Agent.SetDestination(velocity);
 
             CheckForLeftOrRightFacing(velocity);
     }

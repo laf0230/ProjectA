@@ -29,6 +29,8 @@ public class CharacterAttackState : State
     {
         base.EnterState();
 
+        character.SetMoveAble(false);
+
         _target = character.Targets[0].transform;
         foreach(var combat in character.combats)
         {
@@ -49,7 +51,7 @@ public class CharacterAttackState : State
             case SkillType.Skill:
                 character.AnimationTriggerEvent(Character.AnimationTriggerType.Skill);
                 break;
-            case SkillType.SpecialSkill:
+            case SkillType.Ultimate:
                 character.AnimationTriggerEvent(Character.AnimationTriggerType.SpecialSkill);
                 break;
         }
@@ -67,6 +69,7 @@ public class CharacterAttackState : State
         // 애니메이션에서 특수 능력을 사용하게 하는 트리거
         foreach (var ability in Attack.abilities)
         {
+            // 타겟의 종류에 따라서 타겟을 정함
             switch (ability.Info.TargetType)
             {
                 case TargetType_.Self:
@@ -87,6 +90,8 @@ public class CharacterAttackState : State
 
     public void EndAttack()
     {
+        character.SetMoveAble(true);
+        
         Attack.cooldown.ResetCooldown();
         stateMachine.ChangeState(character.ChaseState);
     }

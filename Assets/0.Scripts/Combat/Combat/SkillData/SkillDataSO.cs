@@ -6,8 +6,15 @@ public enum SkillType
 {
     Attack,
     Skill,
-    SpecialSkill,
+    Ultimate,
     Passive
+}
+
+public enum StatusList
+{
+    Health, // 체력
+    Speed, // 이동속도
+    AttackSpeed, // 공격 속도
 }
 
 [CreateAssetMenu(fileName = "", menuName = "New Skill Data")]

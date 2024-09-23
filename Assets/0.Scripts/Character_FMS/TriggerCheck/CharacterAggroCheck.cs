@@ -16,7 +16,10 @@ public class CharacterAggroCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != transform.parent && other.enabled && other.gameObject.CompareTag("Character"))
+        if (!Targets.Contains(other.gameObject) && 
+            other.gameObject != transform.parent &&
+            other.enabled &&
+            other.gameObject.CompareTag("Character"))
         {
             Targets.Add(other.gameObject);
             _character.SetAggrostatus(true);
