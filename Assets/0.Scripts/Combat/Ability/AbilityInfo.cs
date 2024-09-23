@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 // 타격 범위의 형태
 public enum Shape
@@ -12,7 +13,7 @@ public enum Shape
 // 어빌리티가 적용되는 형태, 범위
 public class RangeType
 {
-    Shape shape;   
+    Shape shape;
     float range;
 }
 
@@ -25,8 +26,8 @@ public interface MovableAbility
         Dash
     }
 
-    public MoveType moveType {  get; set; }
-    public float range {  get; set; }
+    public MoveType moveType { get; set; }
+    public float range { get; set; }
 
 }
 
@@ -38,6 +39,12 @@ public enum TargetType_
     Enemies
 }
 
+public enum MovementActionType
+{
+    Dash,
+    Teleport
+}
+
 // 스킬에 해당 어빌리티가 사용된다는 정보.
 [System.Serializable]
 public class AbilityInfo
@@ -45,24 +52,24 @@ public class AbilityInfo
     public string Name;
     public int ID;
     public bool IsPercentage;
+    public bool HasMovement;
     public float Value;
-    public float PerValue;
     public float Duration;
     public TargetType_ TargetType;
     public Shape shape;
     public AnimationType AnimationType;
     [Header("스텟을 바꾸는 어빌리티일 때 사용")]
     public StatusList EffectStatus = new StatusList();
+    public MovementActionType MovementActionType;
 }
 
 public interface IAbility
 {
     public AbilityInfo Info { get; set; }
-    public MonoBehaviour MonoBehaviour {  get; set; }
+    public MonoBehaviour MonoBehaviour { get; set; }
     public void Initialize(AbilityInfo info) { }
     public virtual void Use() { }
 }
-
 
 // 실질적으로 스킬에 사용되는 어빌리티 기능
 /*
@@ -75,7 +82,7 @@ abstract을 상속받는 클래스는 abstract키워드가 있을 경우 무조건 구현해야함
 
 public abstract class Ability_
 {
-    public abstract AbilityInfo Info {  get; set; }
+    public abstract AbilityInfo Info { get; set; }
     public MonoBehaviour MonoBehaviour { get; set; }
 
     public abstract Transform Target { get; set; }
@@ -92,11 +99,12 @@ public abstract class Ability_
     // 타겟이 다수일 경우
     public void use(List<Transform> Targets)
     {
-        foreach(Transform Target in Targets)
+        foreach (Transform Target in Targets)
         {
             use(Target);
         }
     }
+
 }
 
 // 어빌리티의 기능별 구현
@@ -172,6 +180,8 @@ public class Poison : Ability_
     }
 }
 
+
+// 스테이터스 변화
 public class StatusTransition : Ability_
 {
     private Character targetCharacter;

@@ -19,4 +19,5 @@ MonoBehaviour:
   CoolTime: 10
   Damage: 5
   Speed: 5
+  Reach: 10
   Ability: []

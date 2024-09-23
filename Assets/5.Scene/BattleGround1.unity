@@ -1003,6 +1003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726595566}
   - component: {fileID: 726595567}
+  - component: {fileID: 726595568}
   m_Layer: 0
   m_Name: Skill
   m_TagString: Untagged
@@ -1044,8 +1045,21 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 2.13
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &726595568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726595565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d87083aadf0e4fbf0652af92d5004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 1
 --- !u!1 &793360184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954954319}
   - component: {fileID: 954954320}
+  - component: {fileID: 954954321}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -1758,8 +1773,21 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 2.13
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &954954321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954954318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d87083aadf0e4fbf0652af92d5004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 0
 --- !u!1 &962530187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2366,14 @@ PrefabInstance:
       propertyPath: Status.ChaseSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: <Targets>k__BackingField.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: <combats>k__BackingField.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_Speed
       value: 1
@@ -2523,6 +2559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1422409346}
   - component: {fileID: 1422409347}
+  - component: {fileID: 1422409348}
   m_Layer: 0
   m_Name: Ultimate
   m_TagString: Untagged
@@ -2564,8 +2601,21 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 2.13
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1422409348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422409345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d87083aadf0e4fbf0652af92d5004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 2
 --- !u!1 &1434866414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8359257822874226516, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
@@ -2848,6 +2898,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType:
   - {fileID: 7103356825834454180, guid: 2df32fcbe39814f468563dd793df81a8, type: 3}
+  pool: []
+  poolCount: 0
 --- !u!1001 &1755901112
 PrefabInstance:
   m_ObjectHideFlags: 0

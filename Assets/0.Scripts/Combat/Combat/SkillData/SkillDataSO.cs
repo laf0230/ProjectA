@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using System;
 
 public enum SkillType
 {
@@ -16,7 +18,7 @@ public enum StatusList
     Speed, // 이동속도
     AttackSpeed, // 공격 속도
 }
-
+// [CustomEditor(typeof()]
 [CreateAssetMenu(fileName = "", menuName = "New Skill Data")]
 public class SkillDataSO : ScriptableObject
 {
@@ -27,5 +29,6 @@ public class SkillDataSO : ScriptableObject
     public float CoolTime;
     public float Damage;
     public float Speed;
+    public float Reach;
     public List<AbilityInfo> Ability;
 }

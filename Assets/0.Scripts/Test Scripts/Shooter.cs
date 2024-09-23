@@ -25,7 +25,8 @@ public class Shooter : MonoBehaviour
                 new BulletInfo(
                     10,
                     5,
-                    transform
+                    transform,
+                    10f
                     )
                 );
             skill.SetTarget( target );

@@ -7,7 +7,8 @@ public enum AnimationType
     Start,
     End,
     Impact,
-    Ability
+    Ability,
+    Movement
 }
 
 public class AnimationReceiver: MonoBehaviour
@@ -33,6 +34,9 @@ public class AnimationReceiver: MonoBehaviour
                 break;
             case AnimationType.Ability:
                 character.AttackState.DoAbility();
+                break;
+            case AnimationType.Movement:
+                character.AttackState.DoMove();
                 break;
         }
     }

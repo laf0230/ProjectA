@@ -19,14 +19,16 @@ MonoBehaviour:
   CoolTime: 30
   Damage: 10
   Speed: 5
+  Reach: 10
   Ability:
   - Name: Invisible
     ID: 1
     IsPercentage: 0
+    HasMovement: 0
     Value: 20
-    PerValue: 0
     Duration: 10
     TargetType: 0
     shape: 0
     AnimationType: 0
     EffectStatus: 0
+    MovementActionType: 0

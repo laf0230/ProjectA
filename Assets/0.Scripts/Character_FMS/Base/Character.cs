@@ -98,7 +98,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                     data.rangeType, 
                     data.targetType,
                     data.CoolTime, 
-                    new BulletInfo(data.Damage, data.Speed, transform)
+                    new BulletInfo(data.Damage, data.Speed, transform, data.Reach)
                     , data.Ability
                     ));
         }
@@ -112,6 +112,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         {
             GameManager.Instance.GameEnd();
         }
+
+        Targets.RemoveAll(target => Targets != null && !target.activeSelf);
 
         // 사용할 수 있는 스킬이 있을 경우에 true 값 설정
         IsAttackable = combats.Any(combat => combat.IsUseable());

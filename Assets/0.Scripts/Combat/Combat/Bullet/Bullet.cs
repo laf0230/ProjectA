@@ -7,6 +7,7 @@ public class Bullet : Poolable
     private Transform target;
     public float speed;
     public float damage;
+    public float reach;
     public Vector3 direction;
 
     private Rigidbody rb;
@@ -14,6 +15,21 @@ public class Bullet : Poolable
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+        reach = combatInfo.Reach;
+    }
+
+    private void Update()
+    {
+        // reach 만큼의 시간이 지나면 사라지는 코드
+        reach -= Time.deltaTime;
+        if (reach < 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +48,7 @@ public class Bullet : Poolable
         SetTarget(combatInfo.Target);
         SetSpeed(combatInfo.Speed);
         SetDamage(combatInfo.Damage);
+        SetReach(combatInfo.Reach);
     }
 
     public void SetCombatInfo(BulletInfo combatInfo)
@@ -57,6 +74,11 @@ public class Bullet : Poolable
     public void SetDamage(float damage)
     {
         this.damage = damage;
+    }
+
+    public void SetReach(float reach)
+    {
+        this.reach = reach;
     }
 
     public void Shoot()

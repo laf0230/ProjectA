@@ -53,13 +53,15 @@ public class Combat : MonoBehaviour
     {
         public float speed = 5f;          // 탄환의 속도
         public float damage = 10f;        // 탄환이 줄 데미지
+        public float reach = 10f;
 
         // 탄환을 생성하고 속도 및 데미지를 설정
         public Bullet InstantiateBullet(Transform spawnPosition)
         {
-            var bullet = BulletManager.instance.CreateBulletFromTransform(0, spawnPosition);
+            var bullet = BulletManager.instance.GetBulletFromTransform(0, spawnPosition);
             bullet.SetSpeed(speed);
             bullet.SetDamage(damage);
+            bullet.SetReach(reach);
             return bullet;
         }
         

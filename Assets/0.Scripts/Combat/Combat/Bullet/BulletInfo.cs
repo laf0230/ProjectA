@@ -2,24 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletInfo
+{
+
+    public float Damage;
+    public float Speed;
+    public float Reach;
+
+    public Transform User;
+    public Transform Target;
+
+    public BulletInfo(float damage, float speed, Transform user, float reach)
     {
-    
-        public float Damage;
-        public float Speed;
-    
-        public Transform User;
-        public Transform Target;
-    
-        public BulletInfo(float damage, float speed, Transform user)
-        {
-            Damage = damage;
-            Speed = speed;
-            User = user;
-        }
-    
-        public void SetTarget(Transform target) {  Target = target; }
-        public void setUser(Transform user) { User = user; }
+        Damage = damage;
+        Speed = speed;
+        User = user;
+        Reach = reach;
     }
+
+    public void SetTarget(Transform target) { Target = target; }
+    public void setUser(Transform user) { User = user; }
+}
 
 public class SkillInfo
 {
