@@ -50,7 +50,16 @@ public class AbilityInfoDrawer : PropertyDrawer
             EditorGUILayout.PropertyField(valueProp, new GUIContent("Value"));
             EditorGUILayout.PropertyField(durationProp, new GUIContent("Duration"));
             EditorGUILayout.PropertyField(targetTypeProp, new GUIContent("Target Type"));
-            EditorGUILayout.PropertyField(shapeProp, new GUIContent("Shape"));
+            switch (targetTypeProp.enumValueIndex)
+            {
+                case (int)TargetType_.Self:
+                    break;
+                case (int)TargetType_.Enemy:
+                    break;
+                case (int)TargetType_.Enemies:
+                    EditorGUILayout.PropertyField(shapeProp, new GUIContent("Shape"));
+                    break;
+            }
             EditorGUILayout.PropertyField(animationTypeProp, new GUIContent("Animation Type"));
             EditorGUILayout.PropertyField(hasMovementProp, new GUIContent("Has Movement"));
             if (hasMovementProp.boolValue)

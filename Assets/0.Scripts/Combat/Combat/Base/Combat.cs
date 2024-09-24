@@ -1,6 +1,8 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.Services.Analytics.Internal;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Combat : MonoBehaviour
 {
@@ -80,14 +82,29 @@ public class Combat : MonoBehaviour
     [SerializeField] private BulletInfo bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
     public List<Ability_> abilities = new List<Ability_>();
 
-    // 매 프레임마다 호출되는 Update 메서드
-    private void Update()
+
+    #region Getter/Setter
+
+    // 스킬이나 탄환의 목표를 설정
+    public void SetTarget(Transform target)
     {
-        // 게임 루프 동안 쿨타임을 지속적으로 감소시킴
-        cooldown.UpdateCooldown();
+        bulletInfo.SetTarget(target);
     }
 
+    // 스킬을 사용할 수 있는지 여부를 반환 (쿨타임 중이 아님)
+    public bool IsUseable() => cooldown.isUseable;
+
+    // 스킬이 현재 쿨타임 중인지 여부를 반환
+    public bool IsCooling() => cooldown.isCooling;
+
     // 모든 필요한 정보를 초기화하는 메서드
+    public void SetSkillInfo(SkillInfo skillInfo)
+    {
+        Initialize(skillInfo);
+    }
+
+    #endregion
+
     public void Initialize(SkillInfo skillInfo)
     {
         // 스킬 정보 및 탄환 정보 초기화
@@ -110,10 +127,13 @@ public class Combat : MonoBehaviour
         }
     }
 
-    public void SetSkillInfo(SkillInfo skillInfo)
+    // 매 프레임마다 호출되는 Update 메서드
+    private void Update()
     {
-        Initialize(skillInfo);
+        // 게임 루프 동안 쿨타임을 지속적으로 감소시킴
+        cooldown.UpdateCooldown();
     }
+
 
     // 스킬을 사용하는 메서드
     public void Use()
@@ -131,16 +151,35 @@ public class Combat : MonoBehaviour
         bullet.Shoot();
     }
 
-    // 스킬이나 탄환의 목표를 설정
-    public void SetTarget(Transform target)
+    public void MovementAction(MovementActionType type)
     {
-        bulletInfo.SetTarget(target);
+        switch (type)
+        {
+            case MovementActionType.Dash:
+                DashToTarget(bulletInfo.Target);
+                break;
+            case MovementActionType.Teleport:
+                TeleportToTarget(bulletInfo.Target);
+                break;
+                // 다른 MovementActionType에 대한 케이스 추가 가능
+        }
+    }
+    private void DashToTarget(Transform target)
+    {
+        // 대시할 거리 설정 (예: 5.0f)
+        float dashDistance = 5.0f;
+        Vector3 dashDirection = (target.position - transform.position).normalized;
+        Vector3 dashPosition = transform.position + dashDirection * dashDistance;
+
+        // NavMeshAgent를 통해 대시
+        gameObject.transform.parent.GetComponent<NavMeshAgent>().Move(dashDirection * dashDistance);
     }
 
-    // 스킬을 사용할 수 있는지 여부를 반환 (쿨타임 중이 아님)
-    public bool IsUseable() => cooldown.isUseable;
+    private void TeleportToTarget(Transform target)
+    {
+        // 목표 위치로 순간 이동
+        transform.position = target.position;
+    }
 
-    // 스킬이 현재 쿨타임 중인지 여부를 반환
-    public bool IsCooling() => cooldown.isCooling;
 }
 

@@ -37,4 +37,8 @@ public class CharacterSkillCheck : MonoBehaviour
             Character.Targets.Add(other.gameObject);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+    }
 }
