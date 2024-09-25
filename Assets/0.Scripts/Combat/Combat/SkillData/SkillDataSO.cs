@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using System;
 
 public enum SkillType
 {
@@ -18,17 +16,27 @@ public enum StatusList
     Speed, // 이동속도
     AttackSpeed, // 공격 속도
 }
-// [CustomEditor(typeof()]
+
+public enum SkillShapeType
+{
+    Circle,
+    Rectangle
+}
+
 [CreateAssetMenu(fileName = "", menuName = "New Skill Data")]
 public class SkillDataSO : ScriptableObject
 {
-    public string Name;
+    public Profile Profile;
     public SkillType Type;
-    public int rangeType;             // 스킬 범위 타입 (근접, 원거리 등)
+    public SkillShapeType ShapeType;
+    public float SkillSize;
     public int targetType;            // 대상 타입 (단일 대상, 다중 대상 등)
     public float CoolTime;
     public float Damage;
     public float Speed;
     public float Reach;
+    public bool hasMovementAction;
+    public MovementActionType MovementActionType;
+    public float MovementRange;
     public List<AbilityInfo> Ability;
 }

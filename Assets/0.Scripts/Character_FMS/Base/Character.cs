@@ -6,17 +6,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [System.Serializable]
-public class CharacterStatus
+public class CharacterStat
 {
-    public string Name;
     public float MaxHealth;
     public float ChaseSpeed = 1.75f;
     public float AttackSpeed = 1.0f;
 }
-    
+
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable
 {
-    [field: SerializeField] public CharacterStatus Status = new CharacterStatus();
+    public Profile Profile = new Profile();
+    public CharacterStat Status = new CharacterStat();
     [field: SerializeField] public float CurrentHealth { get; set; }
     public Rigidbody Rigidbody { get; set; }
     public NavMeshAgent Agent { get; set; }
@@ -93,9 +93,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             var skill = gameObject.AddComponent<Combat>();
             combats.Add(skill);
             skill.Initialize( new SkillInfo(
-                    data.Name, 
                     data.Type, 
-                    data.rangeType, 
+                    data.ShapeType, 
                     data.targetType,
                     data.CoolTime, 
                     new BulletInfo(data.Damage, data.Speed, transform, data.Reach)

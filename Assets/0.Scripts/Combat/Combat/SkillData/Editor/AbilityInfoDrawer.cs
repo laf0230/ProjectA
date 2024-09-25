@@ -1,82 +1,263 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 [CustomPropertyDrawer(typeof(AbilityInfo))]
-public class AbilityInfoDrawer : PropertyDrawer
+public class AbilityInfoListEditor : Editor
 {
-    private bool foldout = false; // 접기 상태 저장
-    private Vector2 scrollPos; // 스크롤 위치 저장
+    private ReorderableList abilityList;
 
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    private void OnEnable()
     {
-        EditorGUI.BeginProperty(position, label, property);
+        // Initialize the ReorderableList
+        abilityList = new ReorderableList(serializedObject, serializedObject.FindProperty("Abilities"), true, true, true, true);
 
-        // 접기 상태 표시
-        foldout = EditorGUI.Foldout(new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight), foldout, label.text);
-
-        if (foldout)
+        // Set up the header for the list
+        abilityList.drawHeaderCallback = (Rect rect) =>
         {
-            // ScrollView 시작
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(0)); // 스크롤 높이 조절
+            EditorGUI.LabelField(rect, "능력 목록");
+        };
 
-            // Get properties
-            SerializedProperty nameProp = property.FindPropertyRelative("Name");
-            SerializedProperty idProp = property.FindPropertyRelative("ID");
-            SerializedProperty isPercentageProp = property.FindPropertyRelative("IsPercentage");
-            SerializedProperty valueProp = property.FindPropertyRelative("Value");
-            SerializedProperty durationProp = property.FindPropertyRelative("Duration");
-            SerializedProperty targetTypeProp = property.FindPropertyRelative("TargetType");
-            SerializedProperty shapeProp = property.FindPropertyRelative("shape");
-            SerializedProperty animationTypeProp = property.FindPropertyRelative("AnimationType");
-            SerializedProperty effectStatusProp = property.FindPropertyRelative("EffectStatus");
-            SerializedProperty hasMovementProp = property.FindPropertyRelative("HasMovement");
-            SerializedProperty MovementActionType = property.FindPropertyRelative("MovementActionType");
+        // Draw elements in the list
+        abilityList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+        {
+            SerializedProperty element = abilityList.serializedProperty.GetArrayElementAtIndex(index);
+            rect.y += 2; // Slightly offset the Y position for better visual alignment
 
-            // 필드 그리기
-            EditorGUILayout.PropertyField(nameProp, new GUIContent("Ability Name"));
-            EditorGUILayout.PropertyField(idProp, new GUIContent("Ability ID"));
-            EditorGUILayout.PropertyField(isPercentageProp, new GUIContent("Is Percentage"));
+            // Create a foldout for each ability
+            bool foldout = EditorGUI.Foldout(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                element.isExpanded, $"능력 {index + 1}");
 
-            // 스위치문으로 ID에 따라 다른 필드 표시
-            switch (idProp.intValue)
+            element.isExpanded = foldout;
+
+            if (foldout)
             {
-                case 0:
-                    EditorGUILayout.PropertyField(effectStatusProp, new GUIContent("Effect Status"));
-                    break;
-                default:
-                    break;
-            }
+                EditorGUI.indentLevel++; // Increase indent for nested properties
 
-            EditorGUILayout.PropertyField(valueProp, new GUIContent("Value"));
-            EditorGUILayout.PropertyField(durationProp, new GUIContent("Duration"));
-            EditorGUILayout.PropertyField(targetTypeProp, new GUIContent("Target Type"));
-            switch (targetTypeProp.enumValueIndex)
-            {
-                case (int)TargetType_.Self:
-                    break;
-                case (int)TargetType_.Enemy:
-                    break;
-                case (int)TargetType_.Enemies:
-                    EditorGUILayout.PropertyField(shapeProp, new GUIContent("Shape"));
-                    break;
-            }
-            EditorGUILayout.PropertyField(animationTypeProp, new GUIContent("Animation Type"));
-            EditorGUILayout.PropertyField(hasMovementProp, new GUIContent("Has Movement"));
-            if (hasMovementProp.boolValue)
-            {
-                EditorGUILayout.PropertyField(MovementActionType, new GUIContent("Movement Action Type"));
-            }
+                // Draw properties
+                DrawAbilityFields(rect, element);
 
-            // ScrollView 끝
-            EditorGUILayout.EndScrollView();
-        }
+                EditorGUI.indentLevel--; // Decrease indent after drawing
+            }
+        };
 
-        EditorGUI.EndProperty();
+        // Add new elements to the list
+        abilityList.onAddCallback = (ReorderableList l) =>
+        {
+            l.serializedProperty.arraySize++;
+            SerializedProperty newElement = l.serializedProperty.GetArrayElementAtIndex(l.serializedProperty.arraySize - 1);
+            InitializeNewAbility(newElement);
+        };
+
+        // Remove elements from the list
+        abilityList.onRemoveCallback = (ReorderableList l) =>
+        {
+            l.serializedProperty.DeleteArrayElementAtIndex(l.index);
+        };
     }
 
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    public override void OnInspectorGUI()
     {
-        // 접기 상태에 따라 높이 조정
-        return EditorGUIUtility.singleLineHeight;
+        serializedObject.Update();
+
+        // Draw the ReorderableList for abilities
+        abilityList.DoLayoutList();
+
+        // Mark the object as dirty if changes were made
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(target);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawAbilityFields(Rect position, SerializedProperty property)
+    {
+        // Offset for the properties
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        // Draw properties
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("Name"), new GUIContent("부가효과 이름"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("ID"), new GUIContent("부가효과 ID"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("IsPercentage"), new GUIContent("퍼센트 여부"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("Value"), new GUIContent("값"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("Duration"), new GUIContent("지속 시간"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("TargetType"), new GUIContent("목표물의 종류"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("shape"), new GUIContent("형태"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("AnimationType"), new GUIContent("애니메이션 트리거"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        // Draw movement-related fields
+        SerializedProperty hasMovementProp = property.FindPropertyRelative("HasMovement");
+        EditorGUI.PropertyField(position, hasMovementProp, new GUIContent("이동기 여부"));
+        position.y += EditorGUIUtility.singleLineHeight;
+
+        if (hasMovementProp.boolValue)
+        {
+            EditorGUI.PropertyField(position, property.FindPropertyRelative("MovementActionType"), new GUIContent("이동기의 종류"));
+        }
+
+        // Draw effect status field
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("EffectStatus"), new GUIContent("스텟"));
+    }
+
+    private void InitializeNewAbility(SerializedProperty newElement)
+    {
+        newElement.FindPropertyRelative("Name").stringValue = "새 능력"; // Default name
+        newElement.FindPropertyRelative("ID").intValue = 0; // Default ID
+        newElement.FindPropertyRelative("IsPercentage").boolValue = false; // Default percentage flag
+        newElement.FindPropertyRelative("Value").floatValue = 0f; // Default value
+        newElement.FindPropertyRelative("Duration").floatValue = 0f; // Default duration
+        newElement.FindPropertyRelative("TargetType").enumValueIndex = 0; // Default target type
+        newElement.FindPropertyRelative("HasMovement").boolValue = false; // Default movement flag
+        newElement.FindPropertyRelative("MovementActionType").enumValueIndex = 0; // Default movement action type
+    }
+}
+
+
+
+[CustomEditor(typeof(SkillDataSO))]
+public class SkillDataSOEditor : Editor
+{
+    SerializedProperty abilities;
+    ReorderableList reorderableList;  // ReorderableList 선언
+    private bool[] foldouts;
+
+    private void OnEnable()
+    {
+        abilities = serializedObject.FindProperty("Ability");
+
+        foldouts = new bool[abilities.arraySize];
+
+        reorderableList = new ReorderableList(serializedObject, abilities, true, true, true, true);
+
+        reorderableList.drawHeaderCallback = (Rect rect) =>
+        {
+            EditorGUI.LabelField(rect, "Abilities");
+        };
+
+        reorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+        {
+            SerializedProperty element = abilities.GetArrayElementAtIndex(index);
+            rect.y += 2;
+
+            SerializedProperty Name = element.FindPropertyRelative("Name");
+            foldouts[index] = EditorGUI.Foldout(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), foldouts[index], Name.stringValue);
+
+            if (foldouts[index])
+            {
+                EditorGUI.indentLevel++;
+
+                SerializedProperty name = element.FindPropertyRelative("Name");
+                SerializedProperty id = element.FindPropertyRelative("ID");
+                SerializedProperty isPercentage = element.FindPropertyRelative("IsPercentage");
+                SerializedProperty hasMovement = element.FindPropertyRelative("HasMovement");
+                SerializedProperty value = element.FindPropertyRelative("Value");
+                SerializedProperty duration = element.FindPropertyRelative("Duration");
+                SerializedProperty targetType = element.FindPropertyRelative("TargetType");
+                SerializedProperty shape = element.FindPropertyRelative("shape");
+                SerializedProperty animationType = element.FindPropertyRelative("AnimationType");
+                SerializedProperty effectStatus = element.FindPropertyRelative("EffectStatus");
+                SerializedProperty movementActionType = element.FindPropertyRelative("MovementActionType");
+
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 20, rect.width, EditorGUIUtility.singleLineHeight), name);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 40, rect.width, EditorGUIUtility.singleLineHeight), id);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 60, rect.width, EditorGUIUtility.singleLineHeight), isPercentage);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 80, rect.width, EditorGUIUtility.singleLineHeight), hasMovement);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 100, rect.width, EditorGUIUtility.singleLineHeight), value);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 120, rect.width, EditorGUIUtility.singleLineHeight), duration);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 140, rect.width, EditorGUIUtility.singleLineHeight), targetType);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 160, rect.width, EditorGUIUtility.singleLineHeight), shape);
+                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 180, rect.width, EditorGUIUtility.singleLineHeight), animationType);
+
+                if (id.intValue == 0)
+                {
+                    EditorGUI.PropertyField(new Rect(rect.x, rect.y + 200, rect.width, EditorGUIUtility.singleLineHeight), effectStatus);
+                }
+
+                if (hasMovement.boolValue)
+                {
+                    EditorGUI.PropertyField(new Rect(rect.x, rect.y + 220, rect.width, EditorGUIUtility.singleLineHeight), movementActionType);
+                }
+
+                EditorGUI.indentLevel--;
+            }
+        };
+
+        reorderableList.elementHeightCallback = (int index) =>
+        {
+            // 기본 높이
+            float height = EditorGUIUtility.singleLineHeight + 4;
+
+            // 펼쳐졌을 때 추가 높이
+            if (foldouts[index])
+            {
+                height += 220f; // 각 필드들이 차지하는 높이 추가
+            }
+
+            return height;
+        };
+
+        reorderableList.onAddCallback = (ReorderableList list) =>
+        {
+            abilities.arraySize++;
+            foldouts = new bool[abilities.arraySize];
+        };
+
+        reorderableList.onRemoveCallback = (ReorderableList list) =>
+        {
+            abilities.DeleteArrayElementAtIndex(list.index);
+            foldouts = new bool[abilities.arraySize];
+        };
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        SkillDataSO skillData = (SkillDataSO)target;
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Skill Settings", EditorStyles.boldLabel);
+
+        skillData.Type = (SkillType)EditorGUILayout.EnumPopup("Skill Type", skillData.Type);
+        skillData.ShapeType = (SkillShapeType)EditorGUILayout.EnumPopup("Shape Type", skillData.ShapeType);
+        skillData.SkillSize = EditorGUILayout.FloatField("Skill Size", skillData.SkillSize);
+        skillData.targetType = EditorGUILayout.IntField("Target Type", skillData.targetType);
+        skillData.CoolTime = EditorGUILayout.FloatField("Cool Time", skillData.CoolTime);
+        skillData.Damage = EditorGUILayout.FloatField("Damage", skillData.Damage);
+        skillData.Speed = EditorGUILayout.FloatField("Speed", skillData.Speed);
+        skillData.Reach = EditorGUILayout.FloatField("Reach", skillData.Reach);
+        skillData.hasMovementAction = EditorGUILayout.Toggle("Has Movement Action", skillData.hasMovementAction);
+
+        if (skillData.hasMovementAction)
+        {
+            skillData.MovementRange = EditorGUILayout.FloatField("Movement Range", skillData.MovementRange);
+        }
+
+        EditorGUILayout.Space();
+        reorderableList.DoLayoutList();
+
+        serializedObject.ApplyModifiedProperties();
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(skillData);
+        }
     }
 }

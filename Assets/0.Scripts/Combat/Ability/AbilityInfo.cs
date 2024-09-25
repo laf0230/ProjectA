@@ -80,7 +80,7 @@ abstract을 상속받는 클래스는 abstract키워드가 있을 경우 무조건 구현해야함
 구현이 가능하고 강제할 수 있음
  */
 
-public abstract class Ability_
+public abstract class Ability
 {
     public abstract AbilityInfo Info { get; set; }
     public MonoBehaviour MonoBehaviour { get; set; }
@@ -114,7 +114,7 @@ public abstract class Ability_
 이를 해결하기 위해 Monobehavior만을 사용하는 방식 채용
 */
 
-public class Invisible : Ability_
+public class Invisible : Ability
 {
     public override AbilityInfo Info { get; set; }
     public override Transform Target { get; set; }
@@ -147,7 +147,7 @@ public class Invisible : Ability_
     }
 }
 
-public class Poison : Ability_
+public class Poison : Ability
 {
 
     public override AbilityInfo Info { get; set; }
@@ -182,7 +182,7 @@ public class Poison : Ability_
 
 
 // 스테이터스 변화
-public class StatusTransition : Ability_
+public class StatTransition : Ability
 {
     private Character targetCharacter;
     public override AbilityInfo Info { get; set; }
@@ -204,6 +204,8 @@ public class StatusTransition : Ability_
                 ChangeAttackSpeed();
                 break;
         }
+
+        Debug.Log($"{Info.EffectStatus}스테이터스가 변화되었습니다.1!");
     }
 
     private void ChangeHealth()
@@ -248,3 +250,29 @@ public class StatusTransition : Ability_
         }
     }
 }
+
+// 침묵
+public class Silence : Ability
+{
+    public override AbilityInfo Info { get; set; }
+    public override Transform Target { get; set; }
+
+    public override void Initialize(AbilityInfo Info, MonoBehaviour MonoBehaviour)
+    {
+        base.Initialize(Info, MonoBehaviour);
+    }
+
+    public override void use(Transform Target)
+    {
+        var Character = Target.GetComponent<Character>();
+
+        MonoBehaviour.StartCoroutine(IESilence(Character));
+    }
+
+    IEnumerator IESilence(Character character)
+    {
+        character.IsAttackable = false;
+        yield return null;
+    }
+}
+

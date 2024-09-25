@@ -30,8 +30,10 @@ public class AbilityManager : MonoBehaviour
     {
         abilityMapping = new Dictionary<int, System.Type>
         {
+            { 0, typeof(StatTransition) },
             { 1, typeof(Invisible) }, // Example: 1 is the ID for Invisible ability
             {2, typeof(Poison) },
+            {3, typeof(Silence) },
             // Add more mappings as necessary
         };
 
@@ -39,15 +41,15 @@ public class AbilityManager : MonoBehaviour
     }
 
     // Method to get a list of abilities from abilityInfos
-    public List<Ability_> GetAbilities(List<AbilityInfo> abilityInfos, MonoBehaviour mono)
+    public List<Ability> GetAbilities(List<AbilityInfo> abilityInfos, MonoBehaviour mono)
     {
-        List<Ability_> abilities = new List<Ability_>();
+        List<Ability> abilities = new List<Ability>();
         DebugCreate(0);
             // 생성자에 mono 지역변수 전달
 
         foreach (var abilityInfo in abilityInfos)
         {
-            Ability_ ability = CreateAbility(abilityInfo);
+            Ability ability = CreateAbility(abilityInfo);
             if (ability != null)
             {
                 ability.Info = abilityInfo; // Set ability info from SkillInfo
@@ -62,13 +64,13 @@ public class AbilityManager : MonoBehaviour
     }
 
     // Method to instantiate the ability based on AbilityInfo
-    private Ability_ CreateAbility(AbilityInfo abilityInfo)
+    private Ability CreateAbility(AbilityInfo abilityInfo)
     {
         Debug.Log($"Try Get Type From Mapping {abilityInfo.Name}");
         if (abilityMapping.TryGetValue(abilityInfo.ID, out System.Type abilityType))
         {
             Debug.Log("Secess From Get Mapping");
-            return (Ability_)System.Activator.CreateInstance(abilityType);
+            return (Ability)System.Activator.CreateInstance(abilityType);
         }
         else
         {

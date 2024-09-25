@@ -902,7 +902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_TagString
@@ -1041,7 +1041,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1285,8 +1285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Profile:
+    Name: 
+    Description: 
   Status:
-    Name: SwordMan
     MaxHealth: 200
     ChaseSpeed: 1.75
     AttackSpeed: 1
@@ -1630,7 +1632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_TagString
@@ -1769,7 +1771,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2259,7 +2261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_TagString
@@ -2360,6 +2362,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_Name
+      value: RedBison
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: Profile.Name
       value: RedBison
       objectReference: {fileID: 0}
     - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
@@ -2597,7 +2603,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2848,7 +2854,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1588125584}
-  - component: {fileID: 1588125583}
   - component: {fileID: 1588125585}
   m_Layer: 0
   m_Name: PoolManager
@@ -2857,18 +2862,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1588125583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588125582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec902951ccf7d594093cd4c02cbca859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1588125584
 Transform:
   m_ObjectHideFlags: 0
@@ -3087,8 +3080,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Status:
+  Profile:
     Name: 
+    Description: 
+  Status:
     MaxHealth: 0
     ChaseSpeed: 1.75
     AttackSpeed: 1

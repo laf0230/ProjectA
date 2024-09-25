@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a17bff1795a4e345a9f01522a6d5dc7, type: 3}
   m_Name: Dummy_Throw
   m_EditorClassIdentifier: 
-  Name: 
+  Profile:
+    Name: 
+    Description: 
   Type: 2
-  rangeType: 0
+  ShapeType: 0
+  SkillSize: 0
   targetType: 0
   CoolTime: 0
   Damage: 0
   Speed: 0
   Reach: 10
+  hasMovementAction: 0
+  MovementActionType: 0
+  MovementRange: 0
   Ability: []

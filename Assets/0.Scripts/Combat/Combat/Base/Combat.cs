@@ -80,7 +80,7 @@ public class Combat : MonoBehaviour
     public BulletSettings bulletSettings = new BulletSettings();  // 탄환 설정 인스펙터에 노출
     public SkillInfo skillInfo;                    // 스킬 정보(탄환 포함)
     [SerializeField] private BulletInfo bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
-    public List<Ability_> abilities = new List<Ability_>();
+    public List<Ability> abilities = new List<Ability>();
 
 
     #region Getter/Setter
@@ -180,6 +180,5 @@ public class Combat : MonoBehaviour
         // 목표 위치로 순간 이동
         transform.position = target.position;
     }
-
 }
 
