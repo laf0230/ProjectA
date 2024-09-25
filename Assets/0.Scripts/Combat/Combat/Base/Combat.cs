@@ -66,7 +66,7 @@ public class Combat : MonoBehaviour
             bullet.SetReach(reach);
             return bullet;
         }
-        
+
         // 탄환의 값 설정
         public void Initialize(BulletInfo bulletInfo)
         {
@@ -132,6 +132,7 @@ public class Combat : MonoBehaviour
     {
         // 게임 루프 동안 쿨타임을 지속적으로 감소시킴
         cooldown.UpdateCooldown();
+        Gizmo();
     }
 
 
@@ -180,5 +181,27 @@ public class Combat : MonoBehaviour
         // 목표 위치로 순간 이동
         transform.position = target.position;
     }
+<<<<<<< HEAD
 }
+=======
 
+>>>>>>> 7da76a2ce009e1dd65ba0ad90794fdedc82a5a4e
+
+    public void Gizmo()
+    {
+        Vector3 origin = Vector3.zero;
+        Vector3 direction = Vector3.up; Ray ray = new Ray(origin, direction);
+        float radius = 5f;
+        RaycastHit[] hits = Physics.SphereCastAll(ray, radius);
+        foreach (var hit in hits)
+        {
+            Debug.Log(hit.collider.gameObject.name);
+        }
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 5f);
+    }
+}
