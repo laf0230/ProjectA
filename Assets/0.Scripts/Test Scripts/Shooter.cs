@@ -22,7 +22,9 @@ public class Shooter : MonoBehaviour
             skill.gameObject.SetActive(true);
 
             skill.bulletSettings.Initialize(
-                new BulletInfo(
+                new BulletProperties(
+                    true,
+                    false,
                     10,
                     5,
                     transform,

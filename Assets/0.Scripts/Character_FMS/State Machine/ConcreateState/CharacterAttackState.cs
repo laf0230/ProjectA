@@ -39,6 +39,8 @@ public class CharacterAttackState : State
             {
                 Attack = combat;
                 Attack.SetTarget(_target);
+
+                // Attack.SetTarget(character.Targets);
                 break;
             }
         }
@@ -57,6 +59,11 @@ public class CharacterAttackState : State
         }
         
         Debug.Log("Skill Type: " + Attack.skillInfo.type);
+    }
+
+    public void SetTarget(List<Transform> targets)
+    {
+        // 타겟을 정하는 코드
     }
 
     public void DoAttack()
@@ -78,10 +85,8 @@ public class CharacterAttackState : State
                     ability.use(_target);
                     break;
                 case TargetType_.Enemies:
-                    /*
                     var targets = new List<Transform>();
                     ability.use(targets);
-                    */
                     break;
             }
         }
@@ -95,8 +100,10 @@ public class CharacterAttackState : State
             switch (ability.Info.MovementActionType)
             {
                 case MovementActionType.Teleport:
+                    Attack.MovementAction(MovementActionType.Teleport);
                     break;
                 case MovementActionType.Dash:
+                    Attack.MovementAction(MovementActionType.Dash);
                     break;
             }
         }

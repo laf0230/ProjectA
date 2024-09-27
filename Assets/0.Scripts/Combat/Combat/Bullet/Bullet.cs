@@ -2,12 +2,13 @@
 
 public class Bullet : Poolable
 {
-    private BulletInfo combatInfo;
+    private BulletProperties combatInfo;
     private Transform user;
     private Transform target;
     public float speed;
     public float damage;
     public float reach;
+    public bool isPiercing = false;
     public Vector3 direction;
 
     private Rigidbody rb;
@@ -29,26 +30,47 @@ public class Bullet : Poolable
 
     private void OnTriggerEnter(Collider other)
     {
+        // 목표로 하는 타깃일 경우 데미지 부여
         if (IsValidTarget(other))
         {
             ApplyDamage(other);
             gameObject.SetActive(false);
         }
+
+        // 임시 코드 타깃 관통
+        if (other.GetComponent<Character>() != null && false)
+        {
+            ApplyDamage(other);
+            if (IsValidTarget(other))
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
-    public void Initialize(BulletInfo combatInfo)
+    public void Initialize(BulletProperties combatInfo)
     {
         this.combatInfo = combatInfo;
         SetUser(combatInfo.User);
-        SetTarget(combatInfo.Target);
+        SetTarget(combatInfo.Targets[0]);
         SetSpeed(combatInfo.Speed);
         SetDamage(combatInfo.Damage);
         SetReach(combatInfo.Reach);
     }
 
-    public void SetCombatInfo(BulletInfo combatInfo)
+    public void Intialize(BulletProperties properties)
     {
-        this.combatInfo = combatInfo;
+        SetUser(properties.User);
+        SetSpeed(properties.Speed);
+        SetDamage(properties.Damage);
+        SetReach(properties.Reach);
+    }
+
+    public void SetProperties(BulletProperties properties)
+    {
+        speed = properties.Speed;
+        damage = properties.Damage;
+        reach = properties.Reach;
     }
 
     public void SetUser(Transform user)
@@ -60,6 +82,13 @@ public class Bullet : Poolable
     {
         this.target = target;
     }
+
+    #region Info
+    public void SetCombatInfo(BulletProperties combatInfo)
+    {
+        this.combatInfo = combatInfo;
+    }
+
 
     public void SetSpeed(float speed = 10f)
     {
@@ -76,6 +105,8 @@ public class Bullet : Poolable
         this.reach = reach;
     }
 
+    #endregion
+
     public void Shoot()
     {
         SetReach(combatInfo.Reach);
@@ -91,7 +122,7 @@ public class Bullet : Poolable
 
     private bool IsValidTarget(Collider other)
     {
-        return other.gameObject != null && other.gameObject == combatInfo.Target.gameObject;
+        return other.gameObject != null && other.gameObject == combatInfo.Targets[0].gameObject;
     }
 
     private void ApplyDamage(Collider targetCollider)

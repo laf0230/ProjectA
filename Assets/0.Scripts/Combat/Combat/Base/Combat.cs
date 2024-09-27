@@ -53,6 +53,10 @@ public class Combat : MonoBehaviour
     [System.Serializable]
     public class BulletSettings
     {
+        public BulletProperties properties;
+        public Transform User;
+        public Transform Target;
+
         public float speed = 5f;          // 탄환의 속도
         public float damage = 10f;        // 탄환이 줄 데미지
         public float reach = 10f;
@@ -60,18 +64,27 @@ public class Combat : MonoBehaviour
         // 탄환을 생성하고 속도 및 데미지를 설정
         public Bullet InstantiateBullet(Transform spawnPosition)
         {
-            var bullet = BulletManager.instance.GetBulletFromTransform(0, spawnPosition);
-            bullet.SetSpeed(speed);
-            bullet.SetDamage(damage);
-            bullet.SetReach(reach);
+            // IsPiercing이 true면 0, false면 2를 더하고, IsSingle이 true면 0, false면 1을 더함
+            int index = (properties.IsPiercing ? 0 : 2) + (properties.IsSingle ? 0 : 1) + 1;
+
+            // GetBulletFromTransform 호출
+            var bullet = BulletManager.instance.GetBulletFromTransform(index, spawnPosition);
+
+            bullet.SetProperties(properties);
+
             return bullet;
         }
 
         // 탄환의 값 설정
-        public void Initialize(BulletInfo bulletInfo)
+        public void Initialize(BulletProperties bulletInfo)
         {
             damage = bulletInfo.Damage;
             speed = bulletInfo.Speed;
+        }
+
+        public void UpdateProperties(BulletProperties properties)
+        {
+            this.properties = properties;
         }
     }
 
@@ -79,7 +92,8 @@ public class Combat : MonoBehaviour
     public Cooldown cooldown = new Cooldown();       // 스킬 쿨타임을 관리하는 인스턴스
     public BulletSettings bulletSettings = new BulletSettings();  // 탄환 설정 인스펙터에 노출
     public SkillInfo skillInfo;                    // 스킬 정보(탄환 포함)
-    [SerializeField] private BulletInfo bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
+    public SkillProperties skillProperties;
+    [SerializeField] private BulletProperties bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
     public List<Ability> abilities = new List<Ability>();
 
 
@@ -109,6 +123,28 @@ public class Combat : MonoBehaviour
     {
         // 스킬 정보 및 탄환 정보 초기화
         this.skillInfo = skillInfo;
+        bulletInfo = skillInfo.bulletInfo;
+
+        // 쿨타임 및 탄환 정보 설정
+        cooldown.SetTotalCoolTime(skillInfo.totalCoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
+        bulletSettings.Initialize(bulletInfo);
+
+        // 버프, 디버프, 군중제어 능력이 있을 경우 추가
+        if (skillInfo.abilityInfos != null)
+        {
+            abilities = AbilityManager.Instance.GetAbilities(skillInfo.abilityInfos, this);
+
+            foreach (var ability in abilities)
+            {
+                Debug.Log($"Ability: {ability.Info.Name} has added.");
+            }
+        }
+    }
+
+    public void Initialize(SkillProperties properties)
+    {
+        // 스킬 정보 및 탄환 정보 초기화
+        this.skillProperties = properties;
         bulletInfo = skillInfo.bulletInfo;
 
         // 쿨타임 및 탄환 정보 설정
@@ -157,10 +193,10 @@ public class Combat : MonoBehaviour
         switch (type)
         {
             case MovementActionType.Dash:
-                DashToTarget(bulletInfo.Target);
+                DashToTarget(bulletInfo.Targets[0]);
                 break;
             case MovementActionType.Teleport:
-                TeleportToTarget(bulletInfo.Target);
+                TeleportToTarget(bulletInfo.Targets[0]);
                 break;
                 // 다른 MovementActionType에 대한 케이스 추가 가능
         }

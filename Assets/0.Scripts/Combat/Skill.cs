@@ -11,7 +11,7 @@ public class Skill : MonoBehaviour
     public bool isCooling = true;
 
     public GameObject bulletPrefab;
-    private BulletInfo combatInfo;
+    private BulletProperties combatInfo;
     private SkillInfo skillInfo;
     public string Name;
     public string Damage;
@@ -53,7 +53,7 @@ public class Skill : MonoBehaviour
 
     public void SetCombatInfo(Transform user, float speed, float damage, float reach)
     {
-        combatInfo = new BulletInfo(damage, speed, user, reach);
+        combatInfo = new BulletProperties(false, true, damage, speed, user, reach);
     }
 
     public bool GetIsUseable() { return isUseable; }
