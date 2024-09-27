@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a17bff1795a4e345a9f01522a6d5dc7, type: 3}
-  m_Name: Dr_Crow_Attack
+  m_Script: {fileID: 11500000, guid: c02db146581da3c42b237efa47c12062, type: 3}
+  m_Name: DrCrow_Attack
   m_EditorClassIdentifier: 
   Profile:
+    ProfileImg: {fileID: 0}
     Name: "\uB2E5\uD130\uD06C\uB85C\uC6B0\uACF5\uACA9"
     Description: 
   Type: 0
@@ -33,6 +34,7 @@ MonoBehaviour:
     HasMovement: 0
     Value: 0
     Duration: 0
+    Speed: 0
     TargetType: 0
     shape: 0
     AnimationType: 0
@@ -44,6 +46,7 @@ MonoBehaviour:
     HasMovement: 0
     Value: 0
     Duration: 0
+    Speed: 0
     TargetType: 0
     shape: 0
     AnimationType: 0

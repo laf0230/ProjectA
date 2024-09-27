@@ -34,6 +34,7 @@ public class AbilityManager : MonoBehaviour
             { 1, typeof(Invisible) }, // Example: 1 is the ID for Invisible ability
             {2, typeof(Poison) },
             {3, typeof(Silence) },
+            {4, typeof(Stun) },
             // Add more mappings as necessary
         };
 

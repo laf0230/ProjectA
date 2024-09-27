@@ -55,6 +55,7 @@ public class AbilityInfo
     public bool HasMovement;
     public float Value;
     public float Duration;
+    public float Speed;
     public TargetType_ TargetType;
     public Shape shape;
     public AnimationType AnimationType;
@@ -113,6 +114,76 @@ public abstract class Ability
 능력이 많아질 수록 모든 예외처리를 하기 어려워짐
 이를 해결하기 위해 Monobehavior만을 사용하는 방식 채용
 */
+// 스테이터스 변화
+public class StatTransition : Ability
+{
+    private Character targetCharacter;
+    public override AbilityInfo Info { get; set; }
+    public override Transform Target { get; set; }
+
+    public override void use(Transform Target)
+    {
+        targetCharacter = Target.GetComponent<Character>();
+
+        switch (Info.EffectStatus)
+        {
+            case StatusList.Health:
+                ChangeHealth();
+                break;
+            case StatusList.Speed:
+                ChangeSpeed();
+                break;
+            case StatusList.AttackSpeed:
+                ChangeAttackSpeed();
+                break;
+        }
+
+        // Debug.Log($"{Info.EffectStatus}스테이터스가 변화되었습니다.!");
+    }
+
+    private void ChangeHealth()
+    {
+        // Assuming Info.Value is the amount of health to change, 
+        // and Info.IsPercentage determines if it's a percentage or a flat value
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            targetCharacter.CurrentHealth += targetCharacter.Status.MaxHealth * percentageChange;
+        }
+        else
+        {
+            targetCharacter.CurrentHealth += Info.Value;
+        }
+    }
+
+    private void ChangeSpeed()
+    {
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            targetCharacter.Status.ChaseSpeed = percentageChange;
+        }
+        else
+        {
+            targetCharacter.Status.ChaseSpeed += Info.Value;
+        }
+    }
+
+    // 기본 공격만 적용
+    private void ChangeAttackSpeed()
+    {
+        if (Info.IsPercentage)
+        {
+            float percentageChange = Info.Value / 100f;
+            
+            // targetCharacter.Status.AttackSpeed += targetCharacter.Status.AttackSpeed * percentageChange;
+        }
+        else
+        {
+            // targetCharacter.Status.AttackSpeed += Info.Value;
+        }
+    }
+}
 
 public class Invisible : Ability
 {
@@ -180,77 +251,6 @@ public class Poison : Ability
     }
 }
 
-
-// 스테이터스 변화
-public class StatTransition : Ability
-{
-    private Character targetCharacter;
-    public override AbilityInfo Info { get; set; }
-    public override Transform Target { get; set; }
-
-    public override void use(Transform Target)
-    {
-        targetCharacter = Target.GetComponent<Character>();
-
-        switch (Info.EffectStatus)
-        {
-            case StatusList.Health:
-                ChangeHealth();
-                break;
-            case StatusList.Speed:
-                ChangeSpeed();
-                break;
-            case StatusList.AttackSpeed:
-                ChangeAttackSpeed();
-                break;
-        }
-
-        Debug.Log($"{Info.EffectStatus}스테이터스가 변화되었습니다.1!");
-    }
-
-    private void ChangeHealth()
-    {
-        // Assuming Info.Value is the amount of health to change, 
-        // and Info.IsPercentage determines if it's a percentage or a flat value
-        if (Info.IsPercentage)
-        {
-            float percentageChange = Info.Value / 100f;
-            targetCharacter.CurrentHealth += targetCharacter.Status.MaxHealth * percentageChange;
-        }
-        else
-        {
-            targetCharacter.CurrentHealth += Info.Value;
-        }
-    }
-
-    private void ChangeSpeed()
-    {
-        if (Info.IsPercentage)
-        {
-            float percentageChange = Info.Value / 100f;
-            targetCharacter.Status.ChaseSpeed = percentageChange;
-        }
-        else
-        {
-            targetCharacter.Status.ChaseSpeed += Info.Value;
-        }
-    }
-
-    // 기본 공격만 적용
-    private void ChangeAttackSpeed()
-    {
-        if (Info.IsPercentage)
-        {
-            float percentageChange = Info.Value / 100f;
-            targetCharacter.Status.AttackSpeed += targetCharacter.Status.AttackSpeed * percentageChange;
-        }
-        else
-        {
-            targetCharacter.Status.AttackSpeed += Info.Value;
-        }
-    }
-}
-
 // 침묵
 public class Silence : Ability
 {
@@ -276,3 +276,22 @@ public class Silence : Ability
     }
 }
 
+public class Stun : Ability
+{
+    public override AbilityInfo Info { get; set; }
+    public override Transform Target { get; set;}
+
+    public override void use(Transform Target)
+    {
+        var Character = Target.GetComponent<Character>();
+        MonoBehaviour.StartCoroutine(IEStun(Character, Info.Duration));
+    }
+    
+    // Skill Stun
+    public IEnumerator IEStun(Character target, float stunTime)
+    {
+        target.SetMoveAble(true);
+        yield return new WaitForSeconds(stunTime);
+        target.SetMoveAble(false);
+    }
+}

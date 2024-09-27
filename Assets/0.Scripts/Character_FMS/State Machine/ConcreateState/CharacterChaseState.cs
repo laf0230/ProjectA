@@ -26,9 +26,7 @@ public class CharacterChaseState : State
 
         _targetTransform = character.Targets[0].transform;
 
-        _moveSpeed = character.Status.ChaseSpeed;
-
-        _targetCharacter = character.Targets[0].GetComponent<Character>();
+        _moveSpeed = character.Info.Status.ChaseSpeed;
     }
 
     public override void ExitState()
@@ -40,7 +38,7 @@ public class CharacterChaseState : State
     {
         base.FrameUpdate();
 
-        if (!_targetCharacter.gameObject.activeSelf || !character.IsAggroed)
+        if (!_targetTransform.gameObject.activeSelf || !character.IsAggroed)
         {
             // 적이 사망했을 때
             character.StateMachine.ChangeState(character.IdleState);
@@ -52,9 +50,9 @@ public class CharacterChaseState : State
             character.StateMachine.ChangeState(character.AttackState);
         }
 
-        Vector3 direction = (_targetTransform.position - character.transform.position).normalized;
+        // Vector3 direction = (_targetTransform.position - character.transform.position).normalized;
 
-        character.MoveTo(_targetTransform, _moveSpeed);
+        character.MoveTo(_targetTransform.position, _moveSpeed);
     }
 
     public override void PhysicsUpdate()

@@ -5,18 +5,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-[System.Serializable]
-public class CharacterStat
-{
-    public float MaxHealth;
-    public float ChaseSpeed = 1.75f;
-    public float AttackSpeed = 1.0f;
-}
-
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable
 {
-    public Profile Profile = new Profile();
-    public CharacterStat Status = new CharacterStat();
+    [field:SerializeField] public CharacterInfoSO Info { get; private set; }
+    [field:SerializeField] public CharacterStatus Status { get; set; }
     [field: SerializeField] public float CurrentHealth { get; set; }
     public Rigidbody Rigidbody { get; set; }
     public NavMeshAgent Agent { get; set; }
@@ -43,9 +35,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     #region Skill Variables
     
     [field: SerializeField] public List<Combat> combats { get; set; }
-    [field: SerializeField] public List<SkillDataSO> skillData { get; set; }
+    // [field: SerializeField] public List<SkillSO> skillData { get; set; }
     public bool IsAttackable { get; set; } = true;
     public bool IsBuffable { get; set; } = false;
+    public bool IsMoveAble {  get; set; }
     #endregion
 
     #region Idle Variables
@@ -73,8 +66,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public virtual void Start()
     {
-        CurrentHealth = Status.MaxHealth;
-
         Rigidbody = GetComponent<Rigidbody>();
 
         Renderer = GetComponentInChildren<SpriteRenderer>();
@@ -85,9 +76,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         Agent = GetComponent<NavMeshAgent>();
 
-        Agent.speed = Status.ChaseSpeed;
+        CurrentHealth = Info.Status.MaxHealth;
 
-        foreach(var data in skillData)
+        foreach(var data in Info.Skills)
         {
             // 등록된 스킬 데이터의 수만큼 스킬 추가 및 초기화
             var skill = gameObject.AddComponent<Combat>();
@@ -101,6 +92,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                     , data.Ability
                     ));
         }
+
+        ThreatLevel = Info.Status.ThreatLevel;
     }
 
     public void Update()
@@ -128,8 +121,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public virtual void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
-        Debug.Log("Damage: " + damageAmount);
-        Debug.Log("CurrentHealth" + CurrentHealth);
 
         if (CurrentHealth < 0)
         {
@@ -139,7 +130,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         else
         {
             AnimationTriggerEvent(AnimationTriggerType.Hurt);
-            Stun();
         }
     }
 
@@ -154,11 +144,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public void SetMoveAble(bool isActive)
     {
-        NavMeshAgent agent =  GetComponent<NavMeshAgent>();
+        IsMoveAble = isActive;
 
-        agent.isStopped = isActive;
-        agent.velocity = Vector3.zero;
-        agent.SetDestination(transform.position);
+        Agent.velocity = Vector3.zero;
+        Agent.isStopped = !isActive;
     }
 
     public void MoveTo(Vector3 velocity)
@@ -170,14 +159,17 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     }
 
 
-    public void MoveTo(Transform target, float speed = 1f)
+    public void MoveTo(Vector3 targetPosition, float speed = 1f)
     {
+        // Debug.Log("Speed Value: " + speed + ", Target: " + target);
         // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
         Agent.speed = speed;
-        Agent.SetDestination(target.position);
+        Agent.SetDestination(targetPosition);
 
-            CheckForLeftOrRightFacing(transform.position - target.position);
+        CheckForLeftOrRightFacing(targetPosition);
     }
+
+    /*
     public void MoveTo(Vector3 velocity, float speed = 1f)
     {
         // Rigidbody.velocity = new Vector3(velocity.x, 0f, velocity.z) * speed;
@@ -185,8 +177,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Agent.velocity = new Vector3(velocity.x, 0f, velocity.z);
         Agent.SetDestination(velocity);
 
-            CheckForLeftOrRightFacing(velocity);
+        CheckForLeftOrRightFacing(velocity);
     }
+    */
 
     public void CheckForLeftOrRightFacing(Vector3 velocity)
     {
@@ -199,15 +192,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             Renderer.flipX = false;
         }
     }
-    
-    // Skill Stun
-    public IEnumerator Stun(float stunTime = 4f)
-    {
-        SetMoveAble(true);
-        yield return new WaitForSeconds(stunTime);
-        SetMoveAble(false);
-    }
-
 
     #endregion
 
@@ -257,7 +241,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 break;
 
         }
-                Debug.Log("Current Animation State: " + triggerType.ToString());
+                // Debug.Log("Current Animation State: " + triggerType.ToString());
     }
 
     public enum AnimationTriggerType

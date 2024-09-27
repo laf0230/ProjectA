@@ -11,6 +11,11 @@ public class CharacterEscapeState : State
     {
     }
 
+    public override void AnimationTriggerEvent(Character.AnimationTriggerType triggerType)
+    {
+        base.AnimationTriggerEvent(triggerType);
+    }
+
     public override void EnterState()
     {
         base.EnterState();
@@ -18,21 +23,32 @@ public class CharacterEscapeState : State
         AnimationTriggerEvent(Character.AnimationTriggerType.Run);
 
         _targetTransform = character.Targets[0].transform;
-        _moveSpeed = character.Status.ChaseSpeed;
+        _moveSpeed = character.Info.Status.ChaseSpeed;
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
 
-        if (!character.IsAggroed)
+        if (!_targetTransform.gameObject.activeSelf || !character.IsAggroed)
         {
-            // 인식 범위 내에 적이 없을 경우
+            // 적이 사망했을 때 && 범위 내에 적이 사라졌을 때
             character.StateMachine.ChangeState(character.IdleState);
         }
-        Vector3 direction = -(_targetTransform.position - character.transform.position).normalized;
 
-        character.MoveTo(_targetTransform, _moveSpeed);
+        if (character.IsWithinstrikingDistance && character.IsAttackable)
+        {
+            // 공격 범위에 있을 때
+            Debug.Log("Enemy check, I can use skill");
+            character.StateMachine.ChangeState(character.AttackState);
+        }
+
+        // 역방향 계산
+        Vector3 targetPosition = 2 * (character.transform.position - _targetTransform.position);
+
+        // Vector3 direction = (_targetTransform.position - character.transform.position).normalized;
+        // 역방향으로 도망
+        character.MoveTo(targetPosition, _moveSpeed);
     }
 
     public override void ExitState()

@@ -131,11 +131,12 @@ public class AbilityInfoListEditor : Editor
 
 
 
-[CustomEditor(typeof(SkillDataSO))]
+[CustomEditor(typeof(SkillSO))]
 public class SkillDataSOEditor : Editor
 {
     SerializedProperty abilities;
     ReorderableList reorderableList;  // ReorderableList 선언
+    private bool showProfileFoldout = false; // Foldout 상태를 저장할 변수
     private bool[] foldouts;
 
     private void OnEnable()
@@ -230,11 +231,23 @@ public class SkillDataSOEditor : Editor
     {
         serializedObject.Update();
 
-        SkillDataSO skillData = (SkillDataSO)target;
+        SkillSO skillData = (SkillSO)target;
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Skill Settings", EditorStyles.boldLabel);
+        showProfileFoldout = EditorGUILayout.Foldout(showProfileFoldout, "Profile");
 
+        if (showProfileFoldout)
+        {
+            // 프로필 이미지 필드
+            skillData.Profile.ProfileImg = EditorGUILayout.ObjectField("Profile Image", skillData.Profile.ProfileImg, typeof(Sprite), false) as Sprite;
+
+            // 프로필 이름 입력 필드
+            skillData.Profile.Name = EditorGUILayout.TextField("Name", skillData.Profile.Name);
+
+            // 프로필 설명 입력 필드
+            skillData.Profile.Description = EditorGUILayout.TextArea(skillData.Profile.Description, GUILayout.Height(60));
+        }
         skillData.Type = (SkillType)EditorGUILayout.EnumPopup("Skill Type", skillData.Type);
         skillData.ShapeType = (SkillShapeType)EditorGUILayout.EnumPopup("Shape Type", skillData.ShapeType);
         skillData.SkillSize = EditorGUILayout.FloatField("Skill Size", skillData.SkillSize);

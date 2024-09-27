@@ -181,11 +181,6 @@ public class Combat : MonoBehaviour
         // 목표 위치로 순간 이동
         transform.position = target.position;
     }
-<<<<<<< HEAD
-}
-=======
-
->>>>>>> 7da76a2ce009e1dd65ba0ad90794fdedc82a5a4e
 
     public void Gizmo()
     {
@@ -195,7 +190,7 @@ public class Combat : MonoBehaviour
         RaycastHit[] hits = Physics.SphereCastAll(ray, radius);
         foreach (var hit in hits)
         {
-            Debug.Log(hit.collider.gameObject.name);
+            // Debug.Log(hit.collider.gameObject.name);
         }
     }
 

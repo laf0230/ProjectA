@@ -17,11 +17,6 @@ public class Bullet : Poolable
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
-    {
-        reach = combatInfo.Reach;
-    }
-
     private void Update()
     {
         // reach 만큼의 시간이 지나면 사라지는 코드
@@ -83,6 +78,7 @@ public class Bullet : Poolable
 
     public void Shoot()
     {
+        SetReach(combatInfo.Reach);
         if (!IsReadyToShoot())
         {
             Debug.LogError("Bullet is missing required data: user, target, speed, or damage.");

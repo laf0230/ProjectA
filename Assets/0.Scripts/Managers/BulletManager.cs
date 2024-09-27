@@ -21,11 +21,16 @@ public class BulletManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Initialize();
+    }
+
     public void Initialize()
     {
-        for (int i = 0; i < poolCount; i++) // > 대신 <로 수정
+        foreach(var bullet_ in bulletType)
         {
-            Bullet bullet = Instantiate(bulletType[0]).GetComponent<Bullet>();
+            Bullet bullet = Instantiate(bullet_).GetComponent<Bullet>();
             bullet.gameObject.SetActive(false); // 비활성화
             pool.Add(bullet);
         }
@@ -51,8 +56,15 @@ public class BulletManager : MonoBehaviour
             }
         }
 
+        if (bulletType[bulletIndex] == null)
+        {
+            Debug.Log("Bullet이 존재하지 않습니다.");
+        }
+
         // 비활성화된 총알이 없으면 새로 생성
         Bullet newBullet = Instantiate(bulletType[bulletIndex]).GetComponent<Bullet>();
+
+
         pool.Add(newBullet); // 풀에 추가
         return newBullet;
     }

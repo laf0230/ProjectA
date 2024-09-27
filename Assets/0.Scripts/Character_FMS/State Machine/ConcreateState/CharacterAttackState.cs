@@ -29,6 +29,8 @@ public class CharacterAttackState : State
     {
         base.EnterState();
 
+        character.SetMoveAble(false);
+        
         _target = character.Targets[0].transform;
         foreach(var combat in character.combats)
         {
@@ -103,7 +105,8 @@ public class CharacterAttackState : State
     public void EndAttack()
     {
         Attack.cooldown.ResetCooldown();
-        
+        character.SetMoveAble(true);
+
         stateMachine.ChangeState(character.ChaseState);
     }
 }

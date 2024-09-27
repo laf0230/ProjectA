@@ -24,7 +24,7 @@ public enum SkillShapeType
 }
 
 [CreateAssetMenu(fileName = "", menuName = "New Skill Data")]
-public class SkillDataSO : ScriptableObject
+public class SkillSO : ScriptableObject
 {
     public Profile Profile;
     public SkillType Type;

@@ -9,43 +9,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a17bff1795a4e345a9f01522a6d5dc7, type: 3}
-  m_Name: Dr_Crow_ThrowDagger
+  m_Script: {fileID: 11500000, guid: c02db146581da3c42b237efa47c12062, type: 3}
+  m_Name: Red_Bision_SS_HunterKiller
   m_EditorClassIdentifier: 
   Profile:
-    Name: "\uB2E8\uAC80 \uD22C\uCC99"
+    ProfileImg: {fileID: 0}
+    Name: "\uD5CC\uD130\uD0AC\uB7EC"
     Description: 
-  Type: 1
+  Type: 2
   ShapeType: 0
   SkillSize: 0
   targetType: 0
-  CoolTime: 4
-  Damage: 0
-  Speed: 0
-  Reach: 6
+  CoolTime: 30
+  Damage: 10
+  Speed: 5
+  Reach: 10
   hasMovementAction: 0
   MovementActionType: 0
-  MovementRange: 0
+  MovementRange: -2.57
   Ability:
-  - Name: "\uCE68\uBB35"
-    ID: 3
+  - Name: "\uC740\uC2E0"
+    ID: 1
     IsPercentage: 0
     HasMovement: 0
-    Value: 0
-    Duration: 1
-    TargetType: 1
+    Value: 20
+    Duration: 10
+    Speed: 0
+    TargetType: 0
     shape: 0
-    AnimationType: 3
+    AnimationType: 0
     EffectStatus: 0
     MovementActionType: 0
-  - Name: "\uC0C8 \uB2A5\uB825"
+  - Name: "\uC18D\uB3C4 \uC0C1\uC2B9"
     ID: 0
-    IsPercentage: 0
+    IsPercentage: 1
     HasMovement: 0
-    Value: 0
-    Duration: 0
+    Value: 10
+    Duration: 10
+    Speed: 0
     TargetType: 0
     shape: 0
     AnimationType: 3
-    EffectStatus: 0
+    EffectStatus: 1
     MovementActionType: 0

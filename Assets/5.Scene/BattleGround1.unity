@@ -1285,19 +1285,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Profile:
-    Name: 
-    Description: 
-  Status:
-    MaxHealth: 200
+  <Info>k__BackingField: {fileID: 11400000, guid: be525f1198161974bb2c0e19a5f18f6b, type: 2}
+  <Status>k__BackingField:
+    MaxHealth: 0
     ChaseSpeed: 1.75
-    AttackSpeed: 1
+    ArmorValue: 0
+    ThreatLevel: 0
   <CurrentHealth>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 1
   <Targets>k__BackingField: []
   <combats>k__BackingField: []
-  <skillData>k__BackingField: []
   RandomMovementRange: 5
 --- !u!1 &911212007
 GameObject:
@@ -2365,6 +2363,10 @@ PrefabInstance:
       value: RedBison
       objectReference: {fileID: 0}
     - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: Info
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b8551caf53701e499192413f89297b9, type: 2}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: Profile.Name
       value: RedBison
       objectReference: {fileID: 0}
@@ -2372,6 +2374,10 @@ PrefabInstance:
       propertyPath: Status.ChaseSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: <Info>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b8551caf53701e499192413f89297b9, type: 2}
     - target: {fileID: 2263706064175530876, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: <Targets>k__BackingField.Array.size
       value: 0
@@ -2385,8 +2391,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
-      propertyPath: m_Acceleration
+      propertyPath: m_AutoBraking
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
+      propertyPath: m_Acceleration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4270042367964488510, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
       propertyPath: m_AngularSpeed
@@ -2870,8 +2880,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588125582}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1004632, y: -1.2266917, z: -0.8400817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2930,8 +2940,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
-      propertyPath: m_Acceleration
+      propertyPath: m_AutoBraking
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
+      propertyPath: m_Acceleration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988042085170284754, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_AngularSpeed
@@ -2943,7 +2957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207533084604598450, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.16
+      value: 8.43
       objectReference: {fileID: 0}
     - target: {fileID: 9207533084604598450, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2951,7 +2965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207533084604598450, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.1
+      value: 10.79
       objectReference: {fileID: 0}
     - target: {fileID: 9207533084604598450, guid: 7420306973d7c624fa424e7221d7dd02, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3080,19 +3094,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Profile:
-    Name: 
-    Description: 
-  Status:
+  <Info>k__BackingField: {fileID: 0}
+  <Status>k__BackingField:
     MaxHealth: 0
     ChaseSpeed: 1.75
-    AttackSpeed: 1
+    ArmorValue: 0
+    ThreatLevel: 0
   <CurrentHealth>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 0
   <Targets>k__BackingField: []
   <combats>k__BackingField: []
-  <skillData>k__BackingField: []
   RandomMovementRange: 5
 --- !u!65 &1863977179
 BoxCollider:
