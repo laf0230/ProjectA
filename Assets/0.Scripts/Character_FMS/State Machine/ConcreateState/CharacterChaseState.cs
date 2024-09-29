@@ -46,7 +46,6 @@ public class CharacterChaseState : State
 
         if (character.IsWithinstrikingDistance && character.IsAttackable)
         {
-            Debug.Log("Enemy check, I can use skill");
             character.StateMachine.ChangeState(character.AttackState);
         }
 

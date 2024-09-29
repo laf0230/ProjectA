@@ -139,6 +139,7 @@ public class SkillDataSOEditor : Editor
     private bool showProfileFoldout = false; // Foldout 상태를 저장할 변수
     private bool[] foldouts;
 
+    // Ability 인스펙터
     private void OnEnable()
     {
         abilities = serializedObject.FindProperty("Ability");
@@ -227,6 +228,7 @@ public class SkillDataSOEditor : Editor
         };
     }
 
+    // Skill 인스펙터
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
@@ -251,14 +253,15 @@ public class SkillDataSOEditor : Editor
         skillData.Type = (SkillType)EditorGUILayout.EnumPopup("Skill Type", skillData.Type);
         skillData.ShapeType = (SkillShapeType)EditorGUILayout.EnumPopup("Shape Type", skillData.ShapeType);
         skillData.SkillSize = EditorGUILayout.FloatField("Skill Size", skillData.SkillSize);
-        skillData.targetType = EditorGUILayout.IntField("Target Type", skillData.targetType);
+        skillData.TargetType = EditorGUILayout.IntField("Target Type", skillData.TargetType);
         skillData.CoolTime = EditorGUILayout.FloatField("Cool Time", skillData.CoolTime);
+        skillData.BulletType = EditorGUILayout.IntField("Bullet Type", skillData.BulletType);
         skillData.Damage = EditorGUILayout.FloatField("Damage", skillData.Damage);
         skillData.Speed = EditorGUILayout.FloatField("Speed", skillData.Speed);
         skillData.Reach = EditorGUILayout.FloatField("Reach", skillData.Reach);
-        skillData.hasMovementAction = EditorGUILayout.Toggle("Has Movement Action", skillData.hasMovementAction);
+        skillData.HasMovementAction = EditorGUILayout.Toggle("Has Movement Action", skillData.HasMovementAction);
 
-        if (skillData.hasMovementAction)
+        if (skillData.HasMovementAction)
         {
             skillData.MovementRange = EditorGUILayout.FloatField("Movement Range", skillData.MovementRange);
         }

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public float totalCoolTime = 10f;
-    public float currentCoolTime;
-    public float Speed = 5f;
-    public bool isUseable = false;
-    public bool isCooling = true;
+    public float totalCoolTime {get;set;} = 10;
+    public float currentCoolTime{get;set;}
+    public float Speed { get; set; } = 5f;
+    public bool isUseable { get; set; } = false;
+    public bool isCooling { get; set; } = true;
 
-    public GameObject bulletPrefab;
-    private BulletProperties combatInfo;
-    private SkillInfo skillInfo;
-    public string Name;
-    public string Damage;
-    public string Rank;
-    public int RangeType;
-    public int TargetType;
-    public float CollTime;
-    public List<AbilityInfo> Abilities;
+    public GameObject bulletPrefab{get;set;}
+    private BulletProperties combatInfo{get;set;}
+    private SkillProperties skillInfo{get;set;}
+    public string Name{get;set;}
+    public string Damage{get;set;}
+    public string Rank{get;set;}
+    public int RangeType{get;set;}
+    public int TargetType{get;set;}
+    public float CollTime{get;set;}
+    public List<AbilityInfo> Abilities{get;set;}
 
 
     
@@ -44,16 +44,13 @@ public class Skill : MonoBehaviour
 
         var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
 
-        bullet.SetSpeed();
-        bullet.SetDamage(10f);
-        bullet.SetCombatInfo(combatInfo);
         bullet.Shoot();
 
     }
 
-    public void SetCombatInfo(Transform user, float speed, float damage, float reach)
+    public void SetCombatInfo(Transform user, int bulletType, float speed, float damage, float reach)
     {
-        combatInfo = new BulletProperties(false, true, damage, speed, user, reach);
+        combatInfo = new BulletProperties(bulletType, damage, speed, user, reach);
     }
 
     public bool GetIsUseable() { return isUseable; }

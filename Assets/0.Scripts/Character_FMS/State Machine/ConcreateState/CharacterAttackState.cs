@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum SkillSwitcher
@@ -38,14 +39,21 @@ public class CharacterAttackState : State
             if(combat.IsUseable())
             {
                 Attack = combat;
-                Attack.SetTarget(_target);
 
-                // Attack.SetTarget(character.Targets);
+                List<Transform> targetTransforms = new List<Transform>(); // Transform을 저장할 리스트 생성
+
+                for (int i = 0; i < character.Targets.Count; i++)
+                {
+                    GameObject targetCharacter = character.Targets[i];  // 배열에서 GameObject를 가져옵니다.
+                    targetTransforms.Add(targetCharacter.transform);  // Transform을 리스트에 추가합니다.
+                }
+
+                Attack.SetTarget(targetTransforms);  // 리스트를 SetTargets에 전달합니다
                 break;
             }
         }
 
-        switch(Attack.skillInfo.type)
+        switch(Attack.skillProperties.Type)
         {
             case SkillType.Attack:
                 character.AnimationTriggerEvent(Character.AnimationTriggerType.Attack);
@@ -58,7 +66,7 @@ public class CharacterAttackState : State
                 break;
         }
         
-        Debug.Log("Skill Type: " + Attack.skillInfo.type);
+        Debug.Log("Skill Type: " + Attack.skillProperties.Type);
     }
 
     public void SetTarget(List<Transform> targets)

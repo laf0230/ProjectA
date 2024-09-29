@@ -2,14 +2,9 @@
 
 public class Bullet : Poolable
 {
-    private BulletProperties combatInfo;
-    private Transform user;
-    private Transform target;
-    public float speed;
-    public float damage;
-    public float reach;
-    public bool isPiercing = false;
+    private BulletProperties Properties { get; set; }
     public Vector3 direction;
+    float distance;
 
     private Rigidbody rb;
 
@@ -20,9 +15,10 @@ public class Bullet : Poolable
 
     private void Update()
     {
-        // reach 만큼의 시간이 지나면 사라지는 코드
-        reach -= Time.deltaTime;
-        if (reach < 0)
+        // reach 만큼의 거리이 지나면 사라지는 코드
+        distance = Vector3.Distance(Properties.User.position, transform.position);
+
+        if (distance > Properties.Reach + 1.5f)
         {
             gameObject.SetActive(false);
         }
@@ -48,68 +44,18 @@ public class Bullet : Poolable
         }
     }
 
-    public void Initialize(BulletProperties combatInfo)
+    public void Initialize(BulletProperties properties)
     {
-        this.combatInfo = combatInfo;
-        SetUser(combatInfo.User);
-        SetTarget(combatInfo.Targets[0]);
-        SetSpeed(combatInfo.Speed);
-        SetDamage(combatInfo.Damage);
-        SetReach(combatInfo.Reach);
-    }
-
-    public void Intialize(BulletProperties properties)
-    {
-        SetUser(properties.User);
-        SetSpeed(properties.Speed);
-        SetDamage(properties.Damage);
-        SetReach(properties.Reach);
+        this.Properties = properties;
     }
 
     public void SetProperties(BulletProperties properties)
     {
-        speed = properties.Speed;
-        damage = properties.Damage;
-        reach = properties.Reach;
+        this.Properties = properties;
     }
-
-    public void SetUser(Transform user)
-    {
-        this.user = user;
-    }
-
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
-    }
-
-    #region Info
-    public void SetCombatInfo(BulletProperties combatInfo)
-    {
-        this.combatInfo = combatInfo;
-    }
-
-
-    public void SetSpeed(float speed = 10f)
-    {
-        this.speed = speed;
-    }
-
-    public void SetDamage(float damage)
-    {
-        this.damage = damage;
-    }
-
-    public void SetReach(float reach)
-    {
-        this.reach = reach;
-    }
-
-    #endregion
 
     public void Shoot()
     {
-        SetReach(combatInfo.Reach);
         if (!IsReadyToShoot())
         {
             Debug.LogError("Bullet is missing required data: user, target, speed, or damage.");
@@ -122,7 +68,9 @@ public class Bullet : Poolable
 
     private bool IsValidTarget(Collider other)
     {
-        return other.gameObject != null && other.gameObject == combatInfo.Targets[0].gameObject;
+        return other.gameObject != null && 
+            other.gameObject == Properties.Target.gameObject && 
+            other.gameObject != !Properties.User.gameObject;
     }
 
     private void ApplyDamage(Collider targetCollider)
@@ -130,23 +78,23 @@ public class Bullet : Poolable
         var character = targetCollider.GetComponent<Character>();
         if (character != null)
         {
-            character.Damage(damage);
+            character.Damage(Properties.Damage);
         }
     }
 
     private bool IsReadyToShoot()
     {
-        return user != null && target != null && speed > 0 && damage != 0;
+        return Properties.User != null && Properties.Target != null && Properties.Speed > 0 && Properties.Damage != 0;
     }
 
     private void CalculateDirection()
     {
-        direction = (target.position - transform.position).normalized;
+        direction = (Properties.Target.position - transform.position).normalized;
     }
 
     private void AddForceToRigidbody()
     {
-        rb.AddForce(direction * speed, ForceMode.Impulse);
+        rb.AddForce(direction * Properties.Speed, ForceMode.Impulse);
     }
 }
 

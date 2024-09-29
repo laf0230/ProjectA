@@ -12,19 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02db146581da3c42b237efa47c12062, type: 3}
   m_Name: Red_Bision_S_Barrage
   m_EditorClassIdentifier: 
-  Profile:
-    ProfileImg: {fileID: 0}
-    Name: 
-    Description: 
-  Type: 1
-  ShapeType: 0
-  SkillSize: 0
-  targetType: 0
-  CoolTime: 10
-  Damage: 5
-  Speed: 5
-  Reach: 10
-  hasMovementAction: 0
-  MovementActionType: 0
-  MovementRange: 0
-  Ability: []

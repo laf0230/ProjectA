@@ -23,15 +23,14 @@ public class Shooter : MonoBehaviour
 
             skill.bulletSettings.Initialize(
                 new BulletProperties(
-                    true,
-                    false,
+                    1,
                     10,
                     5,
                     transform,
                     10f
                     )
                 );
-            skill.SetTarget( target );
+            // skill.SetTarget( target );
             skill.Use();
         }
     }

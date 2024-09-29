@@ -53,22 +53,13 @@ public class Combat : MonoBehaviour
     [System.Serializable]
     public class BulletSettings
     {
-        public BulletProperties properties;
-        public Transform User;
-        public Transform Target;
-
-        public float speed = 5f;          // 탄환의 속도
-        public float damage = 10f;        // 탄환이 줄 데미지
-        public float reach = 10f;
+        [SerializeField] public BulletProperties properties { get; set; }
 
         // 탄환을 생성하고 속도 및 데미지를 설정
-        public Bullet InstantiateBullet(Transform spawnPosition)
+        public Bullet GetBullet(Transform spawnPosition)
         {
-            // IsPiercing이 true면 0, false면 2를 더하고, IsSingle이 true면 0, false면 1을 더함
-            int index = (properties.IsPiercing ? 0 : 2) + (properties.IsSingle ? 0 : 1) + 1;
-
             // GetBulletFromTransform 호출
-            var bullet = BulletManager.instance.GetBulletFromTransform(index, spawnPosition);
+            var bullet = BulletManager.instance.GetBulletFromTransform(properties.Type, spawnPosition);
 
             bullet.SetProperties(properties);
 
@@ -78,8 +69,12 @@ public class Combat : MonoBehaviour
         // 탄환의 값 설정
         public void Initialize(BulletProperties bulletInfo)
         {
-            damage = bulletInfo.Damage;
-            speed = bulletInfo.Speed;
+            properties = new BulletProperties(
+                bulletInfo.Type,
+                bulletInfo.Damage, 
+                bulletInfo.Speed, 
+                bulletInfo.User, 
+                bulletInfo.Reach);
         }
 
         public void UpdateProperties(BulletProperties properties)
@@ -91,18 +86,16 @@ public class Combat : MonoBehaviour
     // 인스턴스 변수
     public Cooldown cooldown = new Cooldown();       // 스킬 쿨타임을 관리하는 인스턴스
     public BulletSettings bulletSettings = new BulletSettings();  // 탄환 설정 인스펙터에 노출
-    public SkillInfo skillInfo;                    // 스킬 정보(탄환 포함)
-    public SkillProperties skillProperties;
-    [SerializeField] private BulletProperties bulletInfo;  // 인스펙터에 노출되는 탄환 데이터
+    [field: SerializeField] public SkillProperties skillProperties;
     public List<Ability> abilities = new List<Ability>();
-
 
     #region Getter/Setter
 
     // 스킬이나 탄환의 목표를 설정
-    public void SetTarget(Transform target)
+    public void SetTarget(List<Transform> targets)
     {
-        bulletInfo.SetTarget(target);
+        skillProperties.Targets = targets;
+        bulletSettings.properties.SetTarget(targets[0]);
     }
 
     // 스킬을 사용할 수 있는지 여부를 반환 (쿨타임 중이 아님)
@@ -112,49 +105,41 @@ public class Combat : MonoBehaviour
     public bool IsCooling() => cooldown.isCooling;
 
     // 모든 필요한 정보를 초기화하는 메서드
-    public void SetSkillInfo(SkillInfo skillInfo)
+    public void SetSkillInfo(SkillProperties skillInfo)
     {
         Initialize(skillInfo);
     }
 
     #endregion
 
-    public void Initialize(SkillInfo skillInfo)
-    {
-        // 스킬 정보 및 탄환 정보 초기화
-        this.skillInfo = skillInfo;
-        bulletInfo = skillInfo.bulletInfo;
-
-        // 쿨타임 및 탄환 정보 설정
-        cooldown.SetTotalCoolTime(skillInfo.totalCoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
-        bulletSettings.Initialize(bulletInfo);
-
-        // 버프, 디버프, 군중제어 능력이 있을 경우 추가
-        if (skillInfo.abilityInfos != null)
-        {
-            abilities = AbilityManager.Instance.GetAbilities(skillInfo.abilityInfos, this);
-
-            foreach (var ability in abilities)
-            {
-                Debug.Log($"Ability: {ability.Info.Name} has added.");
-            }
-        }
-    }
-
     public void Initialize(SkillProperties properties)
     {
+        /*
+        skillProperties = new SkillProperties(
+            properties.user,
+            properties.Type,
+            properties.ShapeType,
+            properties.TargetType,
+            properties.CoolTime,
+            properties.BulletType,
+            properties.Damage,
+            properties.Speed,
+            properties.Reach,
+            properties.Ability
+            );
+        */
         // 스킬 정보 및 탄환 정보 초기화
         this.skillProperties = properties;
-        bulletInfo = skillInfo.bulletInfo;
+        bulletSettings.properties = skillProperties.BulletProperties;
 
         // 쿨타임 및 탄환 정보 설정
-        cooldown.SetTotalCoolTime(skillInfo.totalCoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
-        bulletSettings.Initialize(bulletInfo);
+        cooldown.SetTotalCoolTime(skillProperties.CoolTime); // 예: 스킬의 충돌 시간으로 쿨타임 설정
+        bulletSettings.Initialize(skillProperties.BulletProperties);
 
         // 버프, 디버프, 군중제어 능력이 있을 경우 추가
-        if (skillInfo.abilityInfos != null)
+        if (skillProperties.Ability != null)
         {
-            abilities = AbilityManager.Instance.GetAbilities(skillInfo.abilityInfos, this);
+            abilities = AbilityManager.Instance.GetAbilities(skillProperties.Ability, this);
 
             foreach (var ability in abilities)
             {
@@ -182,9 +167,10 @@ public class Combat : MonoBehaviour
             return;
         }
 
+        skillProperties.BulletProperties.SetTarget(skillProperties.Targets[0]);
         // 탄환을 설정에서 생성하고 탄환 정보를 전달
-        var bullet = bulletSettings.InstantiateBullet(transform);
-        bullet.Initialize(bulletInfo);
+        var bullet = bulletSettings.GetBullet(transform);
+        bullet.Initialize(bulletSettings.properties);
         bullet.Shoot();
     }
 
@@ -193,10 +179,10 @@ public class Combat : MonoBehaviour
         switch (type)
         {
             case MovementActionType.Dash:
-                DashToTarget(bulletInfo.Targets[0]);
+                DashToTarget(skillProperties.BulletProperties.Target);
                 break;
             case MovementActionType.Teleport:
-                TeleportToTarget(bulletInfo.Targets[0]);
+                TeleportToTarget(skillProperties.BulletProperties.Target);
                 break;
                 // 다른 MovementActionType에 대한 케이스 추가 가능
         }
@@ -232,7 +218,18 @@ public class Combat : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 5f);
+        switch (skillProperties.Type)
+        {
+            case SkillType.Attack:
+                Gizmos.color = Color.green;
+                break;
+                case SkillType.Skill:
+                Gizmos.color = Color.yellow;
+                break;
+            case SkillType.Ultimate:
+                Gizmos.color = Color.red;
+                break;
+        }
+        Gizmos.DrawWireSphere(transform.position, skillProperties.Reach);
     }
 }

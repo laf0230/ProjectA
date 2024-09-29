@@ -1,41 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillInfo
+[System.Serializable]
+public class BulletProperties : IBulletData
 {
-    public Profile Profile;
-    public SkillType type;               // 스킬 등급 (강도를 결정할 수 있음)
-    public SkillShapeType shapeType;             // 스킬 범위 타입 (근접, 원거리 등)
-    public int targetType;            // 대상 타입 (단일 대상, 다중 대상 등)
-    public float totalCoolTime;            // 충돌 시간 또는 딜레이
-    public BulletProperties bulletInfo;
-    public List<AbilityInfo> abilityInfos; // 스킬과 관련된 능력 리스트
-    public float Damage;
-    public float Speed;
-    public float Reach;
-
-    public SkillInfo(Transform user, float Damage, float Speed,float Reach, SkillType type, SkillShapeType shapeType, int targetType, float totalCoolTime, BulletProperties bulletInfo, List<AbilityInfo> abilityInfos)
-    {
-    }
-}
-
-public class BulletProperties
-{
-    // 관통 여부
-    public bool IsPiercing;
-    // 단일 여부
-    public bool IsSingle;
-    public float Damage;
-    public float Speed;
-    public float Reach;
+    [SerializeField] public int Type { get; set; }
+    [SerializeField] public float Damage{get;set;}
+    [SerializeField] public float Speed{get;set;}
+    [SerializeField] public float Reach{get;set;}
     
-    public List<Transform> Targets;
-    public Transform User;
+    [SerializeField] public Transform Target{get;set;}
+    [SerializeField] public Transform User{get;set;}
 
-    public BulletProperties(bool isPiercing, bool isSingle, float damage, float speed, Transform user, float reach)
+    public BulletProperties(int bulletType, float damage, float speed, Transform user, float reach)
     {
-        IsPiercing = isPiercing;
-        IsSingle = isSingle;
+        Type = bulletType;
         Damage = damage;
         Speed = speed;
         User = user;
@@ -43,33 +22,55 @@ public class BulletProperties
     }
 
 
-    public void SetTarget(Transform target) { Targets.Insert(0, target); }
-    public void SetTarget(List<Transform> targets) { Targets = targets; }
+    public void SetTarget(Transform target) { this.Target = target; }
     public void setUser(Transform user) { User = user; }
 }
 
-public class SkillProperties
+[System.Serializable]
+public class SkillProperties: ISkillData
 {
-    public Transform user;
-    public SkillType type;
-    public SkillShapeType shapeType;
-    public int targetType;
-    public float totalCoolTime;
-    public float Damage;
-    public float Speed;
-    public float Reach;
-    public List<AbilityInfo> AbilityInfos;
+    public Profile Profile { get; set; }
+    public Transform user { get; set; }
+    public SkillType Type{get;set;}
+    public SkillShapeType ShapeType{get;set;}
+    public int TargetType{get;set;}
+    public float CoolTime{get;set;}
+    public int BulletType{get;set;}
+    public List<Transform> Targets { get; set;} = new List<Transform>();
+    public float Damage{get;set;}
+    public float Speed{get;set;}
+    public float Reach{get;set;}
+    public BulletProperties BulletProperties{get;set;}
+    public List<AbilityInfo> Ability{get;set;} = new List<AbilityInfo>();
 
-    public SkillProperties(Transform user, SkillType type, SkillShapeType shapeType, int targetType, float totalCoolTime, float Damage, float Speed, float Reach, List<AbilityInfo> abilityInfos)
+    public float SkillSize {get;set;}
+    public bool HasMovementAction {get;set;}
+    public MovementActionType MovementActionType {get;set;}
+    public float MovementRange {get;set;}
+
+    public SkillProperties(Transform user, SkillType type, SkillShapeType shapeType, int targetType, float totalCoolTime,int bulletType, float Damage, float Speed, float Reach, List<AbilityInfo> abilityInfos)
     {
         this.user = user;
-        this.type = type;
-        this.shapeType = shapeType;
-        this.targetType = targetType;
-        this.totalCoolTime = totalCoolTime;
+        this.Type = type;
+        this.ShapeType = shapeType;
+        this.TargetType = targetType;
+        this.CoolTime = totalCoolTime;
+        this.BulletType = bulletType;
+
         this.Damage = Damage;
         this.Speed = Speed;
         this.Reach = Reach;
-        AbilityInfos = abilityInfos;
+
+        BulletProperties = new BulletProperties(bulletType, Damage, Speed, user, Reach);
+        this.BulletProperties.Damage = Damage;
+        this.BulletProperties.Speed = Speed;
+        this.BulletProperties.Reach = Reach;
+        Ability = abilityInfos;
+    }
+
+    public void SetTargets(List<Transform> targets)
+    {
+        this.Targets = targets;
+        BulletProperties.SetTarget(targets[0]);
     }
 }

@@ -12,19 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02db146581da3c42b237efa47c12062, type: 3}
   m_Name: DrCrow_SS_ColdCase
   m_EditorClassIdentifier: 
-  Profile:
-    ProfileImg: {fileID: 0}
-    Name: "\uBBF8\uC81C \uC0AC\uAC74"
-    Description: 
-  Type: 2
-  ShapeType: 0
-  SkillSize: 0
-  targetType: 0
-  CoolTime: 30
-  Damage: 300
-  Speed: 0
-  Reach: 10
-  hasMovementAction: 0
-  MovementActionType: 1
-  MovementRange: 0
-  Ability: []

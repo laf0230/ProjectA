@@ -80,20 +80,22 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         foreach(var data in Info.Skills)
         {
+            Debug.Log(data.Type);
             // 등록된 스킬 데이터의 수만큼 스킬 추가 및 초기화
             var skill = gameObject.AddComponent<Combat>();
-            combats.Add(skill);
             skill.Initialize(new SkillProperties(
                 transform,
                 data.Type,
                 data.ShapeType,
-                data.targetType,
+                data.TargetType,
                 data.CoolTime,
+                data.BulletType,
                 data.Damage,
                 data.Speed,
                 data.Reach,
                 data.Ability
                 ));
+            combats.Add(skill);
         }
 
         ThreatLevel = Info.Status.ThreatLevel;
