@@ -153,7 +153,6 @@ public class Combat : MonoBehaviour
     {
         // 게임 루프 동안 쿨타임을 지속적으로 감소시킴
         cooldown.UpdateCooldown();
-        Gizmo();
     }
 
 
@@ -204,16 +203,18 @@ public class Combat : MonoBehaviour
         transform.position = target.position;
     }
 
-    public void Gizmo()
+    public List<Collider> GetEnemies()
     {
         Vector3 origin = Vector3.zero;
         Vector3 direction = Vector3.up; Ray ray = new Ray(origin, direction);
+        List<Collider> list = new List<Collider>();
         float radius = 5f;
         RaycastHit[] hits = Physics.SphereCastAll(ray, radius);
         foreach (var hit in hits)
         {
-            // Debug.Log(hit.collider.gameObject.name);
+            list.Add(hit.collider);
         }
+        return list;
     }
 
     public void OnDrawGizmos()
