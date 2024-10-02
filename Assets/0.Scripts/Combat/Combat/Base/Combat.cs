@@ -173,11 +173,22 @@ public class Combat : MonoBehaviour
         bullet.Shoot();
     }
 
-    public void MovementAction(MovementActionType type)
+    public void MovementAction(MovementActionType MAType, TargetMovementLocaction TMLType)
     {
-        switch (type)
+        switch (MAType)
         {
             case MovementActionType.Dash:
+                switch (TMLType)
+                {
+                    case TargetMovementLocaction.ToEnemy:
+                        break;
+                    case TargetMovementLocaction.OppositeToEnemy:
+                        break;
+                    case TargetMovementLocaction.Random:
+                        break;
+                    default:
+                        break;
+                }
                 DashToTarget(skillProperties.BulletProperties.Target);
                 break;
             case MovementActionType.Teleport:
@@ -201,6 +212,22 @@ public class Combat : MonoBehaviour
     {
         // 목표 위치로 순간 이동
         transform.position = target.position;
+    }
+
+    private Vector3 GetRandomPosition(Vector3 center, float range)
+    {
+        // Center를 중심으로 Range의 범위 내의 공간에서 특정한 지점을 반환하는 함수
+        // Generate random angles
+        float randomAngle1 = Random.Range(0f, Mathf.PI * 2); // Azimuthal angle
+        float randomAngle2 = Random.Range(0f, Mathf.PI); // Polar angle
+
+        // Calculate spherical coordinates
+        float x = range * Mathf.Sin(randomAngle2) * Mathf.Cos(randomAngle1);
+        float y = range * Mathf.Sin(randomAngle2) * Mathf.Sin(randomAngle1);
+        float z = range * Mathf.Cos(randomAngle2);
+
+        // Return the random position offset from the center
+        return center + new Vector3(x, y, z);
     }
 
     public List<Collider> GetEnemies()

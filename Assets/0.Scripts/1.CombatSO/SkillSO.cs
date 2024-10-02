@@ -39,6 +39,7 @@ public class SkillSO : ScriptableObject, ISkillData
     public float Reach{get;set;}
     public bool HasMovementAction{get;set;}
     public MovementActionType MovementActionType{get;set;}
+    public TargetMovementLocaction TargetMovementLocaction { get; set; }
     public float MovementRange{get;set;}
     public List<AbilityInfo> Ability{get;set;}
 }

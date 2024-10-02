@@ -46,6 +46,7 @@ public class SkillProperties: ISkillData
     public float SkillSize {get;set;}
     public bool HasMovementAction {get;set;}
     public MovementActionType MovementActionType {get;set;}
+    public TargetMovementLocaction TargetMovementLocaction { get; set; }
     public float MovementRange {get;set;}
 
     public SkillProperties(Transform user, SkillType type, SkillShapeType shapeType, int targetType, float totalCoolTime,int bulletType, float Damage, float Speed, float Reach, List<AbilityInfo> abilityInfos)
