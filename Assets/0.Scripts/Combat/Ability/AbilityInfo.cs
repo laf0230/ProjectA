@@ -62,6 +62,7 @@ public class AbilityInfo
     [Header("스텟을 바꾸는 어빌리티일 때 사용")]
     public StatusList EffectStatus = new StatusList();
     public MovementActionType MovementActionType;
+    public TargetMovementLocaction TargetMovementLocaction;
 }
 
 public interface IAbility

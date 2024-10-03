@@ -74,6 +74,8 @@ public class CharacterAttackState : State
         // 타겟을 정하는 코드
     }
 
+    #region Animation Trigger
+
     public void DoAttack()
     {
         Attack.Use();
@@ -105,15 +107,7 @@ public class CharacterAttackState : State
         // 에니메이션에서 움직임 관련된 내용을 사용하는 트리거
         foreach (var ability in Attack.abilities)
         {
-            switch (ability.Info.MovementActionType)
-            {
-                case MovementActionType.Teleport:
-                    Attack.MovementAction(MovementActionType.Teleport);
-                    break;
-                case MovementActionType.Dash:
-                    Attack.MovementAction(MovementActionType.Dash);
-                    break;
-            }
+            Attack.MovementAction();
         }
     }
 
@@ -125,3 +119,5 @@ public class CharacterAttackState : State
         stateMachine.ChangeState(character.ChaseState);
     }
 }
+
+    #endregion

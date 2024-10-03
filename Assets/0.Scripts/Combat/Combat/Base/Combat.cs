@@ -114,20 +114,6 @@ public class Combat : MonoBehaviour
 
     public void Initialize(SkillProperties properties)
     {
-        /*
-        skillProperties = new SkillProperties(
-            properties.user,
-            properties.Type,
-            properties.ShapeType,
-            properties.TargetType,
-            properties.CoolTime,
-            properties.BulletType,
-            properties.Damage,
-            properties.Speed,
-            properties.Reach,
-            properties.Ability
-            );
-        */
         // 스킬 정보 및 탄환 정보 초기화
         this.skillProperties = properties;
         bulletSettings.properties = skillProperties.BulletProperties;
@@ -173,69 +159,82 @@ public class Combat : MonoBehaviour
         bullet.Shoot();
     }
 
-    public void MovementAction(MovementActionType MAType, TargetMovementLocaction TMLType)
+    public void MovementAction()
     {
-        switch (MAType)
+        Vector3 destination;
+        float reach = skillProperties.Reach;
+
+        // 목표 위치 설정
+        switch (skillProperties.TargetMovementLocaction)
+        {
+            case TargetMovementLocaction.ToEnemy:
+                destination = skillProperties.BulletProperties.Target.position;  // 타겟 방향
+                break;
+            case TargetMovementLocaction.OppositeToEnemy:
+                destination = GetOppositeDirection(skillProperties.BulletProperties.Target, reach);  // 타겟 반대 방향
+                break;
+            case TargetMovementLocaction.Random:
+                destination = GetRandomPosition(transform.position, reach);  // 임의의 위치 (범위 10 예시)
+                break;
+            default:
+                Debug.LogWarning("Unsupported movement location type!");
+                return;
+        }
+
+        // 대시 또는 순간 이동을 수행
+        switch (skillProperties.MovementActionType)
         {
             case MovementActionType.Dash:
-                switch (TMLType)
-                {
-                    case TargetMovementLocaction.ToEnemy:
-                        break;
-                    case TargetMovementLocaction.OppositeToEnemy:
-                        break;
-                    case TargetMovementLocaction.Random:
-                        break;
-                    default:
-                        break;
-                }
-                DashToTarget(skillProperties.BulletProperties.Target);
+                DashToTargetLocation(destination, reach);
                 break;
             case MovementActionType.Teleport:
-                TeleportToTarget(skillProperties.BulletProperties.Target);
+                TeleportToTargetLocation(destination);
                 break;
-                // 다른 MovementActionType에 대한 케이스 추가 가능
+            default:
+                Debug.LogWarning("Unsupported movement action type!");
+                break;
         }
     }
-    private void DashToTarget(Transform target)
+
+    #region MovementAction
+
+    private void DashToTargetLocation(Vector3 targetLocation, float reach)
     {
-        // 대시할 거리 설정 (예: 5.0f)
-        float dashDistance = 5.0f;
-        Vector3 dashDirection = (target.position - transform.position).normalized;
-        Vector3 dashPosition = transform.position + dashDirection * dashDistance;
+        Vector3 dashDirection = (targetLocation - transform.position).normalized;
 
         // NavMeshAgent를 통해 대시
-        gameObject.transform.parent.GetComponent<NavMeshAgent>().Move(dashDirection * dashDistance);
+        gameObject.transform.parent.GetComponent<NavMeshAgent>().Move(dashDirection * reach);
     }
 
-    private void TeleportToTarget(Transform target)
+    private void TeleportToTargetLocation(Vector3 targetLocation)
     {
         // 목표 위치로 순간 이동
-        transform.position = target.position;
+        transform.position = targetLocation;
     }
 
-    private Vector3 GetRandomPosition(Vector3 center, float range)
+    private Vector3 GetOppositeDirection(Transform target, float reach)
     {
-        // Center를 중심으로 Range의 범위 내의 공간에서 특정한 지점을 반환하는 함수
-        // Generate random angles
-        float randomAngle1 = Random.Range(0f, Mathf.PI * 2); // Azimuthal angle
-        float randomAngle2 = Random.Range(0f, Mathf.PI); // Polar angle
+        // 타겟의 반대 방향 계산
+        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        Vector3 oppositeDirection = -directionToTarget;  // 반대 방향으로 설정
 
-        // Calculate spherical coordinates
-        float x = range * Mathf.Sin(randomAngle2) * Mathf.Cos(randomAngle1);
-        float y = range * Mathf.Sin(randomAngle2) * Mathf.Sin(randomAngle1);
-        float z = range * Mathf.Cos(randomAngle2);
-
-        // Return the random position offset from the center
-        return center + new Vector3(x, y, z);
+        return transform.position + oppositeDirection * reach;  // 반대 방향으로 이동할 위치 반환
     }
+
+    private Vector3 GetRandomPosition(Vector3 center, float reach)
+    {
+        // Center를 중심으로 Range 범위 내에서 랜덤한 위치 반환
+        return center + Random.insideUnitSphere * reach;
+    }
+
+    #endregion
 
     public List<Collider> GetEnemies()
     {
         Vector3 origin = Vector3.zero;
         Vector3 direction = Vector3.up; Ray ray = new Ray(origin, direction);
         List<Collider> list = new List<Collider>();
-        float radius = 5f;
+        float radius = skillProperties.Reach;
         RaycastHit[] hits = Physics.SphereCastAll(ray, radius);
         foreach (var hit in hits)
         {
@@ -243,6 +242,8 @@ public class Combat : MonoBehaviour
         }
         return list;
     }
+    #region Debug
+
 
     public void OnDrawGizmos()
     {
@@ -260,4 +261,6 @@ public class Combat : MonoBehaviour
         }
         Gizmos.DrawWireSphere(transform.position, skillProperties.Reach);
     }
+
+    #endregion
 }
