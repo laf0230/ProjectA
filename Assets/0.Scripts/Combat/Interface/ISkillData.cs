@@ -4,22 +4,22 @@ using UnityEngine;
 
 public interface ISkillData
 {
-    public Profile Profile { get; set; }
-    public SkillType Type {get; set;}
-    public SkillShapeType ShapeType {get; set;}
-    public float SkillSize {get; set;}
-    public int TargetType {get; set;}            // 대상 타입 (단일 대상, 다중 대상 등)
-    public float CoolTime {get; set;}
-    public int BulletType { get; set; }
-    public List<Transform> Targets {get; set;}
-    public float Damage {get; set;}
-    public float Speed {get; set;}
-    public float Reach {get; set;}
-    public bool HasMovementAction {get; set;}
-    public MovementActionType MovementActionType {get; set;}
-    public TargetMovementLocaction TargetMovementLocaction {get; set;}
-    public float MovementRange {get; set;}
-    public List<AbilityInfo> Ability {get; set;}
+    Profile Profile { get; set; }
+    SkillType Type {get; set;}
+    SkillShapeType ShapeType {get; set;}
+    float SkillSize {get; set;}
+    int TargetType {get; set;}            // 대상 타입 (단일 대상, 다중 대상 등)
+    float CoolTime {get; set;}
+    int BulletType { get; set; }
+    List<Transform> Targets {get; set;}
+    float Damage {get; set;}
+    float Speed {get; set;}
+    float Reach {get; set;}
+    bool HasMovementAction {get; set;}
+    MovementActionType MovementActionType {get; set;}
+    TargetMovementLocaction TargetMovementLocaction {get; set;}
+    float MovementRange {get; set;}
+    List<AbilityInfo> Ability {get; set;}
 }
 
 public enum TargetMovementLocaction

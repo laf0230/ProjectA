@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 // 타격 범위의 형태
 public enum Shape
@@ -45,32 +45,48 @@ public enum MovementActionType
     Teleport
 }
 
-// 스킬에 해당 어빌리티가 사용된다는 정보.
-[System.Serializable]
-public class AbilityInfo
-{
-    public string Name;
-    public int ID;
-    public bool IsPercentage;
-    public bool HasMovement;
-    public float Value;
-    public float Duration;
-    public float Speed;
-    public TargetType_ TargetType;
-    public Shape shape;
-    public AnimationType AnimationType;
-    [Header("스텟을 바꾸는 어빌리티일 때 사용")]
-    public StatusList EffectStatus = new StatusList();
-    public MovementActionType MovementActionType;
-    public TargetMovementLocaction TargetMovementLocaction;
-}
-
 public interface IAbility
 {
-    public AbilityInfo Info { get; set; }
-    public MonoBehaviour MonoBehaviour { get; set; }
-    public void Initialize(AbilityInfo info) { }
-    public virtual void Use() { }
+     string Name { get; set; }
+     int ID { get; set; }
+     bool IsPercentage { get; set; }
+     float Value { get; set; }
+     float Duration { get; set; }
+     TargetType_ TargetType { get; set; }
+     Shape Shape { get; set; }
+     AnimationType AnimationType { get; set; }
+     StatusList EffectStatus { get; set; }
+}
+
+// 스킬에 해당 어빌리티가 사용된다는 정보.
+[System.Serializable]
+public class AbilityInfo : IAbility
+{
+
+    [SerializeField] private string name;
+    [SerializeField] private int id;
+    [SerializeField] private bool isPercentage;
+    [SerializeField] private float value;
+    [SerializeField] private float duration;
+    [SerializeField] private TargetType_ targetType;
+    [SerializeField] private Shape shape;
+    [SerializeField] private AnimationType animationType;
+    [Header("Id가 0일 때만 사용")]
+    [SerializeField] private StatusList effectStatus; // id가 0일 때만 보여줌
+
+    #region Getter / Setter
+   
+    public string Name { get => name; set => name = value; }
+    public int ID { get => id; set => id = value; }
+    public bool IsPercentage { get => isPercentage; set => isPercentage = value; }
+    public float Value { get => value; set => this.value = value; }
+    public float Duration { get => duration; set => duration = value; }
+    public TargetType_ TargetType { get => targetType; set => targetType = value; }
+    public Shape Shape { get => shape; set => shape = value; }
+    public AnimationType AnimationType { get => animationType; set => animationType = value; }
+    public StatusList EffectStatus { get => effectStatus; set => effectStatus = value; }
+
+    #endregion
 }
 
 // 실질적으로 스킬에 사용되는 어빌리티 기능
