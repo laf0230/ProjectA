@@ -21,16 +21,25 @@ MonoBehaviour:
   skillSize: 0
   targetType: 0
   coolTime: 0
-  bulletType: 1
+  bulletType: 0
   targets: []
   damage: 0
   speed: 0
   reach: 0
   hasMovementAction: 0
-  movementActionType: 0
-  targetMovementLocaction: 0
-  movementRange: 0
+  movementActionType: 1
+  targetMovementLocaction: 1
+  movementRange: 5
   ability:
+  - name: 
+    id: 0
+    isPercentage: 0
+    value: 0
+    duration: 0
+    targetType: 0
+    shape: 0
+    animationType: 0
+    effectStatus: 0
   - name: 
     id: 0
     isPercentage: 0
