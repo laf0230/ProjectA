@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c254685659cdd24dbd26d7cc08d569e, type: 3}
+  m_Name: FlaFla
+  m_EditorClassIdentifier: Assembly-CSharp::ChST
+  Profile:
+    ProfileImg: {fileID: 0}
+    Name: "\uD50C\uB77C\uD50C\uB77C"
+    Description: 
+  Status:
+    MaxHealth: 200
+    ChaseSpeed: 5
+    ArmorValue: 0
+    ThreatLevel: 12
+  Skills:
+  - {fileID: 11400000, guid: eb50b867014c9ef4b89e5c53a7930fe6, type: 2}
+  - {fileID: 11400000, guid: 70e4e9b73b4bd5b488a23c7df38ebf36, type: 2}
+  - {fileID: 11400000, guid: cd56dcd57189a304ca1c90454abcaf3e, type: 2}

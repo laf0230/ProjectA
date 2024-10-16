@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FlaFlaAnimator
+  m_Controller: {fileID: 9100000, guid: 739619e781d9fce4eb39befaa0862fd5, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3ae1d10f010c8b84db751f84cb7bf410, type: 2}
+    m_OverrideClip: {fileID: -3100369314251171874, guid: 49eb23fbd1e27b443896fab6dd63d7a4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b77044a1feadd8d48b53dc5fe05f5c74, type: 2}
+    m_OverrideClip: {fileID: -5171135655425724035, guid: 49eb23fbd1e27b443896fab6dd63d7a4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 944e3d1ba6e59c948b63b8e85ce3c618, type: 2}
+    m_OverrideClip: {fileID: 2667949614841947897, guid: 49eb23fbd1e27b443896fab6dd63d7a4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: ccb9dd490f66c6648859c060b4809a19, type: 2}
+    m_OverrideClip: {fileID: -6185155371445809522, guid: 49eb23fbd1e27b443896fab6dd63d7a4, type: 3}

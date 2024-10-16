@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public int cameraNumber = 1;
     public GameObject GameEndUI;
 
+    public List<GameObject> list;
+    // public List<Background> backgroundList;
+
     private void Awake()
     {
         // Check if the instance already exists and if it's not this one
