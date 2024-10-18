@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public UIManager UIManager;
     public CameraManager cameraManager;
     public int cameraNumber = 1;
     public GameObject GameEndUI;
-
-    public List<GameObject> list;
+    public int characterCount = 0;
     // public List<Background> backgroundList;
 
     private void Awake()
@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
             // Make sure this instance persists across scene loads
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        GameStart();
     }
 
     private void Update()
@@ -81,6 +86,9 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        // Pick Random Character, World
 
+        // gameObject.GetComponent<GameSetting>().characterSetting.StartGame(characterCount);
+        UIManager.GameStart();
     }
 }

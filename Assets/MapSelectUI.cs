@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapSelectUI : MonoBehaviour
+public class MapSelectUI : UI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Sprite selectedWrold;
 
-    // Update is called once per frame
-    void Update()
+    public void SetWorldImage(Sprite sprite)
     {
-        
+        selectedWrold = sprite;
     }
 }

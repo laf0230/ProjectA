@@ -21,7 +21,7 @@ MonoBehaviour:
   skillSize: 0
   targetType: 0
   coolTime: 0
-  bulletType: 0
+  bulletType: 1
   targets: []
   damage: 0
   speed: 0
