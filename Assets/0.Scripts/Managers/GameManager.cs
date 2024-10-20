@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public UIManager UIManager;
+    public InvestManager investManager;
     public CameraManager cameraManager;
     public int cameraNumber = 1;
     public GameObject GameEndUI;

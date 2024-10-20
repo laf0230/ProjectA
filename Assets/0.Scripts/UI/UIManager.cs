@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public List<GameObject> UIList = new List<GameObject>();
     public List<UI> uis = new List<UI>();
+    public ItemInfoUI itemInfo;
     // private UIWindow currentOpenUI;
 
     internal void SetCharacter(List<GameObject> selectedCharacters)
@@ -104,6 +105,7 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
 }
 
 
