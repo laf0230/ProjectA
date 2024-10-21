@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4004982917450918624}
   - component: {fileID: 2025203046018487681}
   m_Layer: 0
-  m_Name: Red_Bison
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1062205000024267499}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1194371501142412615, guid: 1431f50af5e15fb448104aac4a79b245, type: 3}
+  m_Sprite: {fileID: -750047184722822154, guid: 1914d95466e3d4341a618c35a56d5f82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 1062205000024267499}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 739619e781d9fce4eb39befaa0862fd5, type: 2}
+  m_Controller: {fileID: 22100000, guid: b95af2d25e0c5ac48bdd79ee6c701033, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8134802357482358198
 Transform:
   m_ObjectHideFlags: 0
@@ -217,13 +217,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 1
+  m_Acceleration: 1
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.5
   m_BaseOffset: 1
@@ -241,19 +241,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Status:
-    Name: RedBison
-    MaxHealth: 20
+  <Info>k__BackingField: {fileID: 11400000, guid: 3b8551caf53701e499192413f89297b9, type: 2}
+  <Status>k__BackingField:
+    MaxHealth: 0
     ChaseSpeed: 1.75
+    ArmorValue: 0
+    ThreatLevel: 0
   <CurrentHealth>k__BackingField: 0
   <IsPassThrough>k__BackingField: 0
   <ThreatLevel>k__BackingField: 2
-  <Target>k__BackingField: {fileID: 0}
+  <Targets>k__BackingField: []
   <combats>k__BackingField: []
-  <skillData>k__BackingField:
-  - {fileID: 11400000, guid: c405a5224e182434cbbb1bb0e194d282, type: 2}
-  - {fileID: 11400000, guid: 190726847e68a86489b5e65ba77640c2, type: 2}
-  - {fileID: 11400000, guid: cd0b5a50552c4234aa88115d33cd2fd9, type: 2}
   RandomMovementRange: 5
 --- !u!1 &6171852933643535296
 GameObject:

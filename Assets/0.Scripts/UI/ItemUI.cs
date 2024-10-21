@@ -14,7 +14,7 @@ public class ItemUI : MonoBehaviour
         currentItem = item;
         itemIcon.sprite = item.Icon; // 아이콘 설정
         itemNameText.text = item.Name; // 이름 설정
-        itemDescriptionText.text = item.Description; // 설명 설정
+        itemDescriptionText.text = item.description; // 설명 설정
         itemQuantityText.text = $"x{item.quantity}"; // 수량 설정
     }
 

@@ -80,13 +80,14 @@ GameObject:
   - component: {fileID: 9178842642466282601}
   - component: {fileID: 3690923098215748557}
   - component: {fileID: 5988042085170284754}
+  - component: {fileID: 2099838314374788454}
   m_Layer: 0
   m_Name: SwordMan
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9207533084604598450
 Transform:
   m_ObjectHideFlags: 0
@@ -166,18 +167,42 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 1
+  m_Acceleration: 1
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
+--- !u!114 &2099838314374788454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296048813157005724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Info>k__BackingField: {fileID: 11400000, guid: be525f1198161974bb2c0e19a5f18f6b, type: 2}
+  <Status>k__BackingField:
+    MaxHealth: 0
+    ChaseSpeed: 1.75
+    ArmorValue: 0
+    ThreatLevel: 0
+  <CurrentHealth>k__BackingField: 0
+  <IsPassThrough>k__BackingField: 0
+  <ThreatLevel>k__BackingField: 1
+  <Targets>k__BackingField: []
+  <combats>k__BackingField: []
+  RandomMovementRange: 5
 --- !u!1 &5113878957531924745
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +365,7 @@ GameObject:
   - component: {fileID: 2432950399138257983}
   - component: {fileID: 883868811418432691}
   - component: {fileID: 8737351835476644352}
+  - component: {fileID: 5232990934782043069}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -435,3 +461,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5232990934782043069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8359257822874226516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a55a52ffd0dbb41a5b884708b3bb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

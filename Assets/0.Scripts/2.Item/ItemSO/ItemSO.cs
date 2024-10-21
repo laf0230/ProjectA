@@ -9,7 +9,7 @@ public class ItemSO : ScriptableObject
     public int SellPrise;
 
     public Sprite sprite;
-    public string Description;
+    public string description;
     public List<AbilityInfo> Ability = new List<AbilityInfo>();
     public bool IsSellable;
 }

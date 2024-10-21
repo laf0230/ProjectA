@@ -14,6 +14,6 @@ public class ItemInfoUI : MonoBehaviour
 
     public void SetInfomation(ItemSO info)
     {
-        Infomation.text = info.Description;
+        Infomation.text = info.description;
     }
 }

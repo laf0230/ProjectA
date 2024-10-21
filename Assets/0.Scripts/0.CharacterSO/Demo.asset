@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c254685659cdd24dbd26d7cc08d569e, type: 3}
-  m_Name: DrCrow
+  m_Name: Demo
   m_EditorClassIdentifier: Assembly-CSharp::ChST
   Profile:
     ProfileImg: {fileID: 0}
-    Name: "\uC5ED\uBCD1 \uC758\uC0AC"
+    Name: "\uB514\uBAA8"
     Description: 
   Status:
     MaxHealth: 200

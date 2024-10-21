@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 
+[System.Serializable]
 public class CurrencyUI : MonoBehaviour
 {
     public int value;
@@ -13,14 +14,10 @@ public class CurrencyUI : MonoBehaviour
         m_TextMeshPro = GetComponent<TextMeshProUGUI>();
     }
 
-    public void Update()
-    {
-        value = GameManager.Instance.investManager.GetUserCurrency(currencyType);
-        DisplayCurrency(value);
-    }
-
     public void DisplayCurrency(int value)
     {
+        if (!gameObject.activeSelf)
+            return;
         m_TextMeshPro.text = value.ToString();
     }
 }
