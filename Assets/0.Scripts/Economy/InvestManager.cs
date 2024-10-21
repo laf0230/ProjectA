@@ -78,26 +78,17 @@ public class Currency
     }
 }
 
-public class Item
-{
-    public string name;
-    public string description;
-    public Currency buyPrise;
-    public Currency sellPrise;
-    public List<AbilityInfo> abilityInfo = new List<AbilityInfo>();
-}
-
 public class PlayerData : ScriptableObject
 {
     Profile profile;
     public Currency gold = new Currency(CurrencyType.Gold, 0);
     public Currency chip = new Currency(CurrencyType.Chip, 0);
     public Dictionary<Character, Currency> Investment = new Dictionary<Character, Currency>();
-    public List<Item> Items = new List<Item>();
+    public List<BaseItem> Items = new List<BaseItem>();
 }
 
 public class CharacterInfoUI : UI
 {
-    public Item item;
+    public BaseItem item;
 
 }

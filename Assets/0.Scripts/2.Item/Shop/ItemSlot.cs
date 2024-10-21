@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+public class Slot : MonoBehaviour
 {
-    public ItemSO itemSO;
-    public Button Button;
+    public Image itemIcon;
+    private BaseItem currentItem;
 
-    public void Start()
+    // 슬롯에 아이템 설정
+    public void SetItem(BaseItem item)
     {
-        Button.onClick.AddListener(() =>
-        {
-            GameManager.Instance.UIManager.itemInfo.SetInfomation(itemSO);
-        });
+        currentItem = item;
+        itemIcon.sprite = item.Icon; // 아이콘을 UI에 표시
+    }
+
+    // 현재 슬롯의 아이템 반환
+    public BaseItem GetItem()
+    {
+        return currentItem;
     }
 }
