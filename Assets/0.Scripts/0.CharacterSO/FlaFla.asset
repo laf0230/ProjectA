@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: "\uD50C\uB77C\uD50C\uB77C"
     Description: 
   Status:
-    MaxHealth: 200
+    MaxHealth: 20
     ChaseSpeed: 5
     ArmorValue: 0
     ThreatLevel: 12

@@ -9,13 +9,10 @@ public class CurrencyUI : MonoBehaviour
     public CurrencyType currencyType;
     private TextMeshProUGUI m_TextMeshPro;
 
-    private void Start()
-    {
-        m_TextMeshPro = GetComponent<TextMeshProUGUI>();
-    }
-
     public void DisplayCurrency(int value)
     {
+        m_TextMeshPro = GetComponent<TextMeshProUGUI>();
+        
         if (!gameObject.activeSelf)
             return;
         m_TextMeshPro.text = value.ToString();

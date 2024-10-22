@@ -18,14 +18,14 @@ MonoBehaviour:
     Description: 
   type: 1
   shapeType: 0
-  skillSize: 0
-  targetType: 0
-  coolTime: 0
+  skillSize: 5
+  targetType: 1
+  coolTime: 5
   bulletType: 1
   targets: []
-  damage: 0
-  speed: 0
-  reach: 0
+  damage: 5
+  speed: 5
+  reach: 5
   hasMovementAction: 0
   movementActionType: 0
   targetMovementLocaction: 0

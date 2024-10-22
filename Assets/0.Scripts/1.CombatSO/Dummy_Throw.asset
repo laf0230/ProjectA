@@ -12,3 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02db146581da3c42b237efa47c12062, type: 3}
   m_Name: Dummy_Throw
   m_EditorClassIdentifier: 
+  profile:
+    ProfileImg: {fileID: 0}
+    Name: 
+    Description: 
+  type: 0
+  shapeType: 0
+  skillSize: 5
+  targetType: 1
+  coolTime: 5
+  bulletType: 1
+  targets: []
+  damage: 5
+  speed: 5
+  reach: 5
+  hasMovementAction: 0
+  movementActionType: 0
+  targetMovementLocaction: 0
+  movementRange: 0
+  ability: []

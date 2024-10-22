@@ -16,6 +16,7 @@ public class UIManager_ : MonoBehaviour
     public ItemInfoUI_ itemInfoUI;
     public InvestmentUI investmentUI;
     public InvestCalcUI investCalcUI;
+    public StandingUI standingUI;
     public List<CurrencyUI> currencyUIs;
 
     public GameObject WorldUI;
@@ -62,9 +63,6 @@ public class UIManager_ : MonoBehaviour
 
     public IEnumerator IEStart()
     {
-        WorldUI.SetActive(true);
-        yield return new WaitForSeconds(3);
-        WorldUI.SetActive(false);
 
         foreach (UIGroup UI in uIGroups)
         {
@@ -87,6 +85,10 @@ public class UIManager_ : MonoBehaviour
                 UI.Open();
             else UI.Close();
         }
+        
+        WorldUI.SetActive(true);
+        yield return new WaitForSeconds(3);
+        WorldUI.SetActive(false);
     }
 
     public void OnClickBattleStart()
@@ -104,13 +106,13 @@ public class UIManager_ : MonoBehaviour
         switch (characterName)
         {
             case "Flafla":
-                StandingImage.sprite = FlaFlaFI;
+                standingUI.SetIllust(FlaFlaFI);
                 break;
             case "Demo":
-                StandingImage.sprite = DemoFI;
+                standingUI.SetIllust(DemoFI);
                 break;
             case "RedBison":
-                StandingImage.sprite = RedBisonFI;
+                standingUI.SetIllust(RedBisonFI);
                 break;
         }
     }

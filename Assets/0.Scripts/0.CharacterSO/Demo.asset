@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: "\uB514\uBAA8"
     Description: 
   Status:
-    MaxHealth: 200
+    MaxHealth: 20
     ChaseSpeed: 5
     ArmorValue: 0
     ThreatLevel: 10
