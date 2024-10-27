@@ -38,8 +38,8 @@ public class Player
 {
     public string name;
     public bool isUser = false;
-    public Currency gold = new Currency(CurrencyType.Gold, 10);
-    public Currency chip = new Currency(CurrencyType.Chip, 10);
+    public Currency gold = new Currency(CurrencyType.Gold);
+    public Currency chip = new Currency(CurrencyType.Chip);
     // 보유한 아이템 목록
     // 투자한 캐릭터 목록과 재화량
 }
@@ -56,10 +56,9 @@ public class Currency
     public CurrencyType type;
     public int amount;
 
-    public Currency(CurrencyType type, int initialAmount)
+    public Currency(CurrencyType type)
     {
         this.type = type;
-        this.amount = initialAmount;
     }
 
     public void AddCurrency(int value)
@@ -81,8 +80,8 @@ public class Currency
 public class PlayerData : ScriptableObject
 {
     Profile profile;
-    public Currency gold = new Currency(CurrencyType.Gold, 0);
-    public Currency chip = new Currency(CurrencyType.Chip, 0);
+    public Currency gold = new Currency(CurrencyType.Gold);
+    public Currency chip = new Currency(CurrencyType.Chip);
     public Dictionary<Character, Currency> Investment = new Dictionary<Character, Currency>();
     public List<BaseItem> Items = new List<BaseItem>();
 }

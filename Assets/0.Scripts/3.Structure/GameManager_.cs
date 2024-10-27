@@ -10,6 +10,8 @@ public class GameManager_ : MonoBehaviour
     // 플레이어 데이터
     public Player_ player = new Player_();
     public List<Character> characters;
+    public Inventory_ inventory;
+    public Shop_ shop;
 
     // 싱글턴 초기화
     private void Awake()
@@ -27,17 +29,22 @@ public class GameManager_ : MonoBehaviour
 
     private void Start()
     {
-        player.Gold = 10000;
-        player.Chip = 10000;
+        player.gold.amount = 10000;
+        player.gold.amount = 10000;
 
         // UI 업데이트
         UIManager_.Instance.UpdateCurrencyUI();
+
+        inventory.Initialize();
+        shop.Initialize(inventory);
     }
 
     // 전투 시작 메서드
     public void StartBattle()
     {
         // 'Character' 태그를 가진 모든 오브젝트를 활성화
+        player.inventory.Initialize();
+
         foreach (var item in characters)
         {
             item.gameObject.SetActive(true);

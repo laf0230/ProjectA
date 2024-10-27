@@ -28,9 +28,9 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
         int newCost = cost + amount;
 
         // 보유한 칩보다 많이 투자할 수 없도록 조정
-        if (newCost > playerData.Chip + cost)
+        if (newCost > playerData.chip.amount + cost)
         {
-            newCost = playerData.Chip + cost;
+            newCost = playerData.chip.amount + cost;
         }
 
         // 투자 금액이 감소할 경우
@@ -40,14 +40,14 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
             int decreaseAmount = Mathf.Min(cost, Mathf.Abs(amount));  // 감소할 수 있는 양은 현재 cost까지만
 
             // 줄어든 금액만큼 Chip에 돌려줌
-            playerData.Chip += decreaseAmount;
+            playerData.chip.AddCurrency(decreaseAmount);
             cost -= decreaseAmount;
         }
         else
         {
             // 투자 금액이 증가하면 그만큼 Chip에서 차감
             int deduction = newCost - cost;
-            playerData.Chip -= deduction;
+            playerData.chip.SpendCurrency(deduction);
             cost = newCost;
         }
 

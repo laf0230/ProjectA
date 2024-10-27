@@ -6,24 +6,33 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum UIType
+{
+    Map,
+    Select,
+    Invest,
+    Shop,
+}
+
 public class UIManager_ : MonoBehaviour
 {
     public static UIManager_ Instance { get; private set; }
 
     public List<UIGroup> uIGroups = new List<UIGroup>();
+    public List<UIGroup> uIGroups2 = new List<UIGroup>();
     public InventoryUI_ inventoryUI;
     public ShopUI_ shopUI;
     public ItemInfoUI_ itemInfoUI;
-    public InvestmentUI investmentUI;
+    public InvestmentUI_ investmentUI;
     public InvestCalcUI investCalcUI;
     public StandingUI standingUI;
-    public List<CurrencyUI> currencyUIs;
-
     public GameObject WorldUI;
     public Image StandingImage;
     public Sprite RedBisonFI;
     public Sprite DemoFI;
     public Sprite FlaFlaFI;
+    public UIType currentUIType;
+
 
     private void Awake()
     {
@@ -45,15 +54,13 @@ public class UIManager_ : MonoBehaviour
     private void Start()
     {
         GameStart();
+        shopUI.Initialize();
     }
 
     private void FixedUpdate()
     {
 
-        if (currencyUIs[0].gameObject.activeSelf && currencyUIs[1].gameObject.activeSelf)
-        {
-            UpdateCurrencyUI();
-        }
+        UpdateCurrencyUI();
     }
 
     public void GameStart()
@@ -63,6 +70,12 @@ public class UIManager_ : MonoBehaviour
 
     public IEnumerator IEStart()
     {
+        uIGroups.ForEach((ui) => ui.Close());
+
+         WorldUI.SetActive(true);
+         yield return new WaitForSeconds(3);
+         WorldUI.SetActive(false);
+
 
         foreach (UIGroup UI in uIGroups)
         {
@@ -81,14 +94,7 @@ public class UIManager_ : MonoBehaviour
 
             if (UI.uIName == "캐릭터 선택창")
                 UI.Open();
-            else if (UI.uIName == "관리창")
-                UI.Open();
-            else UI.Close();
         }
-        
-        WorldUI.SetActive(true);
-        yield return new WaitForSeconds(3);
-        WorldUI.SetActive(false);
     }
 
     public void OnClickBattleStart()
@@ -119,17 +125,23 @@ public class UIManager_ : MonoBehaviour
 
     public void UpdateCurrencyUI()
     {
-        foreach (var item in currencyUIs)
+        // 보유 소지금 표시
+        /*
+        foreach (var item in currencyUis)
         {
+            if (item == null)
+                return;
+
             if (item.currencyType == CurrencyType.Gold)
             {
-                item.DisplayCurrency(GameManager_.instance.player.Gold);
+                item.DisplayCurrency(GameManager_.instance.player.gold.amount);
             }
             else
             {
-                item.DisplayCurrency(GameManager_.instance.player.Chip);
+                item.DisplayCurrency(GameManager_.instance.player.gold.amount);
             }
         }
+        */
     }
 }
 
@@ -138,6 +150,7 @@ public class UIManager_ : MonoBehaviour
 public class UIGroup
 {
     public string uIName;
+    public UIType type;
     public List<GameObject> uiList;
     public List<Button> enableButtons;
     public List<Button> disableButtons;
@@ -198,84 +211,32 @@ public class InvestmentUI : MonoBehaviour
     }
 }
 
+public class Invest_
+{
+    Player player; // 투자자
+    public CharacterInfoSO characterInfo; // 투자 타겟
+    
+
+}
+
 [System.Serializable]
 public class Player_
 {
-    public string Name;
-    public Sprite ProfileImage;
-    // public Currency Gold = new Currency(CurrencyType.Gold, 0);
-    // public Currency Chip = new Currency(CurrencyType.Chip, 0);
-    public int Gold;
-    public int Chip;
-    public List<InvestmentData> InvestmentDatas;
+    public string name;
+    public Sprite profileImage;
+    public List<Invest_> invests;
+    public Currency chip = new Currency(CurrencyType.Chip);
+    public Currency gold = new Currency(CurrencyType.Gold);
+    public Inventory_ inventory;
 
-    // 플레이어가 소유한 아이템 목록
-    public List<ItemSO> ownedItems;
-
-    // 캐릭터에 투자하는 메서드
-    public void InvestCharacter(Character character, int cost)
-    {
-        // 투자 데이터에서 해당 캐릭터와 일치하는 카드를 찾기
-        InvestmentData investData = FindInvestmentData(character);
-
-        if (investData != null)
-        {
-            // 투자할 금액을 설정, 보유 칩보다 클 경우 보유한 만큼만 투자
-            if (cost > Chip)
-            {
-                cost = Chip;
-            }
-
-            // 해당 카드의 InvestmentData 속 cost.amount에 값 대입
-            investData.cost.amount = cost;
-            Debug.Log("Invested " + cost + " into character: " + character.name);
-
-            // 이후 추가 로직 작성 가능
-        }
-        else
-        {
-            Debug.LogWarning("No matching character found for investment.");
-        }
-    }
-
-    // 캐릭터에게 아이템을 투자하는 메서드
-    public void InvestItem(Character character, ItemSO item)
-    {
-        // 투자 데이터에서 해당 캐릭터와 일치하는 카드를 찾기
-        InvestmentData investData = FindInvestmentData(character);
-
-        if (investData != null)
-        {
-            // 아이템을 InvestmentData의 items 리스트에 추가
-            investData.items.Add(item);
-            Debug.Log("Added item to character: " + character.name);
-        }
-        else
-        {
-            Debug.LogWarning("No matching character found for item investment.");
-        }
-    }
-
-    // 캐릭터에 맞는 InvestmentData를 찾는 메서드
-    private InvestmentData FindInvestmentData(Character character)
-    {
-        // InvestmentDatas 리스트에서 캐릭터와 일치하는 카드를 찾음
-        foreach (InvestmentData investData in InvestmentDatas)
-        {
-            if (investData.Card.character.character == character.Info)
-            {
-                return investData;
-            }
-        }
-        return null; // 일치하는 카드가 없으면 null 반환
-    }
+    private Invest currentInvest;
 }
 
-// 투자 데이터를 담는 클래스
-public class InvestmentData
+[field: System.Serializable]
+public class Invest
 {
-    public Card_ Card; // 카드와 연동된 데이터
-    public Currency cost = new Currency(CurrencyType.Chip, 0);
-    public List<ItemSO> items = new List<ItemSO>(); // 투자한 아이템 목록
+    public Player_ Player; // 투자자
+    public CharacterInfoSO characterInfo; // 투자 대상
+    public Currency fundedGold = new Currency(CurrencyType.Gold); // 투자금
+    public List<ItemSO> fundedItem; // 투자 아이템
 }
-

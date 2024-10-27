@@ -27,6 +27,13 @@ public class CharacterInfoSO : ScriptableObject
     public Profile Profile;
     public CharacterStatus Status;
     public List<SkillSO> Skills;
+
+    public List<ItemSO> investedItems { get; set; }
+
+    public void fd()
+    {
+        
+    }
 }
 
 /*

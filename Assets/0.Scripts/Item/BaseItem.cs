@@ -16,6 +16,5 @@ public class BaseItem
     public Sprite Icon => itemData.sprite; // 아이템 아이콘
     public int BuyPrice => itemData.BuyPrise; // 구매 가격
     public int SellPrice => itemData.SellPrise; // 판매 가격
-    public bool IsSellable => itemData.IsSellable; // 판매 가능 여부
 }
 

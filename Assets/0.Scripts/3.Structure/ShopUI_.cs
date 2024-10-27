@@ -5,27 +5,33 @@ public class ShopUI_ : MonoBehaviour
 {
     [SerializeField] private GameObject slot;
     [SerializeField] private GameObject itemContainer;
-    private List<GameObject> items;
+    private List<GameObject> items = new List<GameObject>();
     private Shop_ shop;
 
-    private void Start()
+    public void Initialize()
     {
-        shop = FindObjectOfType<Shop_>();
+        if (items != null)
+        {
+            shop = GameManager_.instance.shop;
+
+            foreach (GameObject framedItem in items)
+            {
+                Destroy(framedItem);
+            }
+        }
     }
 
     public void UpdateUI()
     {
+        Initialize();
 
-        foreach (GameObject framedItem in items)
-        {
-            Destroy(framedItem);
-        }
-
-        foreach (var item in shop.items)
+        Debug.Log(GameManager_.instance.shop.items);
+        foreach (var item in GameManager_.instance.shop.items)
         {
             var createdSlot = Instantiate(slot, itemContainer.transform);
-
-            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item, true);
+            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
+            
+            items.Add(createdSlot);
         }
     }
 }

@@ -8,15 +8,15 @@ public class InventoryUI_ : MonoBehaviour
     public List<GameObject> items;
     public GameObject slot;
 
-    private void Start()
+    public void Initialize(Inventory_ inventory)
     {
-        inventory = FindObjectOfType<Inventory_>();
+        this.inventory = inventory;
     }
 
     public void AddItem(ItemSO item)
     {
-        var createdSlot = GameObject.Instantiate(slot, itemContainer.transform);
-        createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item, false);
+        GameObject createdSlot = Instantiate(slot, itemContainer.transform);
+        createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
     }
 
     public void RemoveItem(ItemSO item)
@@ -43,17 +43,37 @@ public class InventoryUI_ : MonoBehaviour
 
     public void UpdateUI()
     {
-        foreach (GameObject framedItem in items)
+        var items = inventory.items;
+
+        if(this.items != null)
         {
-            Destroy(framedItem);
+            // 아이템 목록 초기화
+            foreach (GameObject framedItem in this.items)
+            {
+                Destroy(framedItem);
+            }
         }
 
-        foreach (var item in inventory.items)
+        foreach (var item in items)
         {
+            // 아이템 추가
             var createdSlot = Instantiate(slot, itemContainer.transform);
 
-            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item, false);
+            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
+            this.items.Add(createdSlot);
         }
+    }
+
+    // 투자 창에서의 인벤토리 속 아이템 상호작용
+    public void OnInvestUIButtonClick()
+    {
+
+    }
+
+    // 상점에서의 인벤토리 속 아이템 상호작용
+    public void OnShopUIButtonClick()
+    {
+
     }
 }
 
