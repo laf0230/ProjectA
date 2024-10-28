@@ -7,6 +7,7 @@ public class CharacterCard : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.Instance.UIManager.CharacterManagementUI();
+        var relatedUI = UIManager_.Instance.GetUIGroup(UIType_.ManagementUI);
+        relatedUI.Active(true);
     }
 }

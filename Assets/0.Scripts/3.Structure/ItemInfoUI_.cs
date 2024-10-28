@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemInfoUI_ : MonoBehaviour // 아이템 상세 정보 UI
+public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보 UI
 {
     public Image image;
     public TextMeshProUGUI text;
@@ -63,7 +63,7 @@ public class ItemInfoUI_ : MonoBehaviour // 아이템 상세 정보 UI
         }
     }
 
-    #region Button Event
+    #region Button Event Handler
 
     public void OnBuyButtonClick()
     {
@@ -110,6 +110,8 @@ public class ItemInfoUI_ : MonoBehaviour // 아이템 상세 정보 UI
         buttonText.text = EquipText;
         tradeButton.onClick.RemoveAllListeners();
         tradeButton.onClick.AddListener(OnEquipButtonClick);
+
+        Debug.Log("성공적으로 버튼에 '장착'이 할당되었습니다.");
     }
 
     public void ActiveUnEquipeButton()
@@ -117,5 +119,7 @@ public class ItemInfoUI_ : MonoBehaviour // 아이템 상세 정보 UI
         buttonText.text = UnEquipText;
         tradeButton.onClick.RemoveAllListeners();
         tradeButton.onClick.AddListener(OnUnEquipButtonClick);
+
+        Debug.Log("성공적으로 버튼에 '해제'가 할당되었습니다.");
     }
 }

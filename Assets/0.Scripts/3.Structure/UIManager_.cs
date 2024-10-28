@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -14,12 +15,22 @@ public enum UIType
     Shop,
 }
 
+public enum UIType_
+{
+    ManagementUI,
+    ShopUI,
+    CharacterProfile,
+    CharacterStanding,
+    ItemInfo,
+    Calculation,
+    CharacterSelect
+}
+
 public class UIManager_ : MonoBehaviour
 {
     public static UIManager_ Instance { get; private set; }
 
     public List<UIGroup> uIGroups = new List<UIGroup>();
-    public List<UIGroup> uIGroups2 = new List<UIGroup>();
     public InventoryUI_ inventoryUI;
     public ShopUI_ shopUI;
     public ItemInfoUI_ itemInfoUI;
@@ -31,8 +42,7 @@ public class UIManager_ : MonoBehaviour
     public Sprite RedBisonFI;
     public Sprite DemoFI;
     public Sprite FlaFlaFI;
-    public UIType currentUIType;
-
+    public UIType currentUIType { get; set; }
 
     private void Awake()
     {
@@ -92,9 +102,24 @@ public class UIManager_ : MonoBehaviour
                 btn.onClick.AddListener(UI.Open);
             }
 
-            if (UI.uIName == "캐릭터 선택창")
+            if (UI.type_ == UIType_.charactersele)
                 UI.Open();
         }
+    }
+
+    public UIGroup GetUIGroup(UIType_ uiType)
+    {
+        // UIGroups_에 uiType과 같은 타입을 가진 오브젝트가 있다면 해당 오브젝트에 있는 UIList 속 오브젝트를 껏다 킬 수 있는 오브젝트를 할당할 것
+        foreach (UIGroup item in uIGroups)
+        {
+            if(item.type_ == uiType)
+            {
+                return item;
+            }
+        }
+
+        Debug.LogError("해당 UI그룹은 존재하지 않습니다.");
+        return null;
     }
 
     public void OnClickBattleStart()
@@ -151,9 +176,11 @@ public class UIGroup
 {
     public string uIName;
     public UIType type;
+    public UIType_ type_;
     public List<GameObject> uiList;
     public List<Button> enableButtons;
     public List<Button> disableButtons;
+    public bool isActive { get; set; }
 
     public void Open()
     {
@@ -161,6 +188,7 @@ public class UIGroup
         {
             ui.SetActive(true);
         }
+        isActive = true;
     }
 
     public void Close()
@@ -168,6 +196,28 @@ public class UIGroup
         foreach (GameObject ui in uiList)
         {
             ui.SetActive(false);
+        }
+        isActive = false;
+    }
+
+    public void Active(bool active)
+    {
+        isActive = active;
+
+        if (active)
+            Open();
+        else
+            Close();
+    }
+
+    public void AddButton(Button button, bool active)
+    {
+        if (active)
+        {
+            button.onClick.AddListener(Open);
+        } else
+        {
+            button.onClick.AddListener(Close);
         }
     }
 }

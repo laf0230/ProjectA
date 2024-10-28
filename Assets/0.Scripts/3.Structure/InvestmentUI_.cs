@@ -30,15 +30,4 @@ public class InvestmentUI_ : MonoBehaviour
             createdItemUI.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
         }
     }
-
-    public void OnInventoryItemSlotUI()
-    {
-        switch (UIManager_.Instance.currentUIType)
-        {
-            case UIType.Invest:
-                break;
-            case UIType.Shop:
-                break;
-        }
-    }
 }

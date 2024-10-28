@@ -13,6 +13,8 @@ public class Investment_ : MonoBehaviour
     public void Initialize()
     {
         items = selectedCharacter.investedItems;
+        // 초기화를 진행할때마다 UI의 타입을 바꿈 -> 현재 UI가 어떤 UI인지 알기 위한 코드
+        UIManager_.Instance.currentUIType = UIType.Invest;
     }
 
     public void InvestItem(ItemSO item)

@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
+public interface Containable
+{
+    public bool isInInventory {  get; set; }
+}
+
+public class ItemSlotUI : MonoBehaviour, Containable // 아이템 슬롯 UI
 {
     Image itemFrame;
     [SerializeField] private Button button;
     [SerializeField] private Image itemImage;
     
     public ItemSO item { get; set; }
+    public bool isInInventory { get; set; }
 
     public void Start()
     {
@@ -30,11 +36,6 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
 
         // 버튼에 클릭 이벤트 부여
         var buttonE = button.onClick;
-    }
-
-    public void EnableInfoUI(bool isActive)
-    {
-        UIManager_.Instance.itemInfoUI.gameObject.SetActive(isActive);
     }
 
     public void OnButtonClick()

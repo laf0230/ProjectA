@@ -59,6 +59,9 @@ public class InventoryUI_ : MonoBehaviour
             // 아이템 추가
             var createdSlot = Instantiate(slot, itemContainer.transform);
 
+            var slotUI = createdSlot.GetComponent<ItemSlotUI>();
+
+            slotUI.isInInventory = true;
             createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
             this.items.Add(createdSlot);
         }
