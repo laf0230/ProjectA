@@ -6,14 +6,12 @@ using UnityEngine;
 public class CurrencyUI : MonoBehaviour
 {
     public int value;
-    private TextMeshProUGUI m_TextMeshPro;
-
+    public TextMeshProUGUI textMeshPro;
+    
     public void DisplayCurrency(int value)
     {
-        m_TextMeshPro = GetComponent<TextMeshProUGUI>();
-        
         if (!gameObject.activeSelf)
             return;
-        m_TextMeshPro.text = value.ToString();
+        textMeshPro.text = value.ToString();
     }
 }

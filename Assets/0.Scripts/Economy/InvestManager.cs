@@ -44,38 +44,6 @@ public class Player
     // 투자한 캐릭터 목록과 재화량
 }
 
-public enum CurrencyType
-{
-    Gold,
-    Chip
-}
-
-[SerializeField]
-public class Currency
-{
-    public CurrencyType type;
-    public int amount;
-
-    public Currency(CurrencyType type)
-    {
-        this.type = type;
-    }
-
-    public void AddCurrency(int value)
-    {
-        amount += value;
-    }
-
-    public void SpendCurrency(int value)
-    {
-        amount -= value;
-    }
-
-    public int GetCurrency()
-    {
-        return amount;
-    }
-}
 
 public class PlayerData : ScriptableObject
 {

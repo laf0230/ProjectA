@@ -319,7 +319,6 @@ GameObject:
   - component: {fileID: 21959046}
   - component: {fileID: 21959045}
   - component: {fileID: 21959044}
-  - component: {fileID: 21959047}
   m_Layer: 5
   m_Name: Trade
   m_TagString: Untagged
@@ -429,27 +428,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21959042}
   m_CullTransparentMesh: 1
---- !u!114 &21959047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21959042}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7c812982c360444bf2a6c1db777385, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Button: {fileID: 0}
-  ShopItem: {fileID: 0}
-  Item1: {fileID: 0}
-  infomation: {fileID: 0}
-  Inventory: {fileID: 0}
-  CharacterEquipement: {fileID: 0}
-  onInventoryButton: {fileID: 0}
-  onCharacterEquipement: {fileID: 0}
-  Type: 1
 --- !u!1 &28946879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  textMeshPro: {fileID: 183539823}
 --- !u!1 &187473950 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4714177865515787881, guid: 92f377341585c5e4990f451d6e034090, type: 3}
@@ -4810,8 +4789,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 835485772}
   m_HandleRect: {fileID: 835485771}
   m_Direction: 2
-  m_Value: -0.0000006102622
-  m_Size: 0.77775085
+  m_Value: 0
+  m_Size: 0.77771854
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8381,6 +8360,10 @@ MonoBehaviour:
     - {fileID: 1004697643}
     - {fileID: 838036532}
     - {fileID: 935822240}
+  currencyUIs:
+  - {fileID: 1609570158}
+  - {fileID: 183539825}
+  - {fileID: 1132315095}
   inventoryUI: {fileID: 934370658}
   shopUI: {fileID: 1082638763}
   itemInfoUI: {fileID: 198259217}
@@ -9424,6 +9407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  textMeshPro: {fileID: 1132315093}
 --- !u!1 &1145528428
 GameObject:
   m_ObjectHideFlags: 0
@@ -12456,6 +12440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  textMeshPro: {fileID: 1609570156}
 --- !u!1 &1636662400
 GameObject:
   m_ObjectHideFlags: 0
@@ -12596,7 +12581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 200.0294}
+  m_AnchoredPosition: {x: 0, y: 200.02928}
   m_SizeDelta: {x: 0, y: 900.0293}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1713146396

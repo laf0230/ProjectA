@@ -37,7 +37,7 @@ public class GameManager_ : MonoBehaviour
     private void Start()
     {
         player.gold.amount = 10000;
-        player.gold.amount = 10000;
+        player.chip.amount = 10000;
 
         // UI 업데이트
         UIManager_.Instance.UpdateCurrencyUI();
@@ -62,6 +62,7 @@ public class GameManager_ : MonoBehaviour
     {
         selectedCards = SelectRandomCharacters();
         // UIManager_.Instance.cardContainer.gameObject.SetActive(true);
+        player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
     }
 

@@ -32,6 +32,7 @@ public class UIManager_ : MonoBehaviour
     public static UIManager_ Instance { get; private set; }
 
     public List<UIGroup> uIGroups = new List<UIGroup>();
+    public List<CurrencyUI> currencyUIs;
     public InventoryUI_ inventoryUI;
     public ShopUI_ shopUI;
     public ItemInfoUI_ itemInfoUI;
@@ -228,29 +229,9 @@ public class InvestManager_ : MonoBehaviour // 캐릭터 투자 창
     public static InvestManager_ instance;
 }
 
-public class InvestmentUI : MonoBehaviour
-{
-    [SerializeField] private TextMeshProUGUI nameSpace;
-    [SerializeField] private TextMeshProUGUI descriptionSpace;
-    [SerializeField] private Button investButton;
-
-    private void Start()
-    {
-        investButton.onClick.AddListener(OnInvestButtonClick);
-    }
-
-    public void OnInvestButtonClick()
-    {
-        // TODO: 투자금 계산 UI 활성화
-        // UIManager_.Instance.investCalcUI
-    }
-}
-
 public class Invest_
 {
     public CharacterInfoSO characterInfo; // 투자 타겟
-    
-
 }
 
 [System.Serializable]
@@ -264,6 +245,58 @@ public class Player_
     public Inventory_ inventory;
 
     private Invest currentInvest;
+}
+
+public enum CurrencyType
+{
+    Gold,
+    Chip,
+}
+
+[SerializeField]
+public class Currency
+{
+    public CurrencyType type;
+    public int amount;
+
+    public Currency(CurrencyType type)
+    {
+        this.type = type;
+    }
+
+    public void AddCurrency(int value)
+    {
+        amount += value;
+        CurrencyUIUpdate();
+    }
+
+    public void SpendCurrency(int value)
+    {
+        amount -= value;
+        CurrencyUIUpdate();
+    }
+
+    public int GetCurrency()
+    {
+        return amount;
+    }
+
+    public void CurrencyUIUpdate()
+    {
+        foreach (var item in UIManager_.Instance.currencyUIs)
+        {
+            switch (type)
+            {
+                case CurrencyType.Gold:
+                    item.DisplayCurrency(GameManager_.instance.player.gold.GetCurrency());
+                    break;
+                case CurrencyType.Chip:
+                    item.DisplayCurrency(GameManager_.instance.player.chip.GetCurrency());
+                    break;
+                    // 이후에 투자 횟수또한 currency로 계산
+            }
+        }
+    }
 }
 
 [field: System.Serializable]
