@@ -9,7 +9,6 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
     public TextMeshProUGUI text;
     public Button tradeButton;
     public TextMeshProUGUI buttonText; 
-    public UIType UIType;
     public bool isInInventory { get; set; }
 
     private Shop_ shop;
@@ -20,27 +19,28 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
     string EquipText = "후원하기";
     string UnEquipText = "회수하기";
 
-    private void Start()
+    public void Initialize()
     {
-        shop = FindObjectOfType<Shop_>();
-
+        shop = GameManager_.instance.shop;
+        invest = GameManager_.instance.investment;
     }
 
-    public void SetAndActiveInfomation(ItemSO item, UIType uitype)
+    public void SetAndActiveInfomation(ItemSO item)
     {
         image.sprite = item.sprite;
         text.text = item.description;
         selectedItem = item;
-        UIType = uitype;
+        isInInventory = item.isOwned;
 
         ActiveButton();
     }
 
     public void ActiveButton()
     {
-        switch (UIType)
+        switch (UIManager_.Instance.currentUIType)
         {
-            case UIType.Invest:
+            case UIType_.CharacterProfile:
+                invest.Initialize();
                 if(isInInventory)
                 {
                     ActiveEquipButton();
@@ -50,7 +50,8 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
                     ActiveUnEquipeButton();
                 }
                 break;
-            case UIType.Shop:
+            case UIType_.ShopUI:
+                shop.Initialize();
                 if(isInInventory)
                 {
                     ActiveSellButton();
@@ -68,21 +69,25 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
     public void OnBuyButtonClick()
     {
         shop.BuyItem(selectedItem);
+        Debug.Log("성공적으로 버튼에 구매 기능이 부여되었습니다.");
     }
 
     public void OnSellButtonClick()
     {
         shop.SellItem(selectedItem);
+        Debug.Log("성공적으로 버튼에 판매 기능이 부여되었습니다.");
     }
 
     public void OnEquipButtonClick()
     {
         invest.InvestItem(selectedItem);
+        Debug.Log("성공적으로 버튼에 장비 기능이 부여되었습니다.");
     }
 
     public void OnUnEquipButtonClick()
     {
         invest.CancelInvestItem(selectedItem);
+        Debug.Log("성공적으로 버튼에 해제 기능이 부여되었습니다.");
     }
 
     #endregion

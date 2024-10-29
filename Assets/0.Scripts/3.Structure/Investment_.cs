@@ -13,17 +13,16 @@ public class Investment_ : MonoBehaviour
     public void Initialize()
     {
         items = selectedCharacter.investedItems;
-        // 초기화를 진행할때마다 UI의 타입을 바꿈 -> 현재 UI가 어떤 UI인지 알기 위한 코드
-        UIManager_.Instance.currentUIType = UIType.Invest;
     }
 
     public void InvestItem(ItemSO item)
     {
         if(selectedCharacter.investedItems.Count < 3)
         {
-            // Inventory
+            // 인벤토리에서 아이템 제거 및 보유 여부 결정
             selectedCharacter.investedItems.Add(item);
             inventory.RemoveItem(item);
+            item.isOwned = false;
 
             // UI
             investmentUI.UIUpdate();
@@ -32,9 +31,10 @@ public class Investment_ : MonoBehaviour
 
     public void CancelInvestItem(ItemSO item)
     {
-        // Inventory
+            // 인벤토리에서 아이템 추가 및 보유 여부 결정
         selectedCharacter.investedItems.Remove(item);
         inventory.AddItem(item);
+        item.isOwned = true;
 
         // UI
         investmentUI.UIUpdate();

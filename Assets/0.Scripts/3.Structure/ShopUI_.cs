@@ -25,7 +25,6 @@ public class ShopUI_ : MonoBehaviour
     {
         Initialize();
 
-        Debug.Log(GameManager_.instance.shop.items);
         foreach (var item in GameManager_.instance.shop.items)
         {
             var createdSlot = Instantiate(slot, itemContainer.transform);

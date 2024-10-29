@@ -29,17 +29,17 @@ public class ItemSlotUI : MonoBehaviour, Containable // 아이템 슬롯 UI
         if(item.sprite != null)
             itemImage.sprite = item.sprite;
 
-        // 아이템 UI 생성 및 활성화
-        var itemInfoUI = UIManager_.Instance.itemInfoUI;
-        itemInfoUI.SetAndActiveInfomation(item, UIManager_.Instance.currentUIType);
-        itemInfoUI.gameObject.SetActive(true);
-
         // 버튼에 클릭 이벤트 부여
-        var buttonE = button.onClick;
+        button.onClick.AddListener(OnButtonClick);
     }
 
     public void OnButtonClick()
     {
+        // 아이템 UI 생성 및 활성화
+        var itemInfoUI = UIManager_.Instance.itemInfoUI;
+        itemInfoUI.SetAndActiveInfomation(item);
+        itemInfoUI.gameObject.SetActive(true);
+        GameManager_.instance.shop.Initialize();
     }
 
     // 버튼 이벤트 할당 코드

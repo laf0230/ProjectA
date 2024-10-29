@@ -12,6 +12,7 @@ public class GameManager_ : MonoBehaviour
     public List<Character> characters;
     public Inventory_ inventory;
     public Shop_ shop;
+    public Investment_ investment;
 
     // 싱글턴 초기화
     private void Awake()
@@ -36,7 +37,7 @@ public class GameManager_ : MonoBehaviour
         UIManager_.Instance.UpdateCurrencyUI();
 
         inventory.Initialize();
-        shop.Initialize(inventory);
+        shop.Initialize();
     }
 
     // 전투 시작 메서드

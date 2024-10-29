@@ -15,6 +15,7 @@ public enum UIType
     Shop,
 }
 
+[SerializeField]
 public enum UIType_
 {
     ManagementUI,
@@ -42,7 +43,7 @@ public class UIManager_ : MonoBehaviour
     public Sprite RedBisonFI;
     public Sprite DemoFI;
     public Sprite FlaFlaFI;
-    public UIType currentUIType { get; set; }
+    public UIType_ currentUIType { get; set; }
 
     private void Awake()
     {
@@ -65,6 +66,7 @@ public class UIManager_ : MonoBehaviour
     {
         GameStart();
         shopUI.Initialize();
+        itemInfoUI.Initialize();
     }
 
     private void FixedUpdate()
@@ -102,7 +104,7 @@ public class UIManager_ : MonoBehaviour
                 btn.onClick.AddListener(UI.Open);
             }
 
-            if (UI.type_ == UIType_.charactersele)
+            if (UI.type_ == UIType_.CharacterSelect)
                 UI.Open();
         }
     }
