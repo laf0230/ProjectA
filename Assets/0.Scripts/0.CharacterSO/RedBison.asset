@@ -25,3 +25,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c405a5224e182434cbbb1bb0e194d282, type: 2}
   - {fileID: 11400000, guid: 190726847e68a86489b5e65ba77640c2, type: 2}
   - {fileID: 11400000, guid: cd0b5a50552c4234aa88115d33cd2fd9, type: 2}
+  investedItems: []

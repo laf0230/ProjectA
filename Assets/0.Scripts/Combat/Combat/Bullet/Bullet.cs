@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bullet : Poolable
+public class Bullet : MonoBehaviour
 {
     private BulletProperties Properties { get; set; }
     public Vector3 direction;

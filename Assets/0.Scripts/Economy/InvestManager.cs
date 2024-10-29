@@ -86,8 +86,7 @@ public class PlayerData : ScriptableObject
     public List<BaseItem> Items = new List<BaseItem>();
 }
 
-public class CharacterInfoUI : UI
-{
+public class CharacterInfoUI {
     public BaseItem item;
 
 }

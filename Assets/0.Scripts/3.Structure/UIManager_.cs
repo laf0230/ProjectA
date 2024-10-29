@@ -24,7 +24,7 @@ public enum UIType_
     CharacterStanding,
     ItemInfo,
     Calculation,
-    CharacterSelect
+    CharacterSelect,
 }
 
 public class UIManager_ : MonoBehaviour
@@ -38,11 +38,12 @@ public class UIManager_ : MonoBehaviour
     public InvestmentUI_ investmentUI;
     public InvestCalcUI investCalcUI;
     public StandingUI standingUI;
+    public ProfileContainer profileContainer;
+    public CardContainer cardContainer;
     public GameObject WorldUI;
     public Image StandingImage;
-    public Sprite RedBisonFI;
-    public Sprite DemoFI;
-    public Sprite FlaFlaFI;
+    public Sprite lockIcon;
+    public Sprite unLockIcon;
     public UIType_ currentUIType { get; set; }
 
     private void Awake()
@@ -65,8 +66,6 @@ public class UIManager_ : MonoBehaviour
     private void Start()
     {
         GameStart();
-        shopUI.Initialize();
-        itemInfoUI.Initialize();
     }
 
     private void FixedUpdate()
@@ -131,22 +130,6 @@ public class UIManager_ : MonoBehaviour
         foreach (GameObject character in characters)
         {
             character.SetActive(true);
-        }
-    }
-
-    public void SetImage(string characterName)
-    {
-        switch (characterName)
-        {
-            case "Flafla":
-                standingUI.SetIllust(FlaFlaFI);
-                break;
-            case "Demo":
-                standingUI.SetIllust(DemoFI);
-                break;
-            case "RedBison":
-                standingUI.SetIllust(RedBisonFI);
-                break;
         }
     }
 
@@ -265,7 +248,6 @@ public class InvestmentUI : MonoBehaviour
 
 public class Invest_
 {
-    Player player; // 투자자
     public CharacterInfoSO characterInfo; // 투자 타겟
     
 
@@ -289,6 +271,5 @@ public class Invest
 {
     public Player_ Player; // 투자자
     public CharacterInfoSO characterInfo; // 투자 대상
-    public Currency fundedGold = new Currency(CurrencyType.Gold); // 투자금
     public List<ItemSO> fundedItem; // 투자 아이템
 }

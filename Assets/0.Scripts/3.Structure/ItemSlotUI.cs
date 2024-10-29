@@ -1,16 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public interface Containable
+public enum ItemSlotType
 {
-    public bool isInInventory {  get; set; }
+    Sell,
+    Buy,
+    Equip,
+    UnEquip
 }
 
-public class ItemSlotUI : MonoBehaviour, Containable // 아이템 슬롯 UI
+public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
 {
     Image itemFrame;
     [SerializeField] private Button button;
     [SerializeField] private Image itemImage;
+
+    // Lock
+    public bool isLickable;
+    public bool isLock { get; set; } = true; // Only Uesd On ProfileUI
+
+    public ItemSlotType slotType;
     
     public ItemSO item { get; set; }
     public bool isInInventory { get; set; }
@@ -20,7 +29,7 @@ public class ItemSlotUI : MonoBehaviour, Containable // 아이템 슬롯 UI
         itemFrame = GetComponent<Image>();
     }
 
-    public void CreateItemSlotUI(ItemSO item)
+    public void SetItem(ItemSO item)
     {
         // 아이템 할당
         this.item = item;
@@ -33,20 +42,19 @@ public class ItemSlotUI : MonoBehaviour, Containable // 아이템 슬롯 UI
         button.onClick.AddListener(OnButtonClick);
     }
 
+    public void SetEmpty()
+    {
+        item = null;
+        itemImage.sprite = UIManager_.Instance.unLockIcon;
+        button.onClick.RemoveAllListeners();
+    }
+
     public void OnButtonClick()
     {
         // 아이템 UI 생성 및 활성화
         var itemInfoUI = UIManager_.Instance.itemInfoUI;
-        itemInfoUI.SetAndActiveInfomation(item);
         itemInfoUI.gameObject.SetActive(true);
-        GameManager_.instance.shop.Initialize();
-    }
-
-    // 버튼 이벤트 할당 코드
-    public void SetButtonAction(UnityEngine.Events.UnityAction action, bool isOnce = true)
-    {
-        button.onClick.AddListener(action);
-        if(!isOnce)
-            button.onClick.RemoveAllListeners();
+        itemInfoUI.isInInventory = this.isInInventory;
+        itemInfoUI.SetAndActiveInfomation(item);
     }
 }

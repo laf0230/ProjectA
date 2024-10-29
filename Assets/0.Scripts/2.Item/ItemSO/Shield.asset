@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuyPrise: 4
   SellPrise: 2
+  Name: 
   sprite: {fileID: 21300000, guid: eaafb17957991c740bbe862bbe1adffe, type: 3}
-  description: Hi Im Sword
+  description: Hi Im Shield
   Ability: []
-  IsSellable: 0

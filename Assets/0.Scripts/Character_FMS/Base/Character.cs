@@ -105,11 +105,6 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
 
-        if (GameObject.FindGameObjectsWithTag("Character").Length <= 1)
-        {
-            GameManager.Instance.GameEnd();
-        }
-
         Targets.RemoveAll(target => Targets != null && !target.activeSelf);
 
         // 사용할 수 있는 스킬이 있을 경우에 true 값 설정

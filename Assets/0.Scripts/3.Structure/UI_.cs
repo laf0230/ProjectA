@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class UI_ : MonoBehaviour
 {
-    public UIGroup characterManageUI;
-    public UIGroup shopUI;
-    public List<UIGroup> uiGroups = new List<UIGroup>();
+    public virtual void Open() { }
+    public virtual void Close() { }
 }
 
 

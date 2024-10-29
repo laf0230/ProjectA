@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class Investment_ : MonoBehaviour
 {
-    public CharacterInfoSO selectedCharacter;
+    public CharacterInfoSO selectedCharacter { get; set; }
     public InvestmentUI_ investmentUI;
     public List<ItemSO> items;
 
     private Inventory_ inventory;
+    private bool isInvested = false; // 장비 슬롯 잠금을 위함
 
-    public void Initialize()
+    private void Start()
+    {
+        inventory = GameManager_.instance.inventory;
+    }
+
+    public void SetCharacter(CharacterInfoSO selectedCharacter)
+    {
+        this.selectedCharacter = selectedCharacter;
+        SetItemsFromSelectedCharacter();
+
+        // UI
+        investmentUI.UIUpdate();
+    }
+    public void SetItemsFromSelectedCharacter()
     {
         items = selectedCharacter.investedItems;
     }
@@ -22,7 +36,6 @@ public class Investment_ : MonoBehaviour
             // 인벤토리에서 아이템 제거 및 보유 여부 결정
             selectedCharacter.investedItems.Add(item);
             inventory.RemoveItem(item);
-            item.isOwned = false;
 
             // UI
             investmentUI.UIUpdate();
@@ -31,17 +44,11 @@ public class Investment_ : MonoBehaviour
 
     public void CancelInvestItem(ItemSO item)
     {
-            // 인벤토리에서 아이템 추가 및 보유 여부 결정
+        // 인벤토리에서 아이템 추가 및 보유 여부 결정
         selectedCharacter.investedItems.Remove(item);
         inventory.AddItem(item);
-        item.isOwned = true;
 
         // UI
         investmentUI.UIUpdate();
-    }
-
-    public void InvestGold()
-    {
-
     }
 }

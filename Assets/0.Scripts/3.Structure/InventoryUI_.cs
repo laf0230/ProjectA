@@ -4,19 +4,20 @@ using UnityEngine;
 public class InventoryUI_ : MonoBehaviour
 {
     private Inventory_ inventory;
+    public GameObject inventoryUI;
     public GameObject itemContainer;
     public List<GameObject> items;
     public GameObject slot;
 
-    public void Initialize(Inventory_ inventory)
+    private void Start()
     {
-        this.inventory = inventory;
+        inventory = GameManager_.instance.inventory;
     }
 
     public void AddItem(ItemSO item)
     {
         GameObject createdSlot = Instantiate(slot, itemContainer.transform);
-        createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
+        createdSlot.GetComponent<ItemSlotUI>().SetItem(item);
     }
 
     public void RemoveItem(ItemSO item)
@@ -57,26 +58,34 @@ public class InventoryUI_ : MonoBehaviour
         foreach (var item in items)
         {
             // 아이템 추가
-            var createdSlot = Instantiate(slot, itemContainer.transform);
+            var slotObject = Instantiate(slot, itemContainer.transform);
 
-            var slotUI = createdSlot.GetComponent<ItemSlotUI>();
+            var slotUI = slotObject.GetComponent<ItemSlotUI>();
 
             slotUI.isInInventory = true;
-            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
-            this.items.Add(createdSlot);
+            slotUI.SetItem(item);
+
+            slotUI.slotType = ItemSlotType.Sell;
+
+            this.items.Add(slotObject);
         }
     }
 
-    // 투자 창에서의 인벤토리 속 아이템 상호작용
-    public void OnInvestUIButtonClick()
+     public void SetItemSlotType(ItemSlotType slotType)
     {
-
+        foreach (GameObject item in items)
+        {
+            item.GetComponent<ItemSlotUI>().slotType = slotType;
+        }
     }
 
-    // 상점에서의 인벤토리 속 아이템 상호작용
-    public void OnShopUIButtonClick()
+    public void Open()
     {
+        inventoryUI.SetActive(true);
+    }
 
+    public void Close()
+    {
+        inventoryUI.SetActive(false);
     }
 }
-

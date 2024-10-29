@@ -8,6 +8,11 @@ public class ShopUI_ : MonoBehaviour
     private List<GameObject> items = new List<GameObject>();
     private Shop_ shop;
 
+    private void Start()
+    {
+        UpdateUI();
+    }
+
     public void Initialize()
     {
         if (items != null)
@@ -27,11 +32,13 @@ public class ShopUI_ : MonoBehaviour
 
         foreach (var item in GameManager_.instance.shop.items)
         {
-            var createdSlot = Instantiate(slot, itemContainer.transform);
-            createdSlot.GetComponent<ItemSlotUI>().CreateItemSlotUI(item);
-            
-            items.Add(createdSlot);
+            var createdSlotObject = Instantiate(slot, itemContainer.transform);
+            ItemSlotUI slotUI = createdSlotObject.GetComponent<ItemSlotUI>();
+
+            slotUI.isInInventory = false;
+            slotUI.SetItem(item);
+
+            items.Add(createdSlotObject);
         }
     }
 }
-

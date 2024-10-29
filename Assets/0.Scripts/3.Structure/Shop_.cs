@@ -7,13 +7,11 @@ public class Shop_ : MonoBehaviour
     public List<ItemSO> instantiatedItems;
     private Inventory_ inventory;
 
-    public void Initialize()
+    private void Start()
     {
         if (GameManager_.instance.inventory == null) { Debug.Log("Inventory is null"); };
         inventory = GameManager_.instance.inventory;
         if(UIManager_.Instance.shopUI == null) { Debug.Log("ShopUI is null"); };
-
-        UIManager_.Instance.shopUI.UpdateUI();
     }
 
     public void AddItem(ItemSO item)
@@ -43,7 +41,6 @@ public class Shop_ : MonoBehaviour
 
         // 인벤토리에 아이템 추가
         inventory.AddItem(selectedItem);
-        selectedItem.isOwned = true;
 
         UIManager_.Instance.shopUI.UpdateUI();
         Debug.Log($"성공적으로 {selectedItem}아이템을 구매하였습니다.");
@@ -56,7 +53,6 @@ public class Shop_ : MonoBehaviour
         
         // 인벤토리에서 아이템 제거
         inventory.RemoveItem(selectedItem);
-        selectedItem.isOwned = false;
 
         UIManager_.Instance.shopUI.UpdateUI();
     }

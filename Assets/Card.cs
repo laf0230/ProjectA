@@ -10,13 +10,13 @@ public class Card
 
 public class CharacterDeck : MonoBehaviour
 {
-    public List<Card> cards = new List<Card>();
+    public List<CardSO> cards = new List<CardSO>();
 
     public CharacterInfoSO SelectCharacter(int cardIndex)
     {
         if (cardIndex > 0 || cardIndex >= cards.Count)
         {
-            return cards[cardIndex].characterData;
+            return cards[cardIndex].character;
         } else
         {
             return null;
@@ -28,11 +28,13 @@ public class CharacterCardUI : MonoBehaviour
 {
     public Sprite characterImage;
     public string characterNameText;
+    public CardSO card;
 
-    public void SetCard(Card card)
+    public void SetCard(CardSO card)
     {
-        characterNameText = card.characterData.Profile.Name;
-        characterImage = card.characterData.Profile.ProfileImg;
+        this.card = card;
+        characterNameText = card.character.Profile.Name;
+        characterImage = card.profile;
     }
 }
 

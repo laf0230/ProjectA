@@ -6,7 +6,6 @@ using UnityEngine;
 public class CurrencyUI : MonoBehaviour
 {
     public int value;
-    public CurrencyType currencyType;
     private TextMeshProUGUI m_TextMeshPro;
 
     public void DisplayCurrency(int value)

@@ -16,5 +16,5 @@ MonoBehaviour:
   SellPrise: 2
   Name: axe
   sprite: {fileID: 21300000, guid: cf453d271e31a0c44976de0d9ac21823, type: 3}
-  description: Hi Im Sword
+  description: Hi Im Hungry
   Ability: []

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보 UI
+public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
 {
     public Image image;
     public TextMeshProUGUI text;
@@ -19,7 +19,7 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
     string EquipText = "후원하기";
     string UnEquipText = "회수하기";
 
-    public void Initialize()
+    public void Start()
     {
         shop = GameManager_.instance.shop;
         invest = GameManager_.instance.investment;
@@ -30,28 +30,26 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
         image.sprite = item.sprite;
         text.text = item.description;
         selectedItem = item;
-        isInInventory = item.isOwned;
 
         ActiveButton();
     }
 
     public void ActiveButton()
     {
-        switch (UIManager_.Instance.currentUIType)
+        if (UIManager_.Instance.investmentUI.gameObject.activeSelf)
         {
-            case UIType_.CharacterProfile:
-                invest.Initialize();
-                if(isInInventory)
-                {
-                    ActiveEquipButton();
-                }
-                else
-                {
-                    ActiveUnEquipeButton();
-                }
-                break;
-            case UIType_.ShopUI:
-                shop.Initialize();
+            // 투자 창이 활성화된 경우
+            if(isInInventory)
+            {
+                ActiveEquipButton();
+            }
+            else
+            {
+                ActiveUnEquipeButton();
+            }
+        }
+        else if(UIManager_.Instance.shopUI.gameObject.activeSelf)
+        {
                 if(isInInventory)
                 {
                     ActiveSellButton();
@@ -60,7 +58,6 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
                 {
                     ActiveBuyButton();
                 }
-                break;
         }
     }
 
@@ -69,24 +66,28 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
     public void OnBuyButtonClick()
     {
         shop.BuyItem(selectedItem);
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         Debug.Log("성공적으로 버튼에 구매 기능이 부여되었습니다.");
     }
 
     public void OnSellButtonClick()
     {
         shop.SellItem(selectedItem);
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         Debug.Log("성공적으로 버튼에 판매 기능이 부여되었습니다.");
     }
 
     public void OnEquipButtonClick()
     {
         invest.InvestItem(selectedItem);
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         Debug.Log("성공적으로 버튼에 장비 기능이 부여되었습니다.");
     }
 
     public void OnUnEquipButtonClick()
     {
         invest.CancelInvestItem(selectedItem);
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         Debug.Log("성공적으로 버튼에 해제 기능이 부여되었습니다.");
     }
 
@@ -107,7 +108,7 @@ public class ItemInfoUI_ : MonoBehaviour, Containable // 아이템 상세 정보
         tradeButton.onClick.RemoveAllListeners();
         tradeButton.onClick.AddListener(OnSellButtonClick);
         
-        Debug.Log("성공적으로 버튼에 '구매'가 할당되었습니다.");
+        Debug.Log("성공적으로 버튼에 '판매'가 할당되었습니다.");
     }
 
     public void ActiveEquipButton()

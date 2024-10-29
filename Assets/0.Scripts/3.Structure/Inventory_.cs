@@ -16,7 +16,6 @@ public class Inventory_: MonoBehaviour
     public void Initialize()
     {
         inventoryUI = UIManager_.Instance.inventoryUI;
-        inventoryUI.Initialize(this);
     }
 
     public void AddItem(ItemSO item)
