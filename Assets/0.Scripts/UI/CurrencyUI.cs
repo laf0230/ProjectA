@@ -7,6 +7,7 @@ public class CurrencyUI : MonoBehaviour
 {
     public int value;
     public TextMeshProUGUI textMeshPro;
+    public CurrencyType type;
     
     public void DisplayCurrency(int value)
     {

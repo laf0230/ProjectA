@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InvestmentUI_ : MonoBehaviour
 {
     public List<GameObject> investedItemSlot; // 아이템을 넣을 슬롯 목록
     private Investment_ investment;
+    [field: SerializeField] private TextMeshProUGUI Profile;
+    [field: SerializeField] private Button Button;
 
     public void Start()
     {
@@ -25,29 +29,33 @@ public class InvestmentUI_ : MonoBehaviour
     {
         Initialize();
 
-        int itemCount = investment.items.Count;
         int slotCount = investedItemSlot.Count;
-        int minCount = Mathf.Min(itemCount, slotCount);
 
-        for (int i = 0; i < minCount; i++)
+        for (int i = 0; i < slotCount; i++)
         {
             ItemSlotUI slotUI = investedItemSlot[i].GetComponent<ItemSlotUI>();
-            if (false)
+
+            if (!investment.isInvested)
             {
+                Debug.Log("투자는 진행되지 않았습니다.");
                 // 잠긴 경우
-                slotUI.SetEmpty();
-            } 
+                slotUI.isLock = true;
+                slotUI.SetLock();
+            }
             else
             {
-                slotUI.SetItem(investment.items[i]);
+                Debug.Log("투자가 진행되었습니다.");
+                slotUI.isLock = false;
+                // 아이템이 있는 경우에만 설정
+                if (i < investment.items.Count)
+                {
+                    slotUI.SetItem(investment.items[i]);
+                }
+                else
+                {
+                    slotUI.SetEmpty();
+                }
             }
-        }
-
-        // minCount이후의 슬롯은 비워둠
-        for(int i = minCount; i < slotCount; i++)
-        {
-            ItemSlotUI slotUI = investedItemSlot[i].GetComponent<ItemSlotUI>();
-            slotUI.SetEmpty();
         }
     }
 }

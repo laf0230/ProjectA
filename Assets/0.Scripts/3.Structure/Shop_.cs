@@ -48,9 +48,12 @@ public class Shop_ : MonoBehaviour
 
     public void SellItem(ItemSO selectedItem)
     {
-        GameManager_.instance.player.gold.amount += selectedItem.SellPrise;
         // 아이템 정보창 비활성화
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         
+        // 보유 가격 변동
+        GameManager_.instance.player.gold.AddCurrency(selectedItem.SellPrise);
+
         // 인벤토리에서 아이템 제거
         inventory.RemoveItem(selectedItem);
 

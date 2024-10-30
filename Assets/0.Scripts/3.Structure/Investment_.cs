@@ -7,13 +7,18 @@ public class Investment_ : MonoBehaviour
     public CharacterInfoSO selectedCharacter { get; set; }
     public InvestmentUI_ investmentUI;
     public List<ItemSO> items;
+    public bool isInvested = false; // 장비 슬롯 잠금을 위함
 
     private Inventory_ inventory;
-    private bool isInvested = false; // 장비 슬롯 잠금을 위함
 
     private void Start()
     {
         inventory = GameManager_.instance.inventory;
+    }
+
+    public void SetCharacterInvested(bool isInvested)
+    {
+        this.isInvested = isInvested;
     }
 
     public void SetCharacter(CharacterInfoSO selectedCharacter)

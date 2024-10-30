@@ -27,6 +27,7 @@ public class ProfileUI : MonoBehaviour
 
         // 투자창UI 셋팅
         UIManager_.Instance.investmentUI.gameObject.SetActive(true);
+        UIManager_.Instance.investmentUI.UIUpdate();
         
         // 스텐딩UI 셋팅
         UIManager_.Instance.standingUI.gameObject.SetActive(true);

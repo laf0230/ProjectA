@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory_: MonoBehaviour
+[CreateAssetMenu(fileName="New Inventory")]
+public class Inventory_: ScriptableObject
 {
     public List<ItemSO> items;
     private InventoryUI_ inventoryUI;

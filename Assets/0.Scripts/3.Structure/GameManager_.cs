@@ -15,6 +15,7 @@ public class GameManager_ : MonoBehaviour
     public Inventory_ inventory;
     public Shop_ shop;
     public Investment_ investment;
+    public FieldManager fieldManager;
 
     [Header("게임 정보")]
     public int characterCount = 1;
@@ -50,12 +51,14 @@ public class GameManager_ : MonoBehaviour
     public void StartBattle()
     {
         // 'Character' 태그를 가진 모든 오브젝트를 활성화
-        player.inventory.Initialize();
+        // player.inventory.Initialize();
 
         foreach (var item in selectedCharacters)
         {
             item.gameObject.SetActive(true);
         }
+
+        UIManager_.Instance.GetUIGroup(UIType_.ManagementUI).Close();
     }
 
     public void GameStart()
@@ -64,20 +67,31 @@ public class GameManager_ : MonoBehaviour
         // UIManager_.Instance.cardContainer.gameObject.SetActive(true);
         player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
+        fieldManager.SpawnCharacters(selectedCards);
     }
 
     public List<CardSO> SelectRandomCharacters()
     {
         var selectedCards = new List<CardSO>();
-        for(int i = 0; i < characterCount; i++)
-        {
-            var selectedCard = cards[Random.Range(0, cards.Count - 1)];
 
-            selectedCards.Add(selectedCard);
+        // 카드 리스트를 섞습니다.
+        var shuffledCards = new List<CardSO>(cards);
+        for (int i = 0; i < shuffledCards.Count; i++)
+        {
+            int randomIndex = Random.Range(i, shuffledCards.Count);
+            var temp = shuffledCards[i];
+            shuffledCards[i] = shuffledCards[randomIndex];
+            shuffledCards[randomIndex] = temp;
         }
+
+        // characterCount만큼 카드를 선택합니다.
+        for (int i = 0; i < Mathf.Min(characterCount, shuffledCards.Count); i++)
+        {
+            selectedCards.Add(shuffledCards[i]);
+        }
+
         return selectedCards;
     }
-
     public void InstantiateCharacter(CardSO cardSO, Vector3 position)
     {
         // 캐릭터의 생성 및 배치 코드 작성

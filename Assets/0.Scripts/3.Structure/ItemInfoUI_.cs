@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
     string SellText = "판매하기";
     string EquipText = "후원하기";
     string UnEquipText = "회수하기";
+    private Coroutine coroutine;
 
     public void Start()
     {
@@ -79,8 +81,23 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
 
     public void OnEquipButtonClick()
     {
-        invest.InvestItem(selectedItem);
-        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+
+        if (GameManager_.instance.investment.isInvested)
+        {
+            // 투자가 된 경우
+            invest.InvestItem(selectedItem);
+            UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+        }
+        else
+        {
+            // 투자가 안된 경우
+            // UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+            // 경고창 띄워줌
+            coroutine = StartCoroutine(FlipWarning());
+        }
+
         Debug.Log("성공적으로 버튼에 장비 기능이 부여되었습니다.");
     }
 
@@ -127,5 +144,12 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
         tradeButton.onClick.AddListener(OnUnEquipButtonClick);
 
         Debug.Log("성공적으로 버튼에 '해제'가 할당되었습니다.");
+    }
+
+    public IEnumerator FlipWarning()
+    {
+        UIManager_.Instance.investWarningUI.SetActive(true);
+        yield return new WaitForSeconds(1);
+        UIManager_.Instance.investWarningUI.SetActive(false);
     }
 }

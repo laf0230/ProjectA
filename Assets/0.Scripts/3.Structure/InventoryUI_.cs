@@ -1,17 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI_ : MonoBehaviour
 {
     private Inventory_ inventory;
-    public GameObject inventoryUI;
     public GameObject itemContainer;
     public List<GameObject> items;
     public GameObject slot;
+    public Button shopButton;
 
     private void Start()
     {
         inventory = GameManager_.instance.inventory;
+        shopButton.onClick.AddListener(OnShopButtonClick);
+    }
+
+    public void OnShopButtonClick()
+    {
+        UIManager_.Instance.shopUI.gameObject.SetActive(false);
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+        UIManager_.Instance.standingUI.gameObject.SetActive(false);
+        // UIManager_.Instance.itemInfoUI.
     }
 
     public void AddItem(ItemSO item)
@@ -77,15 +87,5 @@ public class InventoryUI_ : MonoBehaviour
         {
             item.GetComponent<ItemSlotUI>().slotType = slotType;
         }
-    }
-
-    public void Open()
-    {
-        inventoryUI.SetActive(true);
-    }
-
-    public void Close()
-    {
-        inventoryUI.SetActive(false);
     }
 }

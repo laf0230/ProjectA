@@ -40,5 +40,7 @@ public class ShopUI_ : MonoBehaviour
 
             items.Add(createdSlotObject);
         }
+
+        UIManager_.Instance.UpdateCurrencyUI();
     }
 }

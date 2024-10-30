@@ -16,8 +16,9 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
     [SerializeField] private Image itemImage;
 
     // Lock
-    public bool isLickable;
     public bool isLock { get; set; } = true; // Only Uesd On ProfileUI
+
+    public bool isClicked = false;
 
     public ItemSlotType slotType;
     
@@ -39,6 +40,7 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
             itemImage.sprite = item.sprite;
 
         // 버튼에 클릭 이벤트 부여
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(OnButtonClick);
     }
 
@@ -49,12 +51,27 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
         button.onClick.RemoveAllListeners();
     }
 
+    public void SetLock()
+    {
+        itemImage.sprite = UIManager_.Instance.lockIcon;
+        button.onClick.RemoveAllListeners();
+        Debug.Log("Item Icon Locked in Investment UI");
+    }
+
     public void OnButtonClick()
     {
+        isClicked = !isClicked; 
         // 아이템 UI 생성 및 활성화
-        var itemInfoUI = UIManager_.Instance.itemInfoUI;
-        itemInfoUI.gameObject.SetActive(true);
-        itemInfoUI.isInInventory = this.isInInventory;
-        itemInfoUI.SetAndActiveInfomation(item);
+        if(isClicked)
+        {
+            var itemInfoUI = UIManager_.Instance.itemInfoUI;
+            itemInfoUI.gameObject.SetActive(true);
+            itemInfoUI.isInInventory = this.isInInventory;
+            itemInfoUI.SetAndActiveInfomation(item);
+        }
+        else
+        {
+            UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+        }
     }
 }

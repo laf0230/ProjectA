@@ -42,6 +42,7 @@ public class UIManager_ : MonoBehaviour
     public ProfileContainer profileContainer;
     public CardContainer cardContainer;
     public GameObject WorldUI;
+    public GameObject investWarningUI;
     public Image StandingImage;
     public Sprite lockIcon;
     public Sprite unLockIcon;
@@ -285,7 +286,7 @@ public class Currency
     {
         foreach (var item in UIManager_.Instance.currencyUIs)
         {
-            switch (type)
+            switch (item.type)
             {
                 case CurrencyType.Gold:
                     item.DisplayCurrency(GameManager_.instance.player.gold.GetCurrency());

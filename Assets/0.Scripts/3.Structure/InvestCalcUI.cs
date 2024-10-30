@@ -63,6 +63,16 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
     {
         // 투자 확정 후 플레이어의 Chip에서 금액 차감
         // GameManager_.instance.player.InvestCharacter(); // 추가 로직 필요 시
+
+        if(cost > 0)
+        {
+            // 투자를 한 경우 아이템 투자가 가능
+            GameManager_.instance.investment.SetCharacterInvested(true);
+        }
+
+        // UI 업데이트
+        UIManager_.Instance.investmentUI.UIUpdate();
+        UIManager_.Instance.investCalcUI.gameObject.SetActive(false);
     }
 }
 

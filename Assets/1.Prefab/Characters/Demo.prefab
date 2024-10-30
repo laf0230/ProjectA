@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7059257155394340105, guid: 1431f50af5e15fb448104aac4a79b245, type: 3}
+  m_Sprite: {fileID: 5902689445241858874, guid: f8a7c04cf92dc03429a8e95bece22e98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 1062205000024267499}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 739619e781d9fce4eb39befaa0862fd5, type: 2}
+  m_Controller: {fileID: 22100000, guid: 0f9dc427b21072246a9c2104f3063f1a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4270042367964488510}
   - component: {fileID: 2263706064175530876}
   m_Layer: 0
-  m_Name: RedBison
+  m_Name: Demo
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 1613765945092857357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.88, y: 1, z: 5.96}
+  m_LocalPosition: {x: 7.8, y: 1, z: 7.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -7,10 +7,16 @@ public class FieldManager : MonoBehaviour
     public List<GameObject> SpawnPoints;
     public GameObject Field;
 
-    public void SpawnCharacters(List<GameObject> characters)
+    public void SpawnCharacters(List<CardSO> characters)
     {
         // 캐릭터를 담을 임시 리스트 (랜덤으로 제거하면서 사용할 리스트)
-        List<GameObject> availableCharacters = new List<GameObject>(characters);
+        List<GameObject> newCharacterList = new List<GameObject>();
+
+        foreach (var item in characters)
+        {
+            newCharacterList.Add(item.CharacterPrefab);
+        }
+        List<GameObject> availableCharacters = new List<GameObject>(newCharacterList);
 
         GameObject spawnedCharacter = null;
 

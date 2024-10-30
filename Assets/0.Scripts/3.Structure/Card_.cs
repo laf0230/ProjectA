@@ -26,6 +26,9 @@ public class Card_ : MonoBehaviour
         // 캐릭터 셋팅
         GameManager_.instance.investment.SetCharacter(characterCard.character);
 
+        // 인벤토리 초기화
+        UIManager_.Instance.inventoryUI.UpdateUI();
+
         // 메니징 창 활성화
         UIManager_.Instance.GetUIGroup(UIType_.ManagementUI).Open();
 
@@ -37,6 +40,7 @@ public class Card_ : MonoBehaviour
 
         // 투자창 셋팅
         UIManager_.Instance.investmentUI.gameObject.SetActive(true);
+        UIManager_.Instance.investmentUI.UIUpdate();
         
         // 스텐딩
         UIManager_.Instance.standingUI.gameObject.SetActive(true);
