@@ -6,18 +6,29 @@ public class FieldManager : MonoBehaviour
 {
     public List<GameObject> SpawnPoints;
     public GameObject Field;
+    public List<GameObject> onFieldCharacters;
+
+    private void Start()
+    {
+        SpawnCharacters(GameManager_.instance.selectedCards);
+    }
 
     public void SpawnCharacters(List<CardSO> characters)
     {
-        // 캐릭터를 담을 임시 리스트 (랜덤으로 제거하면서 사용할 리스트)
+        // 캐릭터 프리팹을 담을 임시 리스트 (캐릭터 데이터로부터 생성)
         List<GameObject> newCharacterList = new List<GameObject>();
 
+        // 캐릭터 데이터를 기반으로 캐릭터 프리팹 리스트 생성
         foreach (var item in characters)
         {
-            newCharacterList.Add(item.CharacterPrefab);
+            if (item.CharacterPrefab != null)
+            {
+                newCharacterList.Add(item.CharacterPrefab);
+            }
         }
-        List<GameObject> availableCharacters = new List<GameObject>(newCharacterList);
 
+        // 사용 가능한 캐릭터 리스트 복사본
+        List<GameObject> availableCharacters = new List<GameObject>(newCharacterList);
         GameObject spawnedCharacter = null;
 
         foreach (GameObject spawnPoint in SpawnPoints)
@@ -34,12 +45,21 @@ public class FieldManager : MonoBehaviour
             // 이전에 스폰된 캐릭터와 다른 캐릭터일 경우에만 스폰
             if (character != spawnedCharacter)
             {
-                Instantiate(character, spawnPoint.transform.position, Quaternion.identity);
+                onFieldCharacters.Add(Instantiate(character, spawnPoint.transform.position, Quaternion.identity));
                 spawnedCharacter = character;
 
                 // 스폰된 캐릭터를 리스트에서 제거하여 다시 선택되지 않게 함
                 availableCharacters.Remove(character);
+                Debug.Log($"{character.name} 캐릭터가 스폰되었습니다");
             }
+        }
+    }
+
+    public void ActiveCharactersOnField()
+    {
+        foreach (var character in onFieldCharacters)
+        {
+            character.SetActive(true);
         }
     }
 

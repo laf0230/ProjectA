@@ -6,56 +6,66 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
 {
     [SerializeField] private TextMeshProUGUI totalAmountText;
     [SerializeField] private Button confilmButton;
-    private int cost;  // 현재 투자 금액
+
+    private Investment_ investment;
+    private InvestmentUI_ investUI;
+    // 캐릭터에게 투자할 땐 각 캐릭터의 investidata를 사용
+    // 회수할 땐 player의 chip을 사용
 
     public void Start()
     {
         confilmButton.onClick.AddListener(OnConfilmButtonClick);
+        investment = GameManager_.instance.investment;
+        investUI = UIManager_.Instance.investmentUI;
     }
 
+    public void OnEnable()
+    {
+        totalAmountText.text = GameManager_.instance.investment.selectedCharacter.investData.investedChip.amount.ToString();
+    }
+
+    // 투자 금액을 수정하고 더하는 함수
     // 투자 금액을 수정하고 더하는 함수
     public void ModifyInvestmentCost(int amount)
     {
         Player_ playerData = GameManager_.instance.player;
+        Currency investedChip = investment.selectedCharacter.investData.investedChip;
 
-        // 음수 값을 방지
-        if (cost < 0)
-        {
-            cost = 0;
-        }
+        // 새로운 투자 금액을 계산하고, 보유 칩보다 많이 투자하지 않도록 조정
+        int newInvestedAmount = Mathf.Clamp(investedChip.amount + amount, 0, playerData.chip.amount + investedChip.amount);
 
-        // 현재 투자 금액에 amount만큼 더함
-        int newCost = cost + amount;
-
-        // 보유한 칩보다 많이 투자할 수 없도록 조정
-        if (newCost > playerData.chip.amount + cost)
-        {
-            newCost = playerData.chip.amount + cost;
-        }
-
-        // 투자 금액이 감소할 경우
         if (amount < 0)
         {
-            // cost가 줄어들 수 있는 최소한의 한도는 0
-            int decreaseAmount = Mathf.Min(cost, Mathf.Abs(amount));  // 감소할 수 있는 양은 현재 cost까지만
-
-            // 줄어든 금액만큼 Chip에 돌려줌
-            playerData.chip.AddCurrency(decreaseAmount);
-            cost -= decreaseAmount;
+            // 감소할 수 있는 금액을 계산하고 플레이어 칩에 추가
+            int decreaseAmount = Mathf.Min(investedChip.amount, Mathf.Abs(amount));
+            RemoveInvest(playerData, decreaseAmount);
+            investedChip.SpendCurrency(decreaseAmount);
         }
         else
         {
-            // 투자 금액이 증가하면 그만큼 Chip에서 차감
-            int deduction = newCost - cost;
-            playerData.chip.SpendCurrency(deduction);
-            cost = newCost;
+            // 증가할 수 있는 금액을 계산하고 플레이어 칩에서 차감
+            int increaseAmount = newInvestedAmount - investedChip.amount;
+            AddInvest(playerData, increaseAmount);
+            investedChip.AddCurrency(increaseAmount);
         }
 
         // UI 텍스트 갱신
-        totalAmountText.text = cost.ToString();
+        totalAmountText.text = investedChip.amount.ToString();
 
-        // 플레이어의 Chip 갱신
+        // 플레이어의 Chip UI 갱신
         UIManager_.Instance.UpdateCurrencyUI();
+        investUI.SetInvestBtnCurrencyAmount(investedChip.amount);
+    }
+
+
+    private void AddInvest(Player_ player, int amount)
+    {
+        player.chip.SpendCurrency(amount);
+    }
+
+    private void RemoveInvest(Player_ player, int amount)
+    {
+        player.chip.AddCurrency(amount);
     }
 
     // 확정 버튼
@@ -64,7 +74,7 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
         // 투자 확정 후 플레이어의 Chip에서 금액 차감
         // GameManager_.instance.player.InvestCharacter(); // 추가 로직 필요 시
 
-        if(cost > 0)
+        if(investment.selectedCharacter.investData.investedChip.amount > 0)
         {
             // 투자를 한 경우 아이템 투자가 가능
             GameManager_.instance.investment.SetCharacterInvested(true);

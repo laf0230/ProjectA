@@ -43,6 +43,7 @@ public class UIManager_ : MonoBehaviour
     public CardContainer cardContainer;
     public GameObject WorldUI;
     public GameObject investWarningUI;
+    public Button battleStartButton;
     public Image StandingImage;
     public Sprite lockIcon;
     public Sprite unLockIcon;
@@ -67,7 +68,7 @@ public class UIManager_ : MonoBehaviour
 
     private void Start()
     {
-        GameStart();
+        // GameStart();
     }
 
     private void FixedUpdate()
@@ -258,7 +259,7 @@ public enum CurrencyType
 public class Currency
 {
     public CurrencyType type;
-    public int amount;
+    public int amount = 0;
 
     public Currency(CurrencyType type)
     {

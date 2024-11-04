@@ -7,7 +7,6 @@ public class Investment_ : MonoBehaviour
     public CharacterInfoSO selectedCharacter { get; set; }
     public InvestmentUI_ investmentUI;
     public List<ItemSO> items;
-    public bool isInvested = false; // 장비 슬롯 잠금을 위함
 
     private Inventory_ inventory;
 
@@ -18,7 +17,7 @@ public class Investment_ : MonoBehaviour
 
     public void SetCharacterInvested(bool isInvested)
     {
-        this.isInvested = isInvested;
+        this.selectedCharacter.investData.isInvested = isInvested;
     }
 
     public void SetCharacter(CharacterInfoSO selectedCharacter)
@@ -31,15 +30,15 @@ public class Investment_ : MonoBehaviour
     }
     public void SetItemsFromSelectedCharacter()
     {
-        items = selectedCharacter.investedItems;
+        items = selectedCharacter.investData.investedItems;
     }
 
     public void InvestItem(ItemSO item)
     {
-        if(selectedCharacter.investedItems.Count < 3)
+        if(selectedCharacter.investData.investedItems.Count < 3)
         {
             // 인벤토리에서 아이템 제거 및 보유 여부 결정
-            selectedCharacter.investedItems.Add(item);
+            selectedCharacter.investData.investedItems.Add(item);
             inventory.RemoveItem(item);
 
             // UI
@@ -50,7 +49,7 @@ public class Investment_ : MonoBehaviour
     public void CancelInvestItem(ItemSO item)
     {
         // 인벤토리에서 아이템 추가 및 보유 여부 결정
-        selectedCharacter.investedItems.Remove(item);
+        selectedCharacter.investData.investedItems.Remove(item);
         inventory.AddItem(item);
 
         // UI

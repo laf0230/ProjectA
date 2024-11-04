@@ -9,8 +9,7 @@ public class InvestmentUI_ : MonoBehaviour
 {
     public List<GameObject> investedItemSlot; // 아이템을 넣을 슬롯 목록
     private Investment_ investment;
-    [field: SerializeField] private TextMeshProUGUI Profile;
-    [field: SerializeField] private Button Button;
+    [field: SerializeField] private TextMeshProUGUI investButtonText;
 
     public void Start()
     {
@@ -35,7 +34,7 @@ public class InvestmentUI_ : MonoBehaviour
         {
             ItemSlotUI slotUI = investedItemSlot[i].GetComponent<ItemSlotUI>();
 
-            if (!investment.isInvested)
+            if (!investment.selectedCharacter.investData.isInvested)
             {
                 Debug.Log("투자는 진행되지 않았습니다.");
                 // 잠긴 경우
@@ -57,5 +56,10 @@ public class InvestmentUI_ : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetInvestBtnCurrencyAmount(int amount)
+    {
+        investButtonText.text = $"{amount} Chip";
     }
 }

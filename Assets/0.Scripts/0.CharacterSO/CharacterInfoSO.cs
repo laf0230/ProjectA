@@ -27,5 +27,20 @@ public class CharacterInfoSO : ScriptableObject
     public Profile Profile;
     public CharacterStatus Status;
     public List<SkillSO> Skills;
-    public List<ItemSO> investedItems;
+    public InvestData investData = new InvestData();
+}
+
+public class InvestData
+{
+    public Currency investedChip { get; private set; } = new Currency(CurrencyType.Chip);
+    public List<ItemSO> investedItems = new List<ItemSO>();
+    public bool isInvested;
+
+    public void AddInvestItem(ItemSO item) { investedItems.Add(item); }
+    public void RemoveInvestItem(ItemSO item) { investedItems.Remove(item); }
+
+    public void InvestChip(int investedChip)
+    {
+            this.investedChip.AddCurrency(investedChip);
+    }
 }

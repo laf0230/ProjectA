@@ -84,7 +84,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
         if(coroutine != null)
             StopCoroutine(coroutine);
 
-        if (GameManager_.instance.investment.isInvested)
+        if (GameManager_.instance.investment.selectedCharacter.investData.isInvested)
         {
             // 투자가 된 경우
             invest.InvestItem(selectedItem);

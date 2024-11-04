@@ -45,6 +45,8 @@ public class GameManager_ : MonoBehaviour
 
         inventory.Initialize();
         GameStart();
+        UIManager_.Instance.battleStartButton.onClick.AddListener(StartBattle);
+        StartBattle();
     }
 
     // 전투 시작 메서드
@@ -59,6 +61,7 @@ public class GameManager_ : MonoBehaviour
         }
 
         UIManager_.Instance.GetUIGroup(UIType_.ManagementUI).Close();
+        fieldManager.ActiveCharactersOnField();
     }
 
     public void GameStart()
@@ -68,6 +71,14 @@ public class GameManager_ : MonoBehaviour
         player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
         fieldManager.SpawnCharacters(selectedCards);
+    }
+
+    public void EndBattle()
+    {
+        foreach (CardSO card in selectedCards)
+        {
+            card.character.investData.isInvested = false;
+        }
     }
 
     public List<CardSO> SelectRandomCharacters()
