@@ -126,7 +126,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         {
             Debug.Log("I'm Died");
             AnimationTriggerEvent(AnimationTriggerType.Dead);
-            Die();
+            StartCoroutine("Die");
         }
         else
         {

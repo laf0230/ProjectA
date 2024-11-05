@@ -51,14 +51,33 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
-    pptrCurveMapping: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 814761318982864835, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: -2707617858843392531, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: 5381119859848340803, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: 5489737338220003269, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: -8640788097357833331, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: 6803135342760721912, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: 112538039259772268, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: 4673946443521923691, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: -708959964009593362, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
+    - {fileID: -708959964009593362, guid: fcfc795b67b0b2a489f931fafd8ecaeb, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.2780001
+    m_StopTime: 1.28
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -77,4 +96,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: AnimationTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.28
+    functionName: AnimationTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1
+    messageOptions: 0

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
@@ -9,7 +8,7 @@ public class Shooter : MonoBehaviour
 
     private void Start()
     {
-        skill = gameObject.GetOrAddComponent<Combat>();
+        skill = gameObject.AddComponent<Combat>();
     }
 
     private void Update()

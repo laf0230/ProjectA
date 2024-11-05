@@ -10,7 +10,6 @@ public class FieldManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnCharacters(GameManager_.instance.selectedCards);
     }
 
     public void SpawnCharacters(List<CardSO> characters)
