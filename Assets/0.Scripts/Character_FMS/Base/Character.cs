@@ -125,16 +125,26 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         if (CurrentHealth < 0)
         {
             Debug.Log("I'm Died");
+            AnimationTriggerEvent(AnimationTriggerType.Dead);
             Die();
         }
         else
         {
-            AnimationTriggerEvent(AnimationTriggerType.Hurt);
+            // AnimationTriggerEvent(AnimationTriggerType.Hurt);
+        StartCoroutine("Hurt");
         }
     }
 
-    public void Die()
+    private IEnumerator Hurt()
     {
+        Renderer.color = new Color(1f, 0.7f, 0.7f);
+        yield return new WaitForSeconds(0.1f);
+        Renderer.color = new Color(1f, 1f, 1f);
+    }
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
 
@@ -236,6 +246,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             case AnimationTriggerType.Run:
                 Animator.SetFloat("Run", 5);
                 break;
+            case AnimationTriggerType.Dead:
+                Animator.SetFloat("Run", 0);
+                Animator.SetTrigger("Dead");
+                break;
             default:
                 Debug.LogError($"Unhandled triggerType: {triggerType}");
                 break;
@@ -250,7 +264,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Hurt,
         Attack,
         Skill,
-        SpecialSkill
+        SpecialSkill,
+        Dead
     }
 
     #endregion
