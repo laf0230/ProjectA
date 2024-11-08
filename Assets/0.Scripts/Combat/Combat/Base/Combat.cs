@@ -56,12 +56,10 @@ public class Combat : MonoBehaviour
         [SerializeField] public BulletProperties properties { get; set; }
 
         // 탄환을 생성하고 속도 및 데미지를 설정
-        public Bullet GetBullet(Transform spawnPosition)
+        public ProjectileBase GetBullet(Transform spawnPosition)
         {
-            // GetBulletFromTransform 호출
+            // BulletManager으로부터 bullet Type에 맞는 투사체 생성 및 받아오기
             var bullet = BulletManager.instance.GetBulletFromTransform(properties.Type, spawnPosition);
-
-            bullet.SetProperties(properties);
 
             return bullet;
         }
@@ -156,6 +154,7 @@ public class Combat : MonoBehaviour
         // 탄환을 설정에서 생성하고 탄환 정보를 전달
         var bullet = bulletSettings.GetBullet(transform);
         bullet.Initialize(bulletSettings.properties);
+        bullet.SetTarget(skillProperties.Targets[0]);
         bullet.Shoot();
     }
 

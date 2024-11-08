@@ -48,9 +48,9 @@ public class Skill : MonoBehaviour
 
     }
 
-    public void SetCombatInfo(Transform user, int bulletType, float speed, float damage, float reach)
+    public void SetCombatInfo(Transform user, ProjectileType projectileType, float speed, float damage, float reach)
     {
-        combatInfo = new BulletProperties(bulletType, damage, speed, user, reach);
+        combatInfo = new BulletProperties(projectileType, damage, speed, user, reach);
     }
 
     public bool GetIsUseable() { return isUseable; }

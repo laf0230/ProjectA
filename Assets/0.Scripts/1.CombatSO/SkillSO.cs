@@ -32,7 +32,7 @@ public class SkillSO : ScriptableObject, ISkillData
     [SerializeField] private float skillSize;
     [SerializeField] private int targetType; // 대상 타입 (단일 대상, 다중 대상 등)
     [SerializeField] private float coolTime;
-    [SerializeField] private int bulletType = 1;
+    [SerializeField] private ProjectileType projectileType;
     [SerializeField] private List<Transform> targets; // 보여주지 않음
     [SerializeField] private float damage;
     [SerializeField] private float speed;
@@ -52,7 +52,7 @@ public class SkillSO : ScriptableObject, ISkillData
     public float SkillSize { get => skillSize; set => skillSize = value; }
     public int TargetType { get => targetType; set => targetType = value; }
     public float CoolTime { get => coolTime; set => coolTime = value; }
-    public int BulletType { get => bulletType; set => bulletType = value; }
+    public ProjectileType ProjectileType { get => projectileType; set => projectileType = value; }
     public List<Transform> Targets { get => targets; set => targets = value; }
     public float Damage { get => damage; set => damage = value; }
     public float Speed { get => speed; set => speed = value; }
@@ -82,7 +82,7 @@ public class SkillSOEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("skillSize"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetType"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("coolTime"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("bulletType"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("projectileType"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("damage"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("reach"));

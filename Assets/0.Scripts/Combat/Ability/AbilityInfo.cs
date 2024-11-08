@@ -62,7 +62,6 @@ public interface IAbility
 [System.Serializable]
 public class AbilityInfo : IAbility
 {
-
     [SerializeField] private string name;
     [SerializeField] private int id;
     [SerializeField] private bool isPercentage;

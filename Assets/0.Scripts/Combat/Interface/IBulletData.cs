@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IBulletData
 {
-    public int Type { get; set; }
+    public ProjectileType Type { get; set; }
     public float Damage{get;set;}
     public float Speed{get;set;}
     public float Reach{get;set;}

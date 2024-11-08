@@ -89,7 +89,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 data.ShapeType,
                 data.TargetType,
                 data.CoolTime,
-                data.BulletType,
+                data.ProjectileType,
                 data.Damage,
                 data.Speed,
                 data.Reach,

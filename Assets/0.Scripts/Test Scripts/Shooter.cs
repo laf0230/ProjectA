@@ -22,7 +22,7 @@ public class Shooter : MonoBehaviour
 
             skill.bulletSettings.Initialize(
                 new BulletProperties(
-                    1,
+                    ProjectileType.Bullet,
                     10,
                     5,
                     transform,

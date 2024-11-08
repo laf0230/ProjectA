@@ -10,7 +10,7 @@ public interface ISkillData
     float SkillSize {get; set;}
     int TargetType {get; set;}            // 대상 타입 (단일 대상, 다중 대상 등)
     float CoolTime {get; set;}
-    int BulletType { get; set; }
+    ProjectileType ProjectileType { get; set; }
     List<Transform> Targets {get; set;}
     float Damage {get; set;}
     float Speed {get; set;}
