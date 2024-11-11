@@ -56,12 +56,11 @@ public class PotionProjectile : ProjectileBase
 
     public IEnumerator IActiveField()
     {
-        float startTime = 0;
-        float endTime = Properties.Duration;
+        fieldDuration = Properties.Duration;
 
-        while (startTime > endTime)
+        while (fieldDuration > 0)
         {
-            startTime += Time.deltaTime;
+            fieldDuration -= Time.deltaTime;
             yield return null;
         }
 

@@ -61,7 +61,7 @@ public class SkillSO : ScriptableObject, ISkillData
     public MovementActionType MovementActionType { get => movementActionType; set => movementActionType = value; }
     public TargetMovementLocaction TargetMovementLocaction { get => targetMovementLocaction; set => targetMovementLocaction = value; }
     public float MovementRange { get => movementRange; set => movementRange = value; }
-    public List<AbilityInfo> Ability { get; set; } = new List<AbilityInfo>();
+    public List<AbilityInfo> Ability { get => ability; set => ability = value; }
     #endregion
 }
 

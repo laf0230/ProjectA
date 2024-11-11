@@ -51,7 +51,7 @@ public class BulletManager : MonoBehaviour
         return bullet;
     }
 
-    public ProjectileBase GetBullet(ProjectileType bulletIndex)
+    private ProjectileBase GetBullet(ProjectileType bulletIndex)
     {
         // 풀에서 사용 가능한 총알 검색
         foreach (var bullet in pool)
@@ -68,11 +68,26 @@ public class BulletManager : MonoBehaviour
         }
 
         // 비활성화된 총알이 없으면 새로 생성
-        ProjectileBase newBullet = Instantiate(bulletType[((int)bulletIndex)]).GetComponent<ProjectileBase>();
-
+        ProjectileBase newBullet = Instantiate(
+            GetBulletFromType(bulletIndex)
+            ).GetComponent<ProjectileBase>();
 
         pool.Add(newBullet); // 풀에 추가
         return newBullet;
+    }
+
+    public GameObject GetBulletFromType(ProjectileType type)
+    {
+        foreach (var item in bulletType)
+        {
+            var projectile = item.GetComponent<ProjectileBase>();
+
+            if(projectile.type == type)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 }
 

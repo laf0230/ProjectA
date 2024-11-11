@@ -2,9 +2,10 @@
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    protected BulletProperties Properties { get; set; }
+    public BulletProperties Properties { get; set; }
     protected Rigidbody rb;
     protected Vector3 direction;
+    public ProjectileType type;
 
     public virtual void Initialize(BulletProperties properties)
     {

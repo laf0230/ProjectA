@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,7 +119,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     public virtual void Damage(float damageAmount)
     {
-        CurrentHealth -= damageAmount;
+        // 데미지 계산식
+        // 투사체의 피해량 x (100 - 방어력) / 100 x 랜덤(80~110) / 100
+        var totalDamage = damageAmount * (100 - Info.Status.ArmorValue) / 100 * Random.Range(80, 110) / 100;
+        CurrentHealth -= totalDamage;
 
         if (CurrentHealth < 0)
         {
@@ -244,7 +246,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 Animator.SetTrigger("SpecialSkill");
                 break;
             case AnimationTriggerType.Run:
-                Animator.SetFloat("Run", 5);
+                Animator.SetFloat("Run", 10);
                 break;
             case AnimationTriggerType.Dead:
                 Animator.SetFloat("Run", 0);

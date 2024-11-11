@@ -233,8 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e7ec7e6fbec7f42a80677138f0146d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   explosionRadius: 5
   groundHeight: 0.1
+  fieldDuration: 0
   areaDamage: 10
   GroundEffect: {fileID: 8793923726113452133}
   Bullet: {fileID: 5584533682506782480}
@@ -343,7 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f94b9dd43d83634da99e459f39d08b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldDuration: 0
   effectDuratioon: 0
   intervalSec: 0
 --- !u!135 &1094184215208963892

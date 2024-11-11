@@ -26,10 +26,10 @@ MonoBehaviour:
   damage: 5
   speed: 5
   reach: 5
-  hasMovementAction: 0
-  movementActionType: 0
+  hasMovementAction: 1
+  movementActionType: 1
   targetMovementLocaction: 0
-  movementRange: 0
+  movementRange: 10
   ability:
   - name: 
     id: 0
