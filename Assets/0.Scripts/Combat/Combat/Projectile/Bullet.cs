@@ -6,6 +6,7 @@ public class Bullet : ProjectileBase
 {
     private void Update()
     {
+        // 일정 범위를 벗어나면 비활성화
         float distance = Vector3.Distance(Properties.User.position, transform.position);
         if (distance > Properties.Reach + 1.5f)
         {

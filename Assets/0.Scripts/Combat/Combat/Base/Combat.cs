@@ -151,8 +151,17 @@ public class Combat : MonoBehaviour
         }
 
         skillProperties.BulletProperties.SetTarget(skillProperties.Targets[0]);
+        
+        // 투사체의 타입에 따라 설정값을 부여
+        if (skillProperties.ProjectileType == ProjectileType.Breakable)
+        {
+            // 임시로 o번째 특수능력의 지속시간만 활용 
+            bulletSettings.properties.Duration = skillProperties.Ability[0].Duration;
+        }
+       
         // 탄환을 설정에서 생성하고 탄환 정보를 전달
         var bullet = bulletSettings.GetBullet(transform);
+        
         bullet.Initialize(bulletSettings.properties);
         bullet.SetTarget(skillProperties.Targets[0]);
         bullet.Shoot();

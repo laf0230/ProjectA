@@ -11895,6 +11895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType:
   - {fileID: 7103356825834454180, guid: 2df32fcbe39814f468563dd793df81a8, type: 3}
+  - {fileID: 7103356825834454180, guid: 80cfee582cf3ce94fa33c60c1a4f506c, type: 3}
   pool: []
   poolCount: 0
 --- !u!1 &1597885445

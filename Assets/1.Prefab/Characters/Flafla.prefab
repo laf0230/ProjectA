@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d577b60da58ba4448af9a7e58c3076f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Info>k__BackingField: {fileID: 11400000, guid: 3b8551caf53701e499192413f89297b9, type: 2}
+  <Info>k__BackingField: {fileID: 11400000, guid: b2b879a6f13a9044c86b3cce404e30e6, type: 2}
   <Status>k__BackingField:
     MaxHealth: 0
     ChaseSpeed: 1.75

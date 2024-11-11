@@ -11,15 +11,16 @@ public class BulletProperties : IBulletData
     
     [SerializeField] public Transform Target{get;set;}
     [SerializeField] public Transform User{get;set;}
-    [SerializeField] public float Duration { get;set;}
+    [SerializeField] public float Duration { get;set;} // 장판형일경우의 지속시간
 
-    public BulletProperties(ProjectileType projectileType, float damage, float speed, Transform user, float reach)
+    public BulletProperties(ProjectileType projectileType, float damage, float speed, Transform user, float reach, float duration = 0)
     {
         Type = projectileType;
         Damage = damage;
         Speed = speed;
         User = user;
         Reach = reach;
+        Duration = duration;
     }
 
 

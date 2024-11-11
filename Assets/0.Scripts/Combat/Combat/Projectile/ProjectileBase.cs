@@ -52,37 +52,5 @@ public abstract class ProjectileBase : MonoBehaviour
     }
 }
 
-public class PotionProjectile : ProjectileBase
-{
-    public float explosionRadius = 5.0f;
-    public int areaDamage = 10;
-    public GameObject GroundEffect;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // 조건부로 닿자마자인지, 타겟인지 정할 수 있음
-        if(Properties.Target.GetComponent<Collider>() == other)
-            OnImpact(other);
-    }
-
-    protected override void OnImpact(Collider other)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        foreach (Collider hit in hitColliders)
-        {
-            var character = hit.GetComponent<Character>();
-            if (character != null)
-            {
-                character.Damage(areaDamage);
-            }
-        }
-        GroundEffect.SetActive(true);
-        gameObject.SetActive(false);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-    }
-}
 
