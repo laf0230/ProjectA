@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuratioon: 0
-  intervalSec: 0
+  intervalSec: 1
 --- !u!135 &1094184215208963892
 SphereCollider:
   m_ObjectHideFlags: 0

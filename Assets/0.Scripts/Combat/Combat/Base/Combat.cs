@@ -72,7 +72,10 @@ public class Combat : MonoBehaviour
                 bulletInfo.Damage, 
                 bulletInfo.Speed, 
                 bulletInfo.User, 
-                bulletInfo.Reach);
+                bulletInfo.Reach,
+                bulletInfo.isUsedOwnPlace,
+                bulletInfo.Duration
+                );
         }
 
         public void UpdateProperties(BulletProperties properties)
@@ -157,7 +160,7 @@ public class Combat : MonoBehaviour
         if (skillProperties.ProjectileType == ProjectileType.Breakable)
         {
             // 임시로 o번째 특수능력의 지속시간만 활용 
-            bulletSettings.properties.Duration = skillProperties.Ability[0].Duration;
+            bulletSettings.properties.Duration = skillProperties.duration;
             Debug.Log("브레이커블 투사체");
         }
        

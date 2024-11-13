@@ -5,6 +5,7 @@ public enum ProjectileType
 {
     Normal, // 명중 시 사라지는 타입
     Breakable, // 명중 시 깨지며 범위 공격을 하는 타입
+    None
 }
 
 public class BulletManager : MonoBehaviour

@@ -20,7 +20,7 @@ public enum StatusList
 public enum SkillShapeType
 {
     Circle,
-    Rectangle
+    Rectangle,
 }
 
 [CreateAssetMenu(fileName = "NewSkillData", menuName = "New Skill Data")]
@@ -42,6 +42,8 @@ public class SkillSO : ScriptableObject, ISkillData
     [SerializeField] private TargetMovementLocaction targetMovementLocaction; 
     [SerializeField] private float movementRange; 
     [SerializeField] private List<AbilityInfo> ability;
+    [SerializeField] private bool isUsedOwnPlace;
+    [SerializeField] private int duration;
 
     #region Getter / Setter
     
@@ -60,7 +62,9 @@ public class SkillSO : ScriptableObject, ISkillData
     public bool HasMovementAction { get => hasMovementAction; set => hasMovementAction = value; }
     public MovementActionType MovementActionType { get => movementActionType; set => movementActionType = value; }
     public TargetMovementLocaction TargetMovementLocaction { get => targetMovementLocaction; set => targetMovementLocaction = value; }
+    public bool IsUsedOwnPlace { get => isUsedOwnPlace; set => isUsedOwnPlace = value; }
     public float MovementRange { get => movementRange; set => movementRange = value; }
+    public int Duration { get => duration; set => duration = value; }
     public List<AbilityInfo> Ability { get => ability; set => ability = value; }
     #endregion
 }
@@ -86,7 +90,9 @@ public class SkillSOEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("damage"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("reach"));
-
+        EditorGUILayout.Space(2f);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("isUsedOwnPlace")); 
         // Draw the hasMovementAction field and conditionally show other fields
         EditorGUILayout.PropertyField(serializedObject.FindProperty("hasMovementAction"));
 

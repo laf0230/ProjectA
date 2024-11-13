@@ -26,12 +26,12 @@ MonoBehaviour:
   damage: 5
   speed: 5
   reach: 5
-  hasMovementAction: 1
+  hasMovementAction: 0
   movementActionType: 1
   targetMovementLocaction: 0
   movementRange: 10
   ability:
-  - name: 
+  - name: "\uC7A5\uD310 \uC720\uC9C0\uC2DC\uAC04"
     id: 0
     isPercentage: 0
     value: 0
@@ -40,3 +40,5 @@ MonoBehaviour:
     shape: 0
     animationType: 0
     effectStatus: 0
+  isUsedOwnPlace: 1
+  duration: 8

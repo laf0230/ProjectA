@@ -26,7 +26,9 @@ public class Shooter : MonoBehaviour
                     10,
                     5,
                     transform,
-                    10f
+                    10f,
+                    false,
+                    0
                     )
                 );
             // skill.SetTarget( target );

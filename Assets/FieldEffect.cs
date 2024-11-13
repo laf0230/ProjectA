@@ -14,6 +14,7 @@ public class FieldEffect : MonoBehaviour
     public void Initilize(BulletProperties bulletProperties)
     {
         properties = bulletProperties;
+        effectDuratioon = properties.Duration;
     }
 
     private void OnTriggerEnter(Collider other)

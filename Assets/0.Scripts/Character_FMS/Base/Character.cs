@@ -92,7 +92,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 data.Damage,
                 data.Speed,
                 data.Reach,
-                data.Ability
+                data.Ability,
+                data.IsUsedOwnPlace,
+                data.Duration
                 ));
             combats.Add(skill);
         }

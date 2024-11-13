@@ -11,9 +11,10 @@ public class BulletProperties : IBulletData
     
     [SerializeField] public Transform Target{get;set;}
     [SerializeField] public Transform User{get;set;}
-    [SerializeField] public float Duration { get;set;} // 장판형일경우의 지속시간
+    [SerializeField] public int Duration { get;set;} // 장판형일경우의 지속시간
+    [SerializeField] public bool isUsedOwnPlace { get; set; } = false;
 
-    public BulletProperties(ProjectileType projectileType, float damage, float speed, Transform user, float reach, float duration = 0)
+    public BulletProperties( ProjectileType projectileType, float damage, float speed, Transform user, float reach,bool isUsedOwnPlace, int duration)
     {
         Type = projectileType;
         Damage = damage;
@@ -21,6 +22,7 @@ public class BulletProperties : IBulletData
         User = user;
         Reach = reach;
         Duration = duration;
+        this.isUsedOwnPlace = isUsedOwnPlace;
     }
 
 
@@ -50,8 +52,23 @@ public class SkillProperties: ISkillData
     public MovementActionType MovementActionType {get;set;}
     public TargetMovementLocaction TargetMovementLocaction { get; set; }
     public float MovementRange {get;set;}
+    public bool isUsedOwnPlace { get; set; } = false;
+    public int duration;
 
-    public SkillProperties(Transform user, SkillType type, SkillShapeType shapeType, int targetType, float totalCoolTime, ProjectileType projectileType, float Damage, float Speed, float Reach, List<AbilityInfo> abilityInfos)
+    public SkillProperties(
+        Transform user,
+        SkillType type,
+        SkillShapeType shapeType,
+        int targetType,
+        float totalCoolTime,
+        ProjectileType projectileType,
+        float Damage,
+        float Speed,
+        float Reach,
+        List<AbilityInfo> abilityInfos,
+        bool isUsedOwnPlace,
+        int duration
+        )
     {
         this.user = user;
         this.Type = type;
@@ -64,11 +81,14 @@ public class SkillProperties: ISkillData
         this.Speed = Speed;
         this.Reach = Reach;
 
-        BulletProperties = new BulletProperties(projectileType, Damage, Speed, user, Reach);
+        BulletProperties = new BulletProperties(projectileType, Damage, Speed, user, Reach, isUsedOwnPlace, duration);
         this.BulletProperties.Damage = Damage;
         this.BulletProperties.Speed = Speed;
         this.BulletProperties.Reach = Reach;
         Ability = abilityInfos;
+
+        this.isUsedOwnPlace = isUsedOwnPlace;
+        this.duration = duration;
     }
 
     public void SetTargets(List<Transform> targets)

@@ -21,7 +21,7 @@ MonoBehaviour:
   skillSize: 5
   targetType: 1
   coolTime: 5
-  projectileType: 1
+  projectileType: 2
   targets: []
   damage: 5
   speed: 5
@@ -30,13 +30,6 @@ MonoBehaviour:
   movementActionType: 0
   targetMovementLocaction: 0
   movementRange: 0
-  ability:
-  - name: 
-    id: 0
-    isPercentage: 0
-    value: 0
-    duration: 5
-    targetType: 0
-    shape: 0
-    animationType: 0
-    effectStatus: 0
+  ability: []
+  isUsedOwnPlace: 0
+  duration: 0

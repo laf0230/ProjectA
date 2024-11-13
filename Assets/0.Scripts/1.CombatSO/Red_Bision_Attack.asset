@@ -40,3 +40,5 @@ MonoBehaviour:
     shape: 0
     animationType: 0
     effectStatus: 0
+  isUsedOwnPlace: 0
+  duration: 0
