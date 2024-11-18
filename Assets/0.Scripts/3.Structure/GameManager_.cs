@@ -16,6 +16,7 @@ public class GameManager_ : MonoBehaviour
     public Shop_ shop;
     public Investment_ investment;
     public FieldManager fieldManager;
+    public CameraDrag playerView;
 
     [Header("게임 정보")]
     public int characterCount = 1;
@@ -46,7 +47,7 @@ public class GameManager_ : MonoBehaviour
         inventory.Initialize();
         GameStart();
         UIManager_.Instance.battleStartButton.onClick.AddListener(StartBattle);
-        StartBattle();
+        // StartBattle();
     }
 
     // 전투 시작 메서드
@@ -62,6 +63,8 @@ public class GameManager_ : MonoBehaviour
 
         UIManager_.Instance.GetUIGroup(UIType_.ManagementUI).Close();
         fieldManager.ActiveCharactersOnField();
+        UIManager_.Instance.onFieldUI.gameObject.SetActive(true);
+        UIManager_.Instance.onFieldUI.ActiveCharacterUI();
     }
 
     public void GameStart()
@@ -70,6 +73,7 @@ public class GameManager_ : MonoBehaviour
         // UIManager_.Instance.cardContainer.gameObject.SetActive(true);
         player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
+        UIManager_.Instance.onFieldUI.CreateAndGetNewCharacterUIs(selectedCards);
         fieldManager.SpawnCharacters(selectedCards);
     }
 

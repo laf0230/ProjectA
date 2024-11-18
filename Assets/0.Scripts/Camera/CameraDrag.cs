@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class CameraDrag : MonoBehaviour
@@ -18,23 +19,32 @@ public class CameraDrag : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
+            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+            Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
 
-        transform.Translate(move, Space.World);
+            transform.Translate(move, Space.World);
         }
 
-        if(Input.mouseScrollDelta.y != 0f)
+        if (Input.mouseScrollDelta.y != 0f)
         {
             // Debug.Log("ScrollData: " + Input.mouseScrollDelta);
-            
+
             float scrollVerify = Mathf.Clamp(scrollMin, scrollMax, dragSpeed);
 
         }
-        
+
         /*
         Camera camera = Camera.main;
         Ray cameraRay = camera.ScreenPointToRay(Input.mousePosition);
         */
+    }
+
+    public void SetFocus(GameObject character)
+    {
+        // 카메라의 캐릭터 포커스
+        if (!character.activeSelf)
+        {
+            transform.position = character.transform.position;
+        }
     }
 }

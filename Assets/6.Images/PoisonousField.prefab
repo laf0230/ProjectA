@@ -4841,7 +4841,7 @@ GameObject:
   - component: {fileID: 4729701322428139988}
   - component: {fileID: 6374639828637141881}
   m_Layer: 0
-  m_Name: PoisonField
+  m_Name: PoisonousField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

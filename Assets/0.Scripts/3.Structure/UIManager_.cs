@@ -43,6 +43,7 @@ public class UIManager_ : MonoBehaviour
     public CardContainer cardContainer;
     public GameObject WorldUI;
     public GameObject investWarningUI;
+    public OnFieldUI onFieldUI;
     public Button battleStartButton;
     public Image StandingImage;
     public Sprite lockIcon;
@@ -68,7 +69,7 @@ public class UIManager_ : MonoBehaviour
 
     private void Start()
     {
-        // GameStart();
+        GameStart();
     }
 
     private void FixedUpdate()

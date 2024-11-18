@@ -49,6 +49,7 @@ public class BulletManager : MonoBehaviour
         bullet.transform.position = transform.position;
         bullet.transform.rotation = transform.rotation;
         bullet.gameObject.SetActive(true); // 활성화
+        Debug.Log($"반환된 불릿은 {bullet}입니다!");
         return bullet;
     }
 
@@ -57,21 +58,24 @@ public class BulletManager : MonoBehaviour
         // 풀에서 사용 가능한 총알 검색
         foreach (var bullet in pool)
         {
+            Debug.Log(bullet.Properties + "프로퍼티가 이상해ㅐㅐㅐㅐㅐ");
             if (!bullet.gameObject.activeSelf && bullet.Properties.Type == bulletIndex)
             {
+                Debug.Log($"반환될 예정인 불릿의 타입은 {bullet.type}");
                 return bullet; // 비활성화된 총알 반환
             }
-        }
-
-        if (bulletType[((int)bulletIndex)] == null)
-        {
-            Debug.Log("Bullet이 존재하지 않습니다.");
         }
 
         // 비활성화된 총알이 없으면 새로 생성
         ProjectileBase newBullet = Instantiate(
             GetBulletFromType(bulletIndex)
             ).GetComponent<ProjectileBase>();
+
+        if (newBullet == null)
+        {
+            Debug.Log("Bullet이 존재하지 않습니다.");
+            return null;
+        }
 
         pool.Add(newBullet); // 풀에 추가
         return newBullet;

@@ -14,7 +14,7 @@ public class BulletProperties : IBulletData
     [SerializeField] public int Duration { get;set;} // 장판형일경우의 지속시간
     [SerializeField] public bool isUsedOwnPlace { get; set; } = false;
 
-    public BulletProperties( ProjectileType projectileType, float damage, float speed, Transform user, float reach,bool isUsedOwnPlace, int duration)
+    public void Initilize( ProjectileType projectileType, float damage, float speed, Transform user, float reach,bool isUsedOwnPlace, int duration)
     {
         Type = projectileType;
         Damage = damage;
@@ -24,7 +24,6 @@ public class BulletProperties : IBulletData
         Duration = duration;
         this.isUsedOwnPlace = isUsedOwnPlace;
     }
-
 
     public void SetTarget(Transform target) { this.Target = target; }
     public void setUser(Transform user) { User = user; }
@@ -44,7 +43,7 @@ public class SkillProperties: ISkillData
     public float Damage{get;set;}
     public float Speed{get;set;}
     public float Reach{get;set;}
-    public BulletProperties BulletProperties{get;set;}
+    public BulletProperties BulletProperties{get;set;} = new BulletProperties();
     public List<AbilityInfo> Ability{get;set;} = new List<AbilityInfo>();
 
     public float SkillSize {get;set;}
@@ -81,7 +80,7 @@ public class SkillProperties: ISkillData
         this.Speed = Speed;
         this.Reach = Reach;
 
-        BulletProperties = new BulletProperties(projectileType, Damage, Speed, user, Reach, isUsedOwnPlace, duration);
+        BulletProperties.Initilize(projectileType, Damage, Speed, user, Reach, isUsedOwnPlace, duration);
         this.BulletProperties.Damage = Damage;
         this.BulletProperties.Speed = Speed;
         this.BulletProperties.Reach = Reach;

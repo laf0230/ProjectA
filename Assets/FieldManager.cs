@@ -46,6 +46,7 @@ public class FieldManager : MonoBehaviour
             {
                 onFieldCharacters.Add(Instantiate(character, spawnPoint.transform.position, Quaternion.identity));
                 spawnedCharacter = character;
+                spawnedCharacter.SetActive(false);
 
                 // 스폰된 캐릭터를 리스트에서 제거하여 다시 선택되지 않게 함
                 availableCharacters.Remove(character);
@@ -65,5 +66,18 @@ public class FieldManager : MonoBehaviour
     public void SetField(Sprite field)
     {
         Field.GetComponent<SpriteRenderer>().sprite = field;
+    }
+
+    public Character GetCharacter(CharacterInfoSO status)
+    {
+        foreach (var item in onFieldCharacters)
+        {
+            Character character = item.GetComponent<Character>();
+
+            if(character.Info == status)
+                return item.GetComponent<Character>();
+        }
+
+        return null;
     }
 }

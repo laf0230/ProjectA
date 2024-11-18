@@ -2,13 +2,14 @@
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    public BulletProperties Properties { get; set; }
+    public BulletProperties Properties { get; set; } = new BulletProperties();
     protected Rigidbody rb;
     protected Vector3 direction;
     public ProjectileType type;
 
     public virtual void Initialize(BulletProperties properties)
     {
+        Debug.Log("투사체의 프로퍼티가 설정되었습니다");
         Properties = properties;
         rb = GetComponent<Rigidbody>();
     }
@@ -25,6 +26,7 @@ public abstract class ProjectileBase : MonoBehaviour
 
     public virtual void Shoot()
     {
+        Debug.Log(Properties + "프로퍼티는 과연 설정되었는가요?");
         if (!IsReadyToShoot())
         {
             // 데이터 설정에 실패했을 때 예외처리

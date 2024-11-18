@@ -19,7 +19,7 @@ public class Shooter : MonoBehaviour
         if(!skill.IsCooling() && skill.IsUseable())
         {
             skill.gameObject.SetActive(true);
-
+/*
             skill.bulletSettings.Initialize(
                 new BulletProperties(
                     ProjectileType.Normal,
@@ -31,6 +31,7 @@ public class Shooter : MonoBehaviour
                     0
                     )
                 );
+*/
             // skill.SetTarget( target );
             skill.Use();
         }

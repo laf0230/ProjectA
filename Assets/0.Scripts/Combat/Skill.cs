@@ -50,7 +50,7 @@ public class Skill : MonoBehaviour
 
     public void SetCombatInfo(Transform user, ProjectileType projectileType, float speed, float damage, float reach, bool isOwnedPlace, int duration)
     {
-        combatInfo = new BulletProperties(projectileType, damage, speed, user, reach, isOwnedPlace, duration);
+        combatInfo.Initilize(projectileType, damage, speed, user, reach, isOwnedPlace, duration);
     }
 
     public bool GetIsUseable() { return isUseable; }

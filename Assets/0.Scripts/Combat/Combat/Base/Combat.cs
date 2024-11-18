@@ -53,13 +53,23 @@ public class Combat : MonoBehaviour
     [System.Serializable]
     public class BulletSettings
     {
-        [SerializeField] public BulletProperties properties { get; set; }
+        [SerializeField] public BulletProperties properties { get; set; } = new BulletProperties();
 
         // 탄환을 생성하고 속도 및 데미지를 설정
         public ProjectileBase GetBullet(Transform spawnPosition)
         {
+            if(spawnPosition == null)
+            {
+                Debug.LogWarning("bullet이 스폰될 포인트 값이 null값입니다.");
+            }
+
             // BulletManager으로부터 bullet Type에 맞는 투사체 생성 및 받아오기
             var bullet = BulletManager.instance.GetBulletFromTransform(properties.Type, spawnPosition);
+
+            if(bullet == null)
+            {
+                Debug.LogError($"{bullet.name}이 null을 반환했습니다");
+            }
 
             return bullet;
         }
@@ -67,7 +77,7 @@ public class Combat : MonoBehaviour
         // 탄환의 값 설정
         public void Initialize(BulletProperties bulletInfo)
         {
-            properties = new BulletProperties(
+            properties.Initilize(
                 bulletInfo.Type,
                 bulletInfo.Damage, 
                 bulletInfo.Speed, 
@@ -155,7 +165,6 @@ public class Combat : MonoBehaviour
 
         skillProperties.BulletProperties.SetTarget(skillProperties.Targets[0]);
 
-        Debug.Log(skillProperties.ProjectileType+"버그버그버그");
         // 투사체의 타입에 따라 설정값을 부여
         if (skillProperties.ProjectileType == ProjectileType.Breakable)
         {
@@ -163,9 +172,18 @@ public class Combat : MonoBehaviour
             bulletSettings.properties.Duration = skillProperties.duration;
             Debug.Log("브레이커블 투사체");
         }
-       
+
+        if (bulletSettings.properties.Type == ProjectileType.None) 
+            return;
+            // 투사체를 사용하지 않고 공격을 할 경우 사용됨
+            // 투사체가 없는 광역공격, 자기 버프 효과 등
+
         // 탄환을 설정에서 생성하고 탄환 정보를 전달
         var bullet = bulletSettings.GetBullet(transform);
+        if(bullet == null)
+        {
+            Debug.LogWarning("Bullet returned null");
+        }
 
         bullet.Initialize(bulletSettings.properties);
         bullet.SetTarget(skillProperties.Targets[0]);
