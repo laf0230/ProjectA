@@ -57,7 +57,7 @@ public class BulletManager : MonoBehaviour
         // 풀에서 사용 가능한 총알 검색
         foreach (var bullet in pool)
         {
-            if (!bullet.gameObject.activeSelf)
+            if (!bullet.gameObject.activeSelf && bullet.Properties.Type == bulletIndex)
             {
                 return bullet; // 비활성화된 총알 반환
             }

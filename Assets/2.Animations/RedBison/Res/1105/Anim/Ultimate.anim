@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IDLE 1
+  m_Name: Ultimate
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -122,6 +122,13 @@ AnimationClip:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 2
+    messageOptions: 0
+  - time: 0.58
+    functionName: AnimationTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 4
     messageOptions: 0
   - time: 1.08
     functionName: AnimationTrigger

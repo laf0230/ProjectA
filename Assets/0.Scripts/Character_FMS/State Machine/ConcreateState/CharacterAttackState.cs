@@ -104,6 +104,7 @@ public class CharacterAttackState : State
 
     public void DoMove()
     {
+        Debug.Log(character.gameObject + " 이동기 사용!");
         // 에니메이션에서 움직임 관련된 내용을 사용하는 트리거
         foreach (var ability in Attack.abilities)
         {
