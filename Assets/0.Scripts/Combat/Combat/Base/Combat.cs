@@ -194,38 +194,47 @@ public class Combat : MonoBehaviour
     // 이동기 코드
     public void MovementAction()
     {
-        Vector3 destination;
         float reach = skillProperties.Reach;
 
-        // 목표 위치 설정
-        switch (skillProperties.TargetMovementLocaction)
-        {
-            case TargetMovementLocaction.ToEnemy:
-                destination = skillProperties.BulletProperties.Target.position;  // 타겟 방향
-                break;
-            case TargetMovementLocaction.OppositeToEnemy:
-                destination = GetOppositeDirection(skillProperties.BulletProperties.Target, reach);  // 타겟 반대 방향
-                break;
-            case TargetMovementLocaction.Random:
-                destination = GetRandomPosition(transform.position, reach);  // 임의의 위치 (범위 10 예시)
-                break;
-            default:
-                Debug.LogWarning("Unsupported movement location type!");
-                return;
-        }
 
         // 대시 또는 순간 이동을 수행
         switch (skillProperties.MovementActionType)
         {
             case MovementActionType.Dash:
-                DashToTargetLocation(destination, reach);
+                DashToTargetLocation(
+                    GetTargetDirection(
+                        skillProperties.TargetMovementLocaction, reach
+                        ), reach);
                 break;
             case MovementActionType.Teleport:
-                TeleportToTargetLocation(destination);
+                TeleportToTargetLocation(
+                    GetTargetDirection(
+                        skillProperties.TargetMovementLocaction, reach
+                        ));
                 break;
             default:
                 Debug.LogWarning("Unsupported movement action type!");
                 break;
+        }
+    }
+
+    public Vector3 GetTargetDirection(TargetMovementLocaction destinationType, float reach)
+    {
+        // 목표 위치 설정
+        switch (destinationType)
+        {
+            case TargetMovementLocaction.ToEnemy:
+                return skillProperties.BulletProperties.Target.position;  // 타겟 방향
+                break;
+            case TargetMovementLocaction.OppositeToEnemy:
+                return GetOppositeDirection(skillProperties.BulletProperties.Target, reach);  // 타겟 반대 방향
+                break;
+            case TargetMovementLocaction.Random:
+                return GetRandomPosition(transform.position, reach);  // 임의의 위치 (범위 10 예시)
+                break;
+            default:
+                Debug.LogWarning("Unsupported movement location type!");
+                return Vector3.zero;
         }
     }
 

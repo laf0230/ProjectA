@@ -7,9 +7,13 @@ public class FieldManager : MonoBehaviour
     public List<GameObject> SpawnPoints;
     public GameObject Field;
     public List<GameObject> onFieldCharacters;
+    public List<GameObject> fields;
 
-    private void Start()
+    public void ActiveRandomField()
     {
+        var length = Random.Range(0, fields.Count - 1);
+
+        fields[length].SetActive(true);
     }
 
     public void SpawnCharacters(List<CardSO> characters)

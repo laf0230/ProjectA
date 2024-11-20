@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile:
     ProfileImg: {fileID: 0}
-    Name: 
+    Name: "\uB808\uB4DC\uBC14\uC774\uC2A8 \uAD81\uADF9\uAE30"
     Description: 
-  type: 0
+  type: 2
   shapeType: 0
   skillSize: 5
   targetType: 1
@@ -49,3 +49,5 @@ MonoBehaviour:
     shape: 0
     animationType: 0
     effectStatus: 0
+  isUsedOwnPlace: 0
+  duration: 0

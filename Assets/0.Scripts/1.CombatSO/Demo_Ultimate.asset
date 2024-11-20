@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile:
     ProfileImg: {fileID: 0}
-    Name: 
+    Name: "\uB370\uBAA8 \uAD81\uADF9\uAE30"
     Description: 
-  type: 0
+  type: 2
   shapeType: 0
   skillSize: 5
   targetType: 1
   coolTime: 5
-  bulletType: 1
+  projectileType: 0
   targets: []
   damage: 5
   speed: 5
@@ -31,3 +31,5 @@ MonoBehaviour:
   targetMovementLocaction: 0
   movementRange: 0
   ability: []
+  isUsedOwnPlace: 0
+  duration: 0

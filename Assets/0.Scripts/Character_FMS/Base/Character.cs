@@ -232,23 +232,20 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         switch (triggerType)
         {
             case AnimationTriggerType.Attack:
-                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Attack");
                 break;
             case AnimationTriggerType.Hurt:
-                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Hurt");
                 break;
             case AnimationTriggerType.Skill:
-                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("Skill");
                 break;
             case AnimationTriggerType.SpecialSkill:
-                Animator.SetFloat("Run", 0);
                 Animator.SetTrigger("SpecialSkill");
                 break;
             case AnimationTriggerType.Run:
-                Animator.SetFloat("Run", 10);
+                Animator.SetFloat("Run", 5);
+                Debug.Log("달리는 중입니다!");
                 break;
             case AnimationTriggerType.Dead:
                 Animator.SetFloat("Run", 0);

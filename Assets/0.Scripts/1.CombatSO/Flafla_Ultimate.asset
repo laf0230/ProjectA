@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile:
     ProfileImg: {fileID: 0}
-    Name: 
+    Name: "\uD50C\uB77C\uD50C\uB77C \uAD81\uADF9\uAE30"
     Description: 
   type: 2
   shapeType: 0
