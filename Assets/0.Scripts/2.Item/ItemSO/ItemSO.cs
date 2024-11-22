@@ -10,6 +10,7 @@ public class ItemSO : ScriptableObject
 
     public string Name;
     public Sprite sprite;
+    [TextArea(5, 20)]
     public string description;
     public List<AbilityInfo> Ability = new List<AbilityInfo>();
 }

@@ -30,15 +30,6 @@ MonoBehaviour:
   movementActionType: 0
   targetMovementLocaction: 0
   movementRange: 0
-  ability:
-  - name: "\uC7A5\uD310 \uC720\uC9C0\uC2DC\uAC04"
-    id: 0
-    isPercentage: 0
-    value: 0
-    duration: 5
-    targetType: 0
-    shape: 0
-    animationType: 0
-    effectStatus: 0
+  ability: []
   isUsedOwnPlace: 0
   duration: 10

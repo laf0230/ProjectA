@@ -68,7 +68,7 @@ public class BattleCharacterIconUI : MonoBehaviour, IPointerEnterHandler, IPoint
         Debug.Log("안녕하세요!");
 
         // 카메라 포커싱 변경
-        if (character == null)
+        if (character != null)
             Debug.Log("캐릭터를 호출할 수 없습니다");
         GameManager_.instance.playerView.SetFocus(character.gameObject);
     }

@@ -17,4 +17,4 @@ MonoBehaviour:
   fullIllust: {fileID: 21300000, guid: 583414f634142b647bbbae0bd697da12, type: 3}
   standIllust: {fileID: 21300000, guid: 583414f634142b647bbbae0bd697da12, type: 3}
   cardIllust: {fileID: 21300000, guid: 583414f634142b647bbbae0bd697da12, type: 3}
-  profile: {fileID: 21300000, guid: 583414f634142b647bbbae0bd697da12, type: 3}
+  profile: {fileID: 1374693920, guid: 976f0ee2cc5407241b1f02e7b0a861f3, type: 3}

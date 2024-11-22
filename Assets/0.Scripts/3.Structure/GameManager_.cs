@@ -17,6 +17,7 @@ public class GameManager_ : MonoBehaviour
     public Investment_ investment;
     public FieldManager fieldManager;
     public CameraDrag playerView;
+    public bool isBattleStarted = false;
 
     [Header("게임 정보")]
     public int characterCount = 1;
@@ -50,6 +51,45 @@ public class GameManager_ : MonoBehaviour
         // StartBattle();
     }
 
+    private void Update()
+    {
+        #region 배속
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Time.timeScale = 0.1f;
+        }
+        
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Time.timeScale = 0.5f;
+        }
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Time.timeScale = 1f;
+        }
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Time.timeScale = 1.5f;
+        }
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Time.timeScale = 2f;
+        }
+
+        #endregion
+
+        if(isBattleStarted && GameObject.FindGameObjectsWithTag("Character").Length == 1)
+        {
+            UIManager_.Instance.ActiveGameEndUI(true);
+
+            isBattleStarted = false;
+        }
+    }
+
     // 전투 시작 메서드
     public void StartBattle()
     {
@@ -65,6 +105,8 @@ public class GameManager_ : MonoBehaviour
         fieldManager.ActiveCharactersOnField();
         UIManager_.Instance.onFieldUI.gameObject.SetActive(true);
         UIManager_.Instance.onFieldUI.ActiveCharacterUI();
+
+        isBattleStarted = true;
     }
 
     public void GameStart()
@@ -74,6 +116,7 @@ public class GameManager_ : MonoBehaviour
         player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
         UIManager_.Instance.onFieldUI.CreateAndGetNewCharacterUIs(selectedCards);
+        UIManager_.Instance.rankingUI.DisplayDeathRanking();
         fieldManager.SpawnCharacters(selectedCards);
     }
 
@@ -110,6 +153,18 @@ public class GameManager_ : MonoBehaviour
     public void InstantiateCharacter(CardSO cardSO, Vector3 position)
     {
         // 캐릭터의 생성 및 배치 코드 작성
+    }
+
+    public CardSO GetCardFromSelectedCard(CharacterInfoSO characterInfo)
+    {
+        foreach (var item in selectedCards)
+        {
+            if (item.profile.name == characterInfo.Profile.Name)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 }
 

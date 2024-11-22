@@ -128,14 +128,16 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         if (CurrentHealth < 0)
         {
+            UIManager_.Instance.rankingUI.AddToDeathOrder(GameManager_.instance.GetCardFromSelectedCard(Info));
             Debug.Log("I'm Died");
             AnimationTriggerEvent(AnimationTriggerType.Dead);
-            StartCoroutine("Die");
+            if(gameObject.activeSelf)
+                StartCoroutine(Die());
         }
         else
         {
             // AnimationTriggerEvent(AnimationTriggerType.Hurt);
-        StartCoroutine("Hurt");
+            StartCoroutine(Hurt());
         }
     }
 

@@ -38,7 +38,7 @@ public class CharacterIdleState : State
     {
         base.FrameUpdate();
 
-        if (character.IsAggroed)
+        if (character.IsAggroed && character.Targets[0].activeSelf)
         {
             _targetThreatLevel = character.Targets[0].GetComponent<Character>().ThreatLevel;
             if (character.ThreatLevel >= _targetThreatLevel)

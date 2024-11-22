@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile:
     ProfileImg: {fileID: 0}
-    Name: "\uB808\uB4DC\uBC14\uC774\uC2A8 \uC2A4\uD0AC"
+    Name: "\uC5F0\uBC1C \uC0AC\uACA9"
     Description: 
   type: 1
   shapeType: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   projectileType: 0
   targets: []
   damage: 5
-  speed: 5
+  speed: 15
   reach: 5
   hasMovementAction: 0
   movementActionType: 0

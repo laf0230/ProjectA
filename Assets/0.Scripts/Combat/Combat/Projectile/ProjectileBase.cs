@@ -52,6 +52,11 @@ public abstract class ProjectileBase : MonoBehaviour
         {
             character.Damage(Properties.Damage);
         }
+
+        if(character.CurrentHealth < 0)
+        {
+            var user = Properties.User.gameObject.GetComponent<Character>().Info;
+        }
     }
 }
 

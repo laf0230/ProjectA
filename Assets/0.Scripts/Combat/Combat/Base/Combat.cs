@@ -225,13 +225,10 @@ public class Combat : MonoBehaviour
         {
             case TargetMovementLocaction.ToEnemy:
                 return skillProperties.BulletProperties.Target.position;  // 타겟 방향
-                break;
             case TargetMovementLocaction.OppositeToEnemy:
                 return GetOppositeDirection(skillProperties.BulletProperties.Target, reach);  // 타겟 반대 방향
-                break;
             case TargetMovementLocaction.Random:
                 return GetRandomPosition(transform.position, reach);  // 임의의 위치 (범위 10 예시)
-                break;
             default:
                 Debug.LogWarning("Unsupported movement location type!");
                 return Vector3.zero;

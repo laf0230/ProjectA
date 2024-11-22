@@ -24,21 +24,12 @@ MonoBehaviour:
   projectileType: 0
   targets: []
   damage: 5
-  speed: 5
-  reach: 5
+  speed: 15
+  reach: 10
   hasMovementAction: 0
   movementActionType: 0
   targetMovementLocaction: 0
   movementRange: 0
-  ability:
-  - name: 
-    id: 0
-    isPercentage: 0
-    value: 0
-    duration: 0
-    targetType: 0
-    shape: 0
-    animationType: 0
-    effectStatus: 0
+  ability: []
   isUsedOwnPlace: 0
   duration: 0

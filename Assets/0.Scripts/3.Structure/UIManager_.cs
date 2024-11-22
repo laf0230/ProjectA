@@ -41,6 +41,7 @@ public class UIManager_ : MonoBehaviour
     public StandingUI standingUI;
     public ProfileContainer profileContainer;
     public CardContainer cardContainer;
+    public RankingUI rankingUI;
     public GameObject WorldUI;
     public GameObject investWarningUI;
     public OnFieldUI onFieldUI;
@@ -85,6 +86,8 @@ public class UIManager_ : MonoBehaviour
 
     public IEnumerator IEStart()
     {
+        // rankingUI.ResetKillCount();
+
         uIGroups.ForEach((ui) => ui.Close());
 
          WorldUI.SetActive(true);
@@ -135,6 +138,12 @@ public class UIManager_ : MonoBehaviour
         {
             character.SetActive(true);
         }
+    }
+
+    public void ActiveGameEndUI(bool active)
+    {
+        rankingUI.gameObject.SetActive(active);
+        // rankingUI.DisplayCharacterRanking();
     }
 
     public void UpdateCurrencyUI()
