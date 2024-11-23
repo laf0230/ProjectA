@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
@@ -12,7 +13,7 @@ public class RankData
     public int killCount = 0;
 }
 
-public class RankingElement : MonoBehaviour
+public class RankingElement : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TextMeshProUGUI rankText;
     [SerializeField] private Image profileImage;
@@ -20,6 +21,7 @@ public class RankingElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI killCountSpace;
     [SerializeField] private GameObject selectedIcon;
 
+    private RankData rankData;
     private int rank;
     private Sprite profile;
     private string characterName;
@@ -28,14 +30,15 @@ public class RankingElement : MonoBehaviour
 
     public void Initialize(RankData data, int rank)
     {
+        rankData = data;
         profile = data.characterCard.profile;
-        characterName = data.characterCard.profile.name;
+        characterName = data.characterCard.character.Profile.Name;
         killCount = data.killCount;
         this.rank = rank;
 
         SetProfile(profile);
         SetName(characterName);
-        SetKillCount(killCount);
+        // SetKillCount(killCount);
         SetRank(rank);
     }
 
@@ -60,7 +63,7 @@ public class RankingElement : MonoBehaviour
 
     private void SetName(string name)
     {
-        characterName = name;
+        nameSpace.text = name;
     }
 
     private void SetKillCount(int killCount)
@@ -69,4 +72,9 @@ public class RankingElement : MonoBehaviour
     }
 
     #endregion
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        UIManager_.Instance.rankingUI.SetIllust(rankData.characterCard.fullIllust);
+    }
 }

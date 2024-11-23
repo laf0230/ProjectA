@@ -8,6 +8,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
 {
     public Image image;
     public TextMeshProUGUI text;
+    public TextMeshProUGUI nameSpace;
     public Button tradeButton;
     public TextMeshProUGUI buttonText; 
     public bool isInInventory { get; set; }
@@ -30,6 +31,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
     public void SetAndActiveInfomation(ItemSO item)
     {
         image.sprite = item.sprite;
+        nameSpace.text = item.name;
         text.text = item.description;
         selectedItem = item;
 

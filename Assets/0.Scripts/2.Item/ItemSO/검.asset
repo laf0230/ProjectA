@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2674a41960615b449254f2a42ced5e4, type: 3}
+  m_Name: "\uAC80"
+  m_EditorClassIdentifier: 
+  BuyPrise: 4
+  SellPrise: 2
+  Name: "\uAC80"
+  sprite: {fileID: 329904807873782139, guid: 9f86d5737981f8543b3244ba7a2e7413, type: 3}
+  description: "\uACF5\uACA9\uB825 + 5\n\uACF5\uACA9 \uC18D\uB3C4 + 5%\n\n\uAC00\uACA9:
+    4 Gold"
+  Ability: []

@@ -142,8 +142,7 @@ public class UIManager_ : MonoBehaviour
 
     public void ActiveGameEndUI(bool active)
     {
-        rankingUI.gameObject.SetActive(active);
-        // rankingUI.DisplayCharacterRanking();
+        rankingUI.DesplayRanking(active);
     }
 
     public void UpdateCurrencyUI()

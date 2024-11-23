@@ -25,7 +25,7 @@ MonoBehaviour:
   targets: []
   damage: 5
   speed: 15
-  reach: 5
+  reach: 10
   hasMovementAction: 0
   movementActionType: 0
   targetMovementLocaction: 0

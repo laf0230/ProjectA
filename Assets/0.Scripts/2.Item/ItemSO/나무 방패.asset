@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2674a41960615b449254f2a42ced5e4, type: 3}
+  m_Name: "\uB098\uBB34 \uBC29\uD328"
+  m_EditorClassIdentifier: 
+  BuyPrise: 3
+  SellPrise: 2
+  Name: "\uB098\uBB34 \uBC29\uD328"
+  sprite: {fileID: -87581893283307639, guid: a310c50e43b6c4d40bdb9b04f9c656bf, type: 3}
+  description: "\uBC29\uC5B4\uB3C4 + 7\n\n\n\uAC00\uACA9: 3 Gold"
+  Ability: []

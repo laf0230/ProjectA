@@ -17,6 +17,7 @@ public class GameManager_ : MonoBehaviour
     public Investment_ investment;
     public FieldManager fieldManager;
     public CameraDrag playerView;
+    public Transform cameraStartPosition;
     public bool isBattleStarted = false;
 
     [Header("게임 정보")]
@@ -48,7 +49,8 @@ public class GameManager_ : MonoBehaviour
         inventory.Initialize();
         GameStart();
         UIManager_.Instance.battleStartButton.onClick.AddListener(StartBattle);
-        // StartBattle();
+        playerView.gameObject.transform.position = cameraStartPosition.position;
+        playerView.enabled = false;
     }
 
     private void Update()
@@ -107,6 +109,7 @@ public class GameManager_ : MonoBehaviour
         UIManager_.Instance.onFieldUI.ActiveCharacterUI();
 
         isBattleStarted = true;
+        playerView.enabled = true;
     }
 
     public void GameStart()
@@ -116,7 +119,7 @@ public class GameManager_ : MonoBehaviour
         player.gold.CurrencyUIUpdate();
         UIManager_.Instance.cardContainer.SetCards(selectedCards);
         UIManager_.Instance.onFieldUI.CreateAndGetNewCharacterUIs(selectedCards);
-        UIManager_.Instance.rankingUI.DisplayDeathRanking();
+        UIManager_.Instance.rankingUI.SetCharacters(selectedCards);
         fieldManager.SpawnCharacters(selectedCards);
     }
 

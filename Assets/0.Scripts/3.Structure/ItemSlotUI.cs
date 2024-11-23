@@ -18,8 +18,6 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
     // Lock
     public bool isLock { get; set; } = true; // Only Uesd On ProfileUI
 
-    public bool isClicked = false;
-
     public ItemSlotType slotType;
     
     public ItemSO item { get; set; }
@@ -60,18 +58,9 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
 
     public void OnButtonClick()
     {
-        isClicked = !isClicked; 
-        // 아이템 UI 생성 및 활성화
-        if(isClicked)
-        {
-            var itemInfoUI = UIManager_.Instance.itemInfoUI;
-            itemInfoUI.gameObject.SetActive(true);
-            itemInfoUI.isInInventory = this.isInInventory;
-            itemInfoUI.SetAndActiveInfomation(item);
-        }
-        else
-        {
-            UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
-        }
+        var itemInfoUI = UIManager_.Instance.itemInfoUI;
+        itemInfoUI.gameObject.SetActive(true);
+        itemInfoUI.isInInventory = this.isInInventory;
+        itemInfoUI.SetAndActiveInfomation(item);
     }
 }

@@ -59,7 +59,7 @@ public class BulletManager : MonoBehaviour
         foreach (var bullet in pool)
         {
             Debug.Log(bullet.Properties + "프로퍼티가 이상해ㅐㅐㅐㅐㅐ");
-            if (!bullet.gameObject.activeSelf && bullet.Properties.Type == bulletIndex)
+            if (!bullet.gameObject.activeSelf && bullet.type == bulletIndex)
             {
                 Debug.Log($"반환될 예정인 불릿의 타입은 {bullet.type}");
                 return bullet; // 비활성화된 총알 반환

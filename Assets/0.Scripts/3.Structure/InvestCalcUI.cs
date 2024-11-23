@@ -84,5 +84,15 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
         UIManager_.Instance.investmentUI.UIUpdate();
         UIManager_.Instance.investCalcUI.gameObject.SetActive(false);
     }
+
+    public void OnAllinButtonClick()
+    {
+        ModifyInvestmentCost(GameManager_.instance.player.chip.amount);
+    }
+
+    public void OnInitButtonClick()
+    {
+        ModifyInvestmentCost(-investment.selectedCharacter.investData.investedChip.amount);
+    }
 }
 
