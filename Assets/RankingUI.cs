@@ -64,6 +64,12 @@ public class RankingUI : MonoBehaviour
                 },
                 cards.FindIndex(c => c.character.Profile.Name == card.character.Profile.Name) + 1
                 );
+
+            // 투자한 캐릭터 표시
+            if(card.character.investData.isInvested)
+            {
+                rankingElementObj.SetIsSelected(true);
+            }
         }
         illust.sprite = cards[0].fullIllust;
 
@@ -80,10 +86,17 @@ public class RankingUI : MonoBehaviour
     public void OnResultButtonClick()
     {
         // 게임 결과 화면 출력
-        // cards[0]
-        var wishUI = UIManager_.Instance.resultUI;
-        wishUI.SetReachedCharacter(selectedCard);
-        wishUI.ActiveAsYourWish();
+        if (cards[0].character.investData.isInvested)
+        {
+            // 투자한 캐릭터가 1등일 때
+            var wishUI = UIManager_.Instance.resultUI;
+            wishUI.SetReachedCharacter(selectedCard);
+            wishUI.ActiveAsYourWish();
+        } else
+        {
+            // 투자한 캐릭터가 1등이 아닐 때
+            UIManager_.Instance.resultFailUI.gameObject.SetActive(true);
+        }
     }
 }
 

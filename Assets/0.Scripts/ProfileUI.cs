@@ -34,5 +34,8 @@ public class ProfileUI : MonoBehaviour
         UIManager_.Instance.standingUI.SetIllust(characterCard.fullIllust);
 
         UIManager_.Instance.shopUI.gameObject.SetActive(false);
+
+        // 아이템 정보창 셋팅
+        UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
     }
 }

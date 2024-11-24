@@ -14,7 +14,6 @@ public class AbilityManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: to keep it across scenes
         }
         else
         {

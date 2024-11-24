@@ -77,7 +77,12 @@ public class InvestCalcUI : MonoBehaviour // 투자금 계산 UI
         if(investment.selectedCharacter.investData.investedChip.amount > 0)
         {
             // 투자를 한 경우 아이템 투자가 가능
+            // 투자 횟수 제한 1회
             GameManager_.instance.investment.SetCharacterInvested(true);
+        } else
+        {
+            // 투자하지 않았을 경우 취소
+            GameManager_.instance.investment.SetCharacterInvested(false);
         }
 
         // UI 업데이트

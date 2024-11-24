@@ -33,6 +33,10 @@ public class UIManager_ : MonoBehaviour
 
     public List<UIGroup> uIGroups = new List<UIGroup>();
     public List<CurrencyUI> currencyUIs;
+    public GameStartUI gameStartUI;
+    public MenuSettingUI menuSettingUI;
+    public RectTransform rect;
+    public Button gameStartButton;
     public InventoryUI_ inventoryUI;
     public ShopUI_ shopUI;
     public ItemInfoUI_ itemInfoUI;
@@ -46,6 +50,8 @@ public class UIManager_ : MonoBehaviour
     public GameObject investWarningUI;
     public OnFieldUI onFieldUI;
     public AsYourWishUI resultUI;
+    public AsYourWishFailUI resultFailUI;
+    public GameObject dontInvest;
     public Button battleStartButton;
     public Image StandingImage;
     public Sprite lockIcon;
@@ -64,24 +70,54 @@ public class UIManager_ : MonoBehaviour
         {
             // Assign the instance to this object
             Instance = this;
-            // Make sure this instance persists across scene loads
-            DontDestroyOnLoad(gameObject);
         }
     }
 
     private void Start()
     {
-        GameStart();
+        gameStartButton.onClick.AddListener(GameStart);
+        battleStartButton.onClick.RemoveAllListeners();
+        battleStartButton.onClick.AddListener(OnBattleStartButtonClick);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+            menuSettingUI.gameObject.SetActive(!menuSettingUI.gameObject.activeSelf);
     }
 
     private void FixedUpdate()
     {
-
         UpdateCurrencyUI();
     }
 
+    public void OnBattleStartButtonClick()
+    {
+        if (GameManager_.instance.investment.isInvested)
+        {
+            Debug.Log("투자함");
+            GameManager_.instance.StartBattle();
+            return;
+        }
+        else
+        {
+            Debug.Log("투자 안함");
+            StartCoroutine(IEFlickDontInvest());
+            return;
+        }
+    }
+
+    public IEnumerator IEFlickDontInvest()
+    {
+        dontInvest.SetActive(true);
+        yield return new WaitForSeconds(1);
+        dontInvest.SetActive(false);
+    }
+
+    // 게임 시작 UI에서 버튼 이벤트로 사용됨
     public void GameStart()
     {
+        gameStartUI.gameObject.SetActive(false);
         StartCoroutine(IEStart());
     }
 
@@ -91,9 +127,9 @@ public class UIManager_ : MonoBehaviour
 
         uIGroups.ForEach((ui) => ui.Close());
 
-         WorldUI.SetActive(true);
-         yield return new WaitForSeconds(3);
-         WorldUI.SetActive(false);
+        WorldUI.SetActive(true);
+        yield return new WaitForSeconds(3);
+        WorldUI.SetActive(false);
 
 
         foreach (UIGroup UI in uIGroups)

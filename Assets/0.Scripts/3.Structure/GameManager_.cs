@@ -48,7 +48,6 @@ public class GameManager_ : MonoBehaviour
 
         inventory.Initialize();
         GameStart();
-        UIManager_.Instance.battleStartButton.onClick.AddListener(StartBattle);
         playerView.gameObject.transform.position = cameraStartPosition.position;
         playerView.enabled = false;
     }

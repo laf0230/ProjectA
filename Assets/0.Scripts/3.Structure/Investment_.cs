@@ -9,6 +9,7 @@ public class Investment_ : MonoBehaviour
     public List<ItemSO> items;
 
     private Inventory_ inventory;
+    public bool isInvested { get; private set; } = false;
 
     private void Start()
     {
@@ -17,7 +18,17 @@ public class Investment_ : MonoBehaviour
 
     public void SetCharacterInvested(bool isInvested)
     {
+        // 후원상태일 때 표시하기
         this.selectedCharacter.investData.isInvested = isInvested;
+        this.isInvested = isInvested;
+        if (isInvested)
+        {
+            investmentUI.SetInvestCountText("1");
+        } 
+        else
+        {
+            investmentUI.SetInvestCountText("0");
+        }
     }
 
     public void SetCharacter(CharacterInfoSO selectedCharacter)

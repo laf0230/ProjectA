@@ -71,6 +71,7 @@ public class SkillSO : ScriptableObject, ISkillData
     #endregion
 }
 
+/*
 [CustomEditor(typeof(SkillSO))]
 public class SkillSOEditor : Editor
 {
@@ -112,4 +113,4 @@ public class SkillSOEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
-
+*/
