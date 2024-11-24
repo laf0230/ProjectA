@@ -15,10 +15,9 @@ public class PotionProjectile : ProjectileBase
     {
         Debug.Log(other.gameObject);
         // 부디친 대상이 타겟인지 조건부 확인
-        if (other.gameObject == Properties.Target.gameObject || Properties.isUsedOwnPlace)
+        if ((other.gameObject == Properties.Target.gameObject) || Properties.isUsedOwnPlace)
         {
             Debug.Log(Properties.isUsedOwnPlace ? "제자리에 장판 설치" : "사용자명: " +  Properties.User + " 제자리에 설치되지 않은 장판입니다.");
-            Debug.Log("타격 성공");
             OnImpact(other);
         }
     }
@@ -65,6 +64,7 @@ public class PotionProjectile : ProjectileBase
             yield return null;
         }
 
+        ActiveFieldEffect(false);
         gameObject.SetActive(false);
     }
 

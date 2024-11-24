@@ -8,7 +8,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 {
     [field:SerializeField] public CharacterInfoSO Info { get; private set; }
     [field:SerializeField] public CharacterStatus Status { get; set; }
-    [field: SerializeField] public float CurrentHealth { get; set; }
+    [field: SerializeField] public float CurrentHealth { get; set; } = 0;
     public Rigidbody Rigidbody { get; set; }
     public NavMeshAgent Agent { get; set; }
     public bool IsFacingRight { get; set; } = true;
@@ -19,6 +19,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
     [field: SerializeField] public List<GameObject> Targets { get; set; }
+
+    public bool isDead { get; set; } = false;
+
     // 동시에 여러 줄을 작성할 때 쿼리가 작동하면 취소됨 -> 수정할 것.
 
     #region StateMachine Variables
@@ -75,7 +78,9 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         Agent = GetComponent<NavMeshAgent>();
 
-        CurrentHealth = Info.Status.MaxHealth;
+        Status = Info.Status;
+        
+        CurrentHealth += Status.MaxHealth;
 
         foreach(var data in Info.Skills)
         {
@@ -102,6 +107,12 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         ThreatLevel = Info.Status.ThreatLevel;
     }
 
+    private void OnEnable()
+    {
+        // 아이템 스테이터스 적용
+        ApplyItemEffect();
+    }
+
     public void Update()
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
@@ -117,6 +128,24 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         StateMachine.CurrentPlayerState.PhysicsUpdate();    
     }
 
+    public void ApplyItemEffect()
+    {
+        Debug.Log("아이템 효과 적용을 시작합니다.");
+        foreach (var item in Info.investData.investedItems)
+        {
+            Debug.Log(item.Name + " 아이템의 스테이터스 적용을 시작합니다.");
+            var abilities = AbilityManager.Instance.GetAbilities(item.Ability, this);
+            foreach (var ability in abilities)
+            {
+                Debug.Log("캐릭터가 아이템으로 변화될 스테이터스의 ID는 " + ability.Info.ID);
+                Debug.Log("캐릭터가 아이템으로 변화될 스테이터스는 " + ability.Info.EffectStatus + "입니다.");
+
+                ability.use(transform);
+            }
+            Debug.Log(item.Name + " 아이템 효과가 정상적으로 적용되었습니다/!");
+        }
+    }
+
     #region Health / Die Functions
 
     public virtual void Damage(float damageAmount)
@@ -128,11 +157,10 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
         if (CurrentHealth < 0)
         {
+            isDead = true;
             UIManager_.Instance.rankingUI.SetDeathOrder(Info);
             Debug.Log("I'm Died");
             AnimationTriggerEvent(AnimationTriggerType.Dead);
-            if(gameObject.activeSelf)
-                StartCoroutine(Die());
         }
         else
         {
@@ -148,8 +176,14 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
         Renderer.color = new Color(1f, 1f, 1f);
     }
 
+    public void StartDieProcess()
+    {
+        StartCoroutine(Die());
+    }
+
     public IEnumerator Die()
     {
+        Debug.Log(Info.Profile.Name + " 캐릭터가 사망했습니다!");
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
@@ -246,12 +280,13 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 Animator.SetTrigger("SpecialSkill");
                 break;
             case AnimationTriggerType.Run:
+                Animator.Play("Walk");
                 Animator.SetFloat("Run", 5);
                 Debug.Log("달리는 중입니다!");
                 break;
             case AnimationTriggerType.Dead:
                 Animator.SetFloat("Run", 0);
-                Animator.SetTrigger("Dead");
+                Animator.SetBool("IsDead", true);
                 break;
             default:
                 Debug.LogError($"Unhandled triggerType: {triggerType}");

@@ -59,27 +59,17 @@ public class GameManager_ : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Time.timeScale = 0.1f;
+            Time.timeScale -= 0.5f;
         }
         
         if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Time.timeScale = 0.5f;
+            Time.timeScale = 1f;
         }
 
         if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Time.timeScale = 1f;
-        }
-
-        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Time.timeScale = 1.5f;
-        }
-
-        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Time.timeScale = 2f;
+            Time.timeScale += 0.5f;
         }
 
         #endregion

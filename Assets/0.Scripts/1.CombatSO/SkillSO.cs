@@ -15,6 +15,8 @@ public enum StatusList
     Health, // 체력
     Speed, // 이동속도
     AttackSpeed, // 공격 속도
+    Armor, // 방어력
+    AttackRange, // 기본 공격 사거리
 }
 
 public enum SkillShapeType

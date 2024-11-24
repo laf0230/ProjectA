@@ -8,7 +8,8 @@ public enum AnimationType
     End,
     Impact,
     Ability,
-    Movement
+    Movement,
+    Dead
 }
 
 public class AnimationReceiver: MonoBehaviour
@@ -37,6 +38,9 @@ public class AnimationReceiver: MonoBehaviour
                 break;
             case AnimationType.Movement:
                 character.AttackState.DoMove();
+                break;
+            case AnimationType.Dead:
+                character.StartDieProcess();
                 break;
         }
     }

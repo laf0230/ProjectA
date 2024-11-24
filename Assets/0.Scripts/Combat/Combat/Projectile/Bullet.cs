@@ -7,6 +7,12 @@ public class Bullet : ProjectileBase
     private void Update()
     {
         // 일정 범위를 벗어나면 비활성화
+        if( Properties.Target == null || !Properties.Target.gameObject.activeSelf)
+        {
+            Debug.Log("타겟이 사라졌습니다");
+            gameObject.SetActive(false);
+        }
+
         float distance = Vector3.Distance(Properties.Target.transform.position, Properties.User.position);
         if (distance > Properties.Reach + 1.5f)
         {

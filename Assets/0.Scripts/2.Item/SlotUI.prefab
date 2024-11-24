@@ -370,7 +370,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC544\uC774\uD15C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b02628897f21ee74bbb4dec3959af19e, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: -5797190194413142834, guid: b02628897f21ee74bbb4dec3959af19e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

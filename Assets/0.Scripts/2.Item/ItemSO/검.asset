@@ -18,4 +18,14 @@ MonoBehaviour:
   sprite: {fileID: 329904807873782139, guid: 9f86d5737981f8543b3244ba7a2e7413, type: 3}
   description: "\uACF5\uACA9\uB825 + 5\n\uACF5\uACA9 \uC18D\uB3C4 + 5%\n\n\uAC00\uACA9:
     4 Gold"
-  Ability: []
+  Ability:
+  - name: 
+    id: 0
+    isPercentage: 0
+    value: 0
+    duration: 0
+    targetType: 0
+    shape: 0
+    animationType: 0
+    effectStatus: 0
+    effectValue: 10

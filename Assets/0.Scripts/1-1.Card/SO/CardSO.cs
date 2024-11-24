@@ -11,4 +11,6 @@ public class CardSO : ScriptableObject
     public Sprite standIllust;
     public Sprite cardIllust;
     public Sprite profile;
+    [TextArea(4, 10)]
+    public string reachingWishText;
 }

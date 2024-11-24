@@ -109,6 +109,12 @@ public class Combat : MonoBehaviour
         bulletSettings.properties.SetTarget(targets[0]);
     }
 
+    public void SetTarget(Transform target)
+    {
+        skillProperties.Targets[0] = target;
+        bulletSettings.properties.SetTarget(target);
+    }
+
     // 스킬을 사용할 수 있는지 여부를 반환 (쿨타임 중이 아님)
     public bool IsUseable() => cooldown.isUseable;
 

@@ -43,4 +43,8 @@ public class InvestData
     {
             this.investedChip.AddCurrency(investedChip);
     }
+
+    public void ApplyItemEffect(Character character)
+    {
+    }
 }

@@ -13,7 +13,7 @@ public enum SkillSwitcher
 public class CharacterAttackState : State
 {
     private Transform _transform;
-    private Transform _target;
+    public Transform _target { get; set; }
     private Combat Attack;
 
     public CharacterAttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
@@ -26,13 +26,34 @@ public class CharacterAttackState : State
         base.AnimationTriggerEvent(triggerType);
     }
 
+    public Character GetTarget()
+    {
+        // 사망한 캐릭터 제외
+        foreach(var target in character.Targets)
+        {
+            var _targetCharacter = target.GetComponent<Character>();
+
+            if(!_targetCharacter.isDead)
+            {
+                return _targetCharacter;
+            }
+        }
+        return null;
+    }
+
     public override void EnterState()
     {
         base.EnterState();
 
         character.SetMoveAble(false);
         
-        _target = character.Targets[0].transform;
+        _target = GetTarget() ? GetTarget().transform : null;
+
+        if(_target == null)
+        {
+            character.StateMachine.ChangeState(character.IdleState);
+        }
+        
         foreach(var combat in character.combats)
         {
             // 공격 상태일 때 사용할 스킬 할당
@@ -48,7 +69,8 @@ public class CharacterAttackState : State
                     targetTransforms.Add(targetCharacter.transform);  // Transform을 리스트에 추가합니다.
                 }
 
-                Attack.SetTarget(targetTransforms);  // 리스트를 SetTargets에 전달합니다
+                Attack.SetTarget(targetTransforms);  // 리스트를 SetTargets에 전달합니다, 다중 타겟
+                Attack.SetTarget(_target); // 단일 타겟
                 break;
             }
         }

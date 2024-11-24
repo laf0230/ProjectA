@@ -8,9 +8,11 @@ public class RankingUI : MonoBehaviour
     [SerializeField] private Image illust; // 캐릭터 일러스트
     [SerializeField] private GameObject rankingElementPrefab; // 랭킹 UI 프리팹
     [SerializeField] private GameObject rankingContainer;     // 랭킹 UI 컨테이너
+    [SerializeField] private Button resultButton;     // 랭킹 UI 컨테이너
 
     public List<CardSO> cards = new List<CardSO>(); // 사망 순서 저장 리스트
     public List<CardSO> deathList = new List<CardSO>();
+    public CardSO selectedCard { get; set; }
 
     // 필드에 있는 모든 캐릭터를 랭킹에 등록
     // gamemanager에서 캐릭터 리스트 받아오기
@@ -64,11 +66,24 @@ public class RankingUI : MonoBehaviour
                 );
         }
         illust.sprite = cards[0].fullIllust;
+
+        selectedCard = cards[0];
+        resultButton.onClick.RemoveAllListeners();
+        resultButton.onClick.AddListener(OnResultButtonClick);
     }
 
     public void SetIllust(Sprite sprite)
     {
         illust.sprite = sprite;
+    }
+
+    public void OnResultButtonClick()
+    {
+        // 게임 결과 화면 출력
+        // cards[0]
+        var wishUI = UIManager_.Instance.resultUI;
+        wishUI.SetReachedCharacter(selectedCard);
+        wishUI.ActiveAsYourWish();
     }
 }
 

@@ -45,6 +45,7 @@ public class UIManager_ : MonoBehaviour
     public GameObject WorldUI;
     public GameObject investWarningUI;
     public OnFieldUI onFieldUI;
+    public AsYourWishUI resultUI;
     public Button battleStartButton;
     public Image StandingImage;
     public Sprite lockIcon;

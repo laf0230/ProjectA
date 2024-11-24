@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 9215002999811588618}
-  character: {fileID: 11400000, guid: 36158d998e3885d4c987fe80e6f35273, type: 2}
+  cardImage: {fileID: 0}
 --- !u!1 &4715341629288097164
 GameObject:
   m_ObjectHideFlags: 0

@@ -237,4 +237,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4905845923942656181}
-  character: {fileID: 11400000, guid: 8e065873eb4a34e4fb60220a9b8f56a0, type: 2}
+  cardImage: {fileID: 0}

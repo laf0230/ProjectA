@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -72,6 +73,7 @@ public class AbilityInfo : IAbility
     [SerializeField] private AnimationType animationType;
     [Header("Id가 0일 때만 사용")]
     [SerializeField] private StatusList effectStatus; // id가 0일 때만 보여줌
+    [SerializeField] private float effectValue;
 
     #region Getter / Setter
    
@@ -84,6 +86,7 @@ public class AbilityInfo : IAbility
     public Shape Shape { get => shape; set => shape = value; }
     public AnimationType AnimationType { get => animationType; set => animationType = value; }
     public StatusList EffectStatus { get => effectStatus; set => effectStatus = value; }
+    public float EffectValue { get => effectValue; set => effectValue = value; }
 
     #endregion
 }
@@ -139,28 +142,47 @@ public class StatTransition : Ability
 
     public override void use(Transform Target)
     {
+        Debug.Log("스테이터스 변화가 시작됩니다.");
         targetCharacter = Target.GetComponent<Character>();
 
         switch (Info.EffectStatus)
         {
             case StatusList.Health:
-                ChangeHealth();
+                ChangeHealth(Info.EffectValue, targetCharacter);
                 break;
             case StatusList.Speed:
-                ChangeSpeed();
+                ChangeSpeed(Info.EffectValue, targetCharacter);
                 break;
             case StatusList.AttackSpeed:
-                ChangeAttackSpeed();
+                ChangeAttackSpeed(Info.EffectValue, targetCharacter);
+                break;
+                case StatusList.Armor:
+                ChangeArmor(Info.EffectValue, targetCharacter);
+                break;
+                case StatusList.AttackRange:
+                ChangeAttackRange(Info.EffectValue, targetCharacter);
                 break;
         }
 
         // Debug.Log($"{Info.EffectStatus}스테이터스가 변화되었습니다.!");
     }
 
-    private void ChangeHealth()
+    private void ChangeAttackRange(float effectValue, Character targetCharacter)
+    {
+        // targetCharacter.Status  캐릭터가 사용하는 스테이터스
+        // targetCharacter.Info.Status  캐릭터의 스테이터스 기준값이 된는 스테이터스
+    }
+
+    private void ChangeArmor(float effectValue, Character targetCharacter)
+    {
+        targetCharacter.Status.ArmorValue += effectValue;
+    }
+
+    private void ChangeHealth(float effectValue, Character targetCharacter)
     {
         // Assuming Info.Value is the amount of health to change, 
         // and Info.IsPercentage determines if it's a percentage or a flat value
+        Debug.Log(targetCharacter.Info.Profile.Name + " 캐릭터의 체력이 " + effectValue + "만큼 변화하였습니다!");
         if (Info.IsPercentage)
         {
             float percentageChange = Info.Value / 100f;
@@ -168,11 +190,12 @@ public class StatTransition : Ability
         }
         else
         {
-            targetCharacter.CurrentHealth += Info.Value;
+            targetCharacter.CurrentHealth += effectValue;
+            Debug.Log(targetCharacter.Info.Profile.Name + " 캐릭터의 체력이 " + targetCharacter.CurrentHealth + "까지 상승했습니다.");
         }
     }
 
-    private void ChangeSpeed()
+    private void ChangeSpeed(float effectValue, Character targetCharacter)
     {
         if (Info.IsPercentage)
         {
@@ -186,7 +209,7 @@ public class StatTransition : Ability
     }
 
     // 기본 공격만 적용
-    private void ChangeAttackSpeed()
+    private void ChangeAttackSpeed(float effectValue, Character targetCharacter)
     {
         if (Info.IsPercentage)
         {
