@@ -8,13 +8,19 @@ public class ProfileUI : MonoBehaviour
 {
     [SerializeField] private Button button;
     [SerializeField] private Image image;
-    private CardSO characterCard; // 캐릭터 정보
+    [SerializeField] private Image loockedImage;
+    public CardSO characterCard { get; set; } // 캐릭터 정보
 
     public void SetCardCharacter(CardSO character)
     {
         characterCard = character;
         image.sprite = character.profile;
         button.onClick.AddListener(OnClickButton);
+    }
+
+    public void SetLookState(bool isLook)
+    {
+        loockedImage.gameObject.SetActive(isLook);
     }
 
     // 카드 클릭 시 실행되는 메서드
@@ -28,6 +34,8 @@ public class ProfileUI : MonoBehaviour
         // 투자창UI 셋팅
         UIManager_.Instance.investmentUI.gameObject.SetActive(true);
         UIManager_.Instance.investmentUI.UIUpdate();
+        // 상세 스킬창
+        UIManager_.Instance.skillStatusUI.gameObject.SetActive(false);
         
         // 스텐딩UI 셋팅
         UIManager_.Instance.standingUI.gameObject.SetActive(true);
@@ -37,5 +45,8 @@ public class ProfileUI : MonoBehaviour
 
         // 아이템 정보창 셋팅
         UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+
+        // 프로필 설정
+        UIManager_.Instance.profileContainer.SetProfileSelected(characterCard);
     }
 }

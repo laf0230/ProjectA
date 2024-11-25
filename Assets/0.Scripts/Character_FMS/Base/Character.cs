@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckable
 {
@@ -19,6 +20,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     [field: SerializeField] public bool IsPassThrough { get; set; }
     [field: SerializeField] public int ThreatLevel { get; set; }
     [field: SerializeField] public List<GameObject> Targets { get; set; }
+    [field: SerializeField] private Slider slider { get; set; }
 
     public bool isDead { get; set; } = false;
 
@@ -116,6 +118,14 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
     public void Update()
     {
         StateMachine.CurrentPlayerState.FrameUpdate();
+
+        if (CurrentHealth > 0)
+        {
+            slider.value = CurrentHealth / Info.Status.MaxHealth;
+        } else
+        {
+            slider.value = 0;
+        }
 
         Targets.RemoveAll(target => Targets != null && !target.activeSelf);
 

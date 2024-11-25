@@ -1,16 +1,29 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CameraDrag : MonoBehaviour
 {
     public float dragSpeed = 2;
     public float scrollMin = 0f;
     public float scrollMax = 100f;
+    public NavMeshAgent agent;
+    public float checkRadius = 0.5f;
 
     private Vector3 dragOrigin;
+    private Vector3 lastValidPosition;
 
     void Update()
     {
+        if(NavMesh.SamplePosition(transform.position, out NavMeshHit hit, checkRadius, NavMesh.AllAreas))
+        {
+            lastValidPosition = hit.position;
+        }
+        else
+        {
+            transform.position = lastValidPosition;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             dragOrigin = Input.mousePosition;
@@ -30,13 +43,7 @@ public class CameraDrag : MonoBehaviour
             // Debug.Log("ScrollData: " + Input.mouseScrollDelta);
 
             float scrollVerify = Mathf.Clamp(scrollMin, scrollMax, dragSpeed);
-
         }
-
-        /*
-        Camera camera = Camera.main;
-        Ray cameraRay = camera.ScreenPointToRay(Input.mousePosition);
-        */
     }
 
     public void SetFocus(GameObject character)

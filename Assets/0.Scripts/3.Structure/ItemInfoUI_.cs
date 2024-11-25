@@ -91,6 +91,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
             // 투자가 된 경우
             invest.InvestItem(selectedItem);
             UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
+            UIManager_.Instance.standingUI.gameObject.SetActive(true);
         }
         else
         {
@@ -106,6 +107,7 @@ public class ItemInfoUI_ : MonoBehaviour// 아이템 상세 정보 UI
     public void OnUnEquipButtonClick()
     {
         invest.CancelInvestItem(selectedItem);
+        UIManager_.Instance.standingUI.gameObject.SetActive(true);
         UIManager_.Instance.itemInfoUI.gameObject.SetActive(false);
         Debug.Log("성공적으로 버튼에 해제 기능이 부여되었습니다.");
     }

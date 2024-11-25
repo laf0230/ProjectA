@@ -51,11 +51,14 @@ public class UIManager_ : MonoBehaviour
     public OnFieldUI onFieldUI;
     public AsYourWishUI resultUI;
     public AsYourWishFailUI resultFailUI;
+    public SkillStatusUI skillStatusUI;
     public GameObject dontInvest;
     public Button battleStartButton;
+    public Button shopButton;
     public Image StandingImage;
     public Sprite lockIcon;
     public Sprite unLockIcon;
+    public MonoBehaviour buttonComponent;
     public UIType_ currentUIType { get; set; }
 
     private void Awake()
@@ -78,6 +81,9 @@ public class UIManager_ : MonoBehaviour
         gameStartButton.onClick.AddListener(GameStart);
         battleStartButton.onClick.RemoveAllListeners();
         battleStartButton.onClick.AddListener(OnBattleStartButtonClick);
+        shopButton.onClick.AddListener(OnShopButtonClick);
+
+        ButtonInterectionActive();
     }
 
     private void Update()
@@ -89,6 +95,33 @@ public class UIManager_ : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateCurrencyUI();
+    }
+    public  void OnShopButtonClick()
+    {
+        shopUI.gameObject.SetActive(true);
+        foreach (var item in profileContainer.profilList)
+        {
+            item.GetComponent<ProfileUI>().SetLookState(false);
+        }
+    }
+
+
+    public void ButtonInterectionActive()
+    {
+        // 비활성화된 버튼을 포함한 모든 버튼 검색
+        Button[] buttons = Resources.FindObjectsOfTypeAll<Button>();
+        Debug.Log("버튼의 총 개수는 " + buttons.Length + "입니다.");
+
+        foreach (Button button in buttons)
+        {
+            // 버튼에 특정 컴포넌트가 없으면 추가
+            if (button.gameObject.GetComponent<ButtonUIInterection>() == null)
+            {
+                button.gameObject.AddComponent<ButtonUIInterection>();
+            }
+        }
+
+        Debug.Log($"{buttons.Length}개의 버튼에 {buttonComponent.GetType().Name}이(가) 추가되었습니다.");
     }
 
     public void OnBattleStartButtonClick()

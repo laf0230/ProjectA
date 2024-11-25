@@ -122,7 +122,7 @@ public class InvestmentUI_ : MonoBehaviour
 
     private void SetCharacterInfomation(CharacterInfoSO characterInfo)
     {
-        name.text = characterInfo.name;
+        name.text = characterInfo.Profile.Name;
         health.text = characterInfo.Status.MaxHealth.ToString();
         moveSpeed.text = characterInfo.Status.ChaseSpeed.ToString();
         armorLevel.text = characterInfo.Status.ArmorValue.ToString();
@@ -172,14 +172,9 @@ public class InvestmentUI_ : MonoBehaviour
 
     public void SetAdditionalInfomation(StatusList status, float value)
     {
-        // 아 아아아아앙아가ㅓㅇㄴ미ㅏㅁ런이ㅏ;럼니아ㅓ리;ㅁㄴ어리;ㅁ나아ㅏㅓㅏ라ㅏㅏㅏㅣ;만아ㅏㅏㅓ라ㅏㅁㄴ;ㅣ
         // 일단 1. 보유하고 있는 아이템의 총 합을 얻어야해
         // 2. 총 합을 적용
         // 총 합을 어떻게 가져오지
-        // 어엄,,,,,,,,,,,,,,,,,,,,,,,,,,,,,..........................................
-        // ..................................................................................
-        // ...................................................
-        // ㅓㄹㅇㅁ니ㅏ러ㅣㅁ;너ㅏ림너리;ㄴ마ㅓㄻ;ㄴ
         string plusText = value > 0 ? " +" : " -";
 
         switch (status)
@@ -201,9 +196,19 @@ public class InvestmentUI_ : MonoBehaviour
 
     private void AddSkill(SkillSO skillSO)
     {
+        // 투자창 속 스킬 UI 생성
         var skillObject = Instantiate(skillElementPrefab, skillContainer);
-        var skillObjectTMP = skillObject.GetComponentInChildren<TextMeshProUGUI>();
+        var skillObjectButton = skillObject.GetComponentInChildren<Button>();
+        var skillObjectTMP = skillObjectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
+        Debug.Log(skillObject + " 생성됨");
+        Debug.Log(skillObjectButton + "버튼 찾음");
+        Debug.Log(skillObjectTMP + "텍스트 출력함");
+
+        skillObjectButton.onClick.RemoveAllListeners();
+        skillObjectButton.onClick.AddListener(() => {
+            UIManager_.Instance.skillStatusUI.SetAndActiveSkillDescription(skillSO);
+        });
         skillObjectTMP.text = skillSO.Profile.Name;
         skillSlots.Add(skillObject);
     }

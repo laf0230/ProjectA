@@ -6,6 +6,7 @@ public class Profile
 {
     public Sprite ProfileImg;
     public string Name;
+    [TextArea(4, 10)]
     public string Description;
 }
 

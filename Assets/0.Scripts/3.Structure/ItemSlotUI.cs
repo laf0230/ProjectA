@@ -62,5 +62,6 @@ public class ItemSlotUI : MonoBehaviour // 아이템 슬롯 UI
         itemInfoUI.gameObject.SetActive(true);
         itemInfoUI.isInInventory = this.isInInventory;
         itemInfoUI.SetAndActiveInfomation(item);
+        UIManager_.Instance.standingUI.gameObject.SetActive(false);
     }
 }

@@ -22,16 +22,12 @@ public class GameStartUI : MonoBehaviour
     private void Start()
     {
         ActiveMainAnim(false);
-        StartBlinking();
+        StopBlinking();
     }
 
     private void Update()
     {
-        if(Input.anyKeyDown)
-        {
-            ActiveMainAnim(true);
-            StopBlinking();
-        }
+        ActiveMainAnim(true);
     }
 
     public void ActiveMainAnim(bool isActive)

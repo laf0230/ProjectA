@@ -26,15 +26,15 @@ public class RankingUI : MonoBehaviour
 
     public void SetDeathOrder(CharacterInfoSO characterInfo)
     {
-        // CharacterInfoSO를 기반으로 CardSO를 가져옴
-        CardSO characterCard = GameManager_.instance.GetCardFromSelectedCard(characterInfo);
-
         // 리스트에서 동일한 이름을 가진 캐릭터를 찾아 처리
-        var existingCard = cards.FirstOrDefault(card => card.character.Profile.Name == characterInfo.Profile.Name);
-        if (existingCard != null)
+        int index = cards.FindIndex(card => card.character.Profile.Name == characterInfo.Profile.Name);
+
+        if (index != -1)
         {
-            cards.Remove(existingCard); // 리스트에서 제거
-            cards.Add(existingCard);   // 리스트의 마지막에 추가
+            // 리스트에서 해당 캐릭터를 제거한 뒤 마지막에 추가
+            var existingCard = cards[index];
+            cards.RemoveAt(index); // 해당 인덱스 제거
+            cards.Add(existingCard); // 마지막에 추가
             Debug.Log($"{characterInfo.Profile.Name} 캐릭터가 리스트 내에서 재배치되었습니다.");
         }
         else

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 3b8551caf53701e499192413f89297b9, type: 2}
   CharacterPrefab: {fileID: 1613765945092857357, guid: 1fe24cd728e073145905a691ccf74b1e, type: 3}
-  fullIllust: {fileID: -1296304104, guid: 431957f99037fd5438cbd002eae90fc7, type: 3}
+  fullIllust: {fileID: 21300000, guid: 51f75b1b4be0871489cd9514d80c69d7, type: 3}
   standIllust: {fileID: -1296304104, guid: 431957f99037fd5438cbd002eae90fc7, type: 3}
   cardIllust: {fileID: -1296304104, guid: 431957f99037fd5438cbd002eae90fc7, type: 3}
   profile: {fileID: -160249079, guid: 91b7772bfa29f984eaaeb85390d313be, type: 3}

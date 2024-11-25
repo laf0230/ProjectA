@@ -15,7 +15,10 @@ MonoBehaviour:
   profile:
     ProfileImg: {fileID: 0}
     Name: "\uC790\uC544 \uC2E4\uD604"
-    Description: 
+    Description: "\uC790\uC544 \uC2E4\uD604\n\nDemo\uAC00 \uC9C4\uC815\uD55C 12\uCD08\uB3D9\uC548
+      \uC790\uC2E0\uC758 \uBAA8\uC2B5\uC73C\uB85C \uBCC0\uD558\uC5EC \uBCC0\uD55C\uB3D9\uC548
+      \uC774\uB3D9\uC18D\uB3C4\uAC00 20%\uB9CC\uD07C \uBE68\uB77C\uC9C0\uACE0, \uC601\uD63C
+      \uC218\uD655\uC774 \uC8FC\uBCC0 \uC801 \uBAA8\uB450\uC5D0\uAC8C \uC0AC\uC6A9\uD55C\uB2E4."
   type: 2
   shapeType: 0
   skillSize: 5

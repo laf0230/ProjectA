@@ -15,7 +15,8 @@ MonoBehaviour:
   profile:
     ProfileImg: {fileID: 0}
     Name: "\uC5F0\uBC1C \uC0AC\uACA9"
-    Description: 
+    Description: "\uC5F0\uBC1C \uC0AC\uACA9\n\n\uC8FC\uBCC0\uC5D0 \uBB34\uC791\uC704
+      \uC801 \uCE90\uB9AD\uD130\uC5D0\uAC8C 5\uBC1C\uC758 \uCD1D\uACA9\uC744 \uAC00\uD55C\uB2E4."
   type: 1
   shapeType: 0
   skillSize: 5
