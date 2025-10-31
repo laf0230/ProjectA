@@ -21,7 +21,7 @@ public class CharacterChaseState : State
     {
         base.EnterState();
 
-        AnimationTriggerEvent(Character.AnimationTriggerType.Run);
+        character.AnimationTriggerEvent(Character.AnimationTriggerType.Run, 4f);
 
         _targetTransform = character.Targets[0].transform;
 
@@ -31,6 +31,7 @@ public class CharacterChaseState : State
     public override void ExitState()
     {
         base.ExitState();
+        character.AnimationTriggerEvent(Character.AnimationTriggerType.Run, 0f);
     }
 
     public override void FrameUpdate()

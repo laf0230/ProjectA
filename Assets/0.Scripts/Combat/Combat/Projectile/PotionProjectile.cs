@@ -6,7 +6,7 @@ public class PotionProjectile : ProjectileBase
 {
     public float explosionRadius = 5.0f;
     public float groundHeight = 0.1f;
-    public float fieldDuration; // ÇÊµå À¯Áö½Ã°£
+    public float fieldDuration; // ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
     public int areaDamage = 10;
     public GameObject GroundEffect;
     public GameObject Bullet;
@@ -14,10 +14,10 @@ public class PotionProjectile : ProjectileBase
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject);
-        // ºÎµðÄ£ ´ë»óÀÌ Å¸°ÙÀÎÁö Á¶°ÇºÎ È®ÀÎ
+        // ï¿½Îµï¿½Ä£ ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çºï¿½ È®ï¿½ï¿½
         if ((other.gameObject == Properties.Target.gameObject) || Properties.isUsedOwnPlace)
         {
-            Debug.Log(Properties.isUsedOwnPlace ? "Á¦ÀÚ¸®¿¡ ÀåÆÇ ¼³Ä¡" : "»ç¿ëÀÚ¸í: " +  Properties.User + " Á¦ÀÚ¸®¿¡ ¼³Ä¡µÇÁö ¾ÊÀº ÀåÆÇÀÔ´Ï´Ù.");
+            Debug.Log(Properties.isUsedOwnPlace ? "ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡" : "ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½: " +  Properties.User + " ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
             OnImpact(other);
         }
     }
@@ -39,7 +39,7 @@ public class PotionProjectile : ProjectileBase
 
     public void ActiveFieldEffect(bool isActive)
     {
-            // ÀåÆÇ È°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         GroundEffect.SetActive(isActive);
 
         if (isActive)
@@ -48,7 +48,7 @@ public class PotionProjectile : ProjectileBase
             groundEffect.Initilize(Properties);
             Vector3 groundPosition = new Vector3(transform.position.x, groundHeight, transform.position.z);
             GroundEffect.transform.position = groundPosition;
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
         
             StartCoroutine("IActiveField");
         }

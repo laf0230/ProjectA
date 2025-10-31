@@ -170,6 +170,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
             isDead = true;
             UIManager_.Instance.rankingUI.SetDeathOrder(Info);
             Debug.Log("I'm Died");
+            Agent.isStopped = true;
             AnimationTriggerEvent(AnimationTriggerType.Dead);
         }
         else
@@ -271,7 +272,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
 
     #region Triggers
 
-    public void AnimationTriggerEvent(AnimationTriggerType triggerType)
+    public void AnimationTriggerEvent(AnimationTriggerType triggerType, float value1 = 0)
     {
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
 
@@ -290,9 +291,8 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 Animator.SetTrigger("SpecialSkill");
                 break;
             case AnimationTriggerType.Run:
-                Animator.Play("Walk");
-                Animator.SetFloat("Run", 5);
-                Debug.Log("달리는 중입니다!");
+                //Animator.Play("Walk");
+                Animator.SetFloat("Run", value1);
                 break;
             case AnimationTriggerType.Dead:
                 Animator.SetFloat("Run", 0);
@@ -303,7 +303,7 @@ public class Character : MonoBehaviour, IDamageable, IMoveable, ITriggerCheckabl
                 break;
 
         }
-                // Debug.Log("Current Animation State: " + triggerType.ToString());
+                 Debug.Log("Current Animation State: " + triggerType.ToString());
     }
 
     public enum AnimationTriggerType

@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -105,6 +106,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -126,6 +128,7 @@ ScriptedImporter:
     pivot: {x: 0.74999994, y: -0.13333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -146,6 +149,7 @@ ScriptedImporter:
     pivot: {x: 1.0000001, y: -0.19444445}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 40
@@ -164,13 +168,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 935921125
+    uuid:
+      value0: 1289765817
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1289765817
     name: "\uD50C\uB77C\uD50C\uB77C(\uC784\uC2DC)"
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: "\uD50C\uB77C\uD50C\uB77C(\uC784\uC2DC)_Frame_0"
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -179,7 +188,7 @@ ScriptedImporter:
         width: 28
         height: 75
       spriteId: a1848e1418960b54e98c776a38da6609
-    - name: "\uD50C\uB77C\uD50C\uB77C(\uC784\uC2DC)_Frame_1"
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -195,3 +204,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 198, y: 101}
+  previousTextureSize: {x: 128, y: 128}
